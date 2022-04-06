@@ -1,0 +1,4 @@
+error-tags:
+  EDML:
+    packages:
+      - com.exasol.adapter.document.edml
