@@ -2,3 +2,4 @@ error-tags:
   EDML:
     packages:
       - com.exasol.adapter.document.edml
+    highest-index: 104

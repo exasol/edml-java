@@ -14,9 +14,10 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Aedml-java&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=com.exasol%3Aedml-java)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Aedml-java&metric=ncloc)](https://sonarcloud.io/dashboard?id=com.exasol%3Aedml-java)
 
-Library for reading and writing EDML definitions.
+This is a library for reading and writing Exasol Document Mapping Language (EDML) definitions. The EDML is a language based on JSON that allows users to define how the [Virtual Schema for document data](https://github.com/exasol/virtual-schema-common-document) maps the document data to relational tables.
 
 ## Additional Information
 
 * [Changelog](doc/changes/changelog.md)
 * [Dependencies](dependencies.md)
+* [EDML schema](https://github.com/exasol/schemas) 

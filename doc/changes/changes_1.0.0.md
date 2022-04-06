@@ -1,6 +1,6 @@
 # EDML Java 1.0.0, released 2022-04-07
 
-Code name:
+Code name: Initial Release
 
 ## Refactoring
 
@@ -36,7 +36,6 @@ Code name:
 * Added `org.apache.maven.plugins:maven-compiler-plugin:3.9.0`
 * Added `org.apache.maven.plugins:maven-deploy-plugin:2.7`
 * Added `org.apache.maven.plugins:maven-enforcer-plugin:3.0.0`
-* Added `org.apache.maven.plugins:maven-failsafe-plugin:3.0.0-M5`
 * Added `org.apache.maven.plugins:maven-install-plugin:2.4`
 * Added `org.apache.maven.plugins:maven-jar-plugin:2.4`
 * Added `org.apache.maven.plugins:maven-resources-plugin:2.6`
