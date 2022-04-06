@@ -4,7 +4,7 @@ Code name:
 
 ## Refactoring
 
-* #1: Extracted from virtual-schema-common-document-files
+* #1: Extracted from virtual-schema-common-document
 
 ## Dependency Updates
 
