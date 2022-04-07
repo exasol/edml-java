@@ -16,10 +16,10 @@ import lombok.Getter;
 /**
  * JSON serializer for {@link EdmlDefinition}s.
  * <p>
- * Wondering why we don't use a tool like Jackson or JSON.bind here? Checkout the design.md (dsn~edml~serialization~1)
+ * Wondering why we don't use a tool like Jackson or JSON.bind here? Checkout the design.md (dsn~edml-serialization~1)
  * </p>
  */
-//[impl->dsn~edml~serialization~1]
+//[impl->dsn~edml-serialization~1]
 public class EdmlSerializer {
     private static final String SCHEMA = "https://schemas.exasol.com/edml-1.3.0.json";
     private static final JsonProvider JSON = JsonProvider.provider();

@@ -20,4 +20,5 @@ This is a library for reading and writing Exasol Document Mapping Language (EDML
 
 * [Changelog](doc/changes/changelog.md)
 * [Dependencies](dependencies.md)
-* [EDML schema](https://github.com/exasol/schemas) 
+* [EDML schema](https://github.com/exasol/schemas)
+* [Design decisions](doc/design.md)

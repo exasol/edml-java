@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.adapter.document.edml.*;
 
+//[utest->dsn~edml-serialization~1]
 class EdmlSerializerTest {
     @Test
     void testSerialization() {
