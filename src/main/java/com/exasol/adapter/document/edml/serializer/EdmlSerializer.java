@@ -21,7 +21,7 @@ import lombok.Getter;
  */
 //[impl->dsn~edml-serialization~1]
 public class EdmlSerializer {
-    private static final String SCHEMA = "https://schemas.exasol.com/edml-1.3.0.json";
+    private static final String SCHEMA = "https://schemas.exasol.com/edml-1.4.0.json";
     private static final JsonProvider JSON = JsonProvider.provider();
 
     private static JsonObjectBuilder serializeMapping(final MappingDefinition mappingDefinition) {
