@@ -5,6 +5,7 @@ import static com.exasol.adapter.document.edml.deserializer.DeserializationHelpe
 import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.readRequiredString;
 
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.Optional;
 
 import com.exasol.adapter.document.edml.EdmlDefinition;
@@ -31,11 +32,22 @@ public class EdmlDeserializer {
                 .destinationTable(readRequiredString(json, KEY_DESTINATION_TABLE));
         Optional.ofNullable(json.getString(KEY_DESCRIPTION, null)).ifPresent(builder::description);
         readOptionalBoolean(json, KEY_ADD_SOURCE_REFERENCE_COLUMN).ifPresent(builder::addSourceReferenceColumn);
+        //we serialize the json object again as this is simplest, we can then just deserialise it again to a jsonobject later and read it out
+        JsonObject additionalConfiguration  = json.getJsonObject(KEY_ADDITIONAL_CONFIGURATION); // will return null if not found
+        Optional.ofNullable(additionalConfiguration).ifPresent(addConfig -> builder.additionalConfiguration(JsonObjectToString(addConfig)));
+        //Optional.ofNullable(additionalConfiguration).ifPresent(addConfig -> builder.additionalConfiguration(addConfig.toString()));
         final JsonObject mapping = json.getJsonObject(KEY_MAPPING);
         builder.mapping(new MappingDeserializer().deserializeMapping(mapping));
         return builder.build();
     }
+    private String JsonObjectToString(JsonObject jsonObject){
+        var stringWriter = new StringWriter();
+        var jsonWriter = Json.createWriter(stringWriter);
+        jsonWriter.writeObject(jsonObject);
 
+        var readMessage = stringWriter.toString();
+        return readMessage;
+    }
     private JsonObject readJson(final String edmlDefinitionAsJson) {
         try (final StringReader reader = new StringReader(edmlDefinitionAsJson)) {
             try (final JsonReader jsonReader = Json.createReader(reader)) {

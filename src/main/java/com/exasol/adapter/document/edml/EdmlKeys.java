@@ -19,6 +19,10 @@ public class EdmlKeys {
     /**
      * The constant KEY_SOURCE.
      */
+    public static final String KEY_ADDITIONAL_CONFIGURATION = "additionalConfiguration";
+    /**
+     * The constant KEY_SOURCE.
+     */
     public static final String KEY_SOURCE = "source";
     /**
      * The constant KEY_SCHEMA.

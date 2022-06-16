@@ -18,4 +18,6 @@ public class EdmlDefinition {
     private final boolean addSourceReferenceColumn = false;
     @NonNull
     private final MappingDefinition mapping;
+    @Builder.Default
+    private final String additionalConfiguration = "";
 }
