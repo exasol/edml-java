@@ -57,7 +57,6 @@ public class EdmlSerializer {
         addIfNotNull(edmlJson, KEY_SOURCE, edmlDefinition.getSource());
         addIfNotNull(edmlJson, KEY_DESTINATION_TABLE, edmlDefinition.getDestinationTable());
         addIfNotNull(edmlJson, KEY_DESCRIPTION, edmlDefinition.getDescription());
-        addIfNotNull(edmlJson, KEY_ADDITIONAL_CONFIGURATION, edmlDefinition.getAdditionalConfiguration());
         edmlJson.add(KEY_ADD_SOURCE_REFERENCE_COLUMN, edmlDefinition.isAddSourceReferenceColumn());
         edmlJson.add(KEY_MAPPING, serializeMapping(edmlDefinition.getMapping()));
         return toJson(edmlJson);
