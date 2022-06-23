@@ -1,4 +1,4 @@
-# EDML Java 1.1.0, released 2022-??-??
+# EDML Java 1.1.0, released 2022-06-23
 
 Code name:
 
@@ -6,7 +6,7 @@ Code name:
 
 ## Features
 
-* ISSUE_NUMBER: description
+* Add EDML 1.4 Schema (with optional json object for additional configuration)
 
 ## Dependency Updates
 
