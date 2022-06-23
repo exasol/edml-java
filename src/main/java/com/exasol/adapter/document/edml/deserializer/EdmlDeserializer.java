@@ -42,9 +42,9 @@ public class EdmlDeserializer {
     }
     private String JsonObjectToString(JsonObject jsonObject){
         var stringWriter = new StringWriter();
-        var jsonWriter = Json.createWriter(stringWriter);
-        jsonWriter.writeObject(jsonObject);
-
+        try (final JsonWriter jsonWriter = Json.createWriter(stringWriter)) {
+            jsonWriter.writeObject(jsonObject);
+        }
         var readMessage = stringWriter.toString();
         return readMessage;
     }
