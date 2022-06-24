@@ -1,8 +1,7 @@
 package com.exasol.adapter.document.edml.deserializer;
 
 import static com.exasol.adapter.document.edml.EdmlKeys.*;
-import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.readOptionalBoolean;
-import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.readRequiredString;
+import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.*;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -39,13 +38,7 @@ public class EdmlDeserializer {
         builder.mapping(new MappingDeserializer().deserializeMapping(mapping));
         return builder.build();
     }
-    private String jsonObjectToString(JsonObject jsonObject){
-        var stringWriter = new StringWriter();
-        try (final JsonWriter jsonWriter = Json.createWriter(stringWriter)) {
-            jsonWriter.writeObject(jsonObject);
-        }
-        return stringWriter.toString();
-    }
+
     private JsonObject readJson(final String edmlDefinitionAsJson) {
         try (final StringReader reader = new StringReader(edmlDefinitionAsJson)) {
             try (final JsonReader jsonReader = Json.createReader(reader)) {
