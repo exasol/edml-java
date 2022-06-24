@@ -1,6 +1,7 @@
 package com.exasol.adapter.document.edml.serializer;
 
 import static com.exasol.adapter.document.edml.EdmlKeys.*;
+import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addIfNotNullOrEmpty;
 
 import java.io.*;
 import java.util.Map;
@@ -40,11 +41,7 @@ public class EdmlSerializer {
             json.add(key, value);
         }
     }
-    private static void addIfNotNullOrEmpty(final JsonObjectBuilder json, final String key, final String value) {
-        if (value != null && !value.isEmpty()) {
-            json.add(key, value);
-        }
-    }
+
     private static String toLowerCamelCase(final String mappingName) {
         return mappingName.substring(0, 1).toLowerCase() + mappingName.substring(1);
     }

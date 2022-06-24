@@ -59,11 +59,7 @@ class DeserializationHelper {
             return Optional.empty();
         }
     }
-    static public String jsonObjectToString(JsonObject jsonObject){
-        var stringWriter = new StringWriter();
-        try (final JsonWriter jsonWriter = Json.createWriter(stringWriter)) {
-            jsonWriter.writeObject(jsonObject);
-        }
-        return stringWriter.toString();
+    public static String jsonObjectToString(JsonObject jsonObject){
+return jsonObject.toString();
     }
 }
