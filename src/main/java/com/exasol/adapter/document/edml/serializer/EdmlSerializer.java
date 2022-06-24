@@ -40,7 +40,11 @@ public class EdmlSerializer {
             json.add(key, value);
         }
     }
-
+    private static void addIfNotNullOrEmpty(final JsonObjectBuilder json, final String key, final String value) {
+        if (value != null && !value.isEmpty()) {
+            json.add(key, value);
+        }
+    }
     private static String toLowerCamelCase(final String mappingName) {
         return mappingName.substring(0, 1).toLowerCase() + mappingName.substring(1);
     }
@@ -57,6 +61,7 @@ public class EdmlSerializer {
         addIfNotNull(edmlJson, KEY_SOURCE, edmlDefinition.getSource());
         addIfNotNull(edmlJson, KEY_DESTINATION_TABLE, edmlDefinition.getDestinationTable());
         addIfNotNull(edmlJson, KEY_DESCRIPTION, edmlDefinition.getDescription());
+        addIfNotNullOrEmpty(edmlJson, KEY_ADDITIONAL_CONFIGURATION, edmlDefinition.getAdditionalConfiguration());
         edmlJson.add(KEY_ADD_SOURCE_REFERENCE_COLUMN, edmlDefinition.isAddSourceReferenceColumn());
         edmlJson.add(KEY_MAPPING, serializeMapping(edmlDefinition.getMapping()));
         return toJson(edmlJson);
