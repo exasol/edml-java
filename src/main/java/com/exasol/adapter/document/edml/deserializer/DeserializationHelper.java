@@ -1,14 +1,11 @@
 package com.exasol.adapter.document.edml.deserializer;
 
-import java.io.StringWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 import com.exasol.errorreporting.ExaError;
 
-import jakarta.json.Json;
 import jakarta.json.JsonObject;
-import jakarta.json.JsonWriter;
 
 class DeserializationHelper {
     private DeserializationHelper() {

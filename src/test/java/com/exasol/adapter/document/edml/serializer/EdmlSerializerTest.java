@@ -9,6 +9,8 @@ import jakarta.json.spi.JsonProvider;
 import org.junit.jupiter.api.Test;
 
 import com.exasol.adapter.document.edml.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 //[utest->dsn~edml-serialization~1]
 class EdmlSerializerTest {
@@ -35,35 +37,20 @@ class EdmlSerializerTest {
         assertThat(serialized, equalTo(expected));
     }
 
-    @Test
-    void testAddIfNotNullOrEmptyMethodNull() {
+    @ParameterizedTest
+    @CsvSource(value = {"null, FALSE",
+            "'', FALSE",
+            "testtest, TRUE"}
+            , nullValues = {"null"})
+    void testAddIfNotNullOrEmptyMethodNull(String value, boolean testResult) {
         JsonProvider JSON = JsonProvider.provider();
         String key = "test" ;
-        String value = null;
+
         final JsonObjectBuilder mappingBuilder = JSON.createObjectBuilder();
         addIfNotNullOrEmpty(mappingBuilder, key, value);
         var result = mappingBuilder.build();
-        assertThat(result.containsKey(key), equalTo(false));
+        assertThat(result.containsKey(key), equalTo(testResult));
     }
-    @Test
-    void testAddIfNotNullOrEmptyMethodEmpty() {
-        JsonProvider JSON = JsonProvider.provider();
-        String key = "test" ;
-        String value = "";
-        final JsonObjectBuilder mappingBuilder = JSON.createObjectBuilder();
-        addIfNotNullOrEmpty(mappingBuilder, key, value);
-        var result = mappingBuilder.build();
-        assertThat(result.containsKey(key), equalTo(false));
-    }
-    @Test
-    void testAddIfNotNullOrEmptyMethodValue() {
-        JsonProvider JSON = JsonProvider.provider();
-        String key = "test" ;
-        String value = "testtest";
-        final JsonObjectBuilder mappingBuilder = JSON.createObjectBuilder();
-        addIfNotNullOrEmpty(mappingBuilder, key, value);
-        var result = mappingBuilder.build();
-        assertThat(result.containsKey(key), equalTo(true));
-    }
-    }
+
+}
 
