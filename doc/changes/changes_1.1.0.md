@@ -1,8 +1,10 @@
-# EDML Java 1.1.0, released 2022-06-23
+# EDML Java 1.1.0, released 2022-06-24
 
-Code name:
+Code name: EDML 1.4 / Support for additional configuration
 
 ## Summary
+
+EDML 1.4 / Support for additional configuration
 
 ## Features
 
