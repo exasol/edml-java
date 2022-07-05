@@ -8,8 +8,6 @@
     <description>Library for reading and writing EDML definitions.</description>
     <url>https://github.com/exasol/edml-java/</url>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <junit.version>5.8.2</junit.version>
         <jacoco.version>0.8.7</jacoco.version>
