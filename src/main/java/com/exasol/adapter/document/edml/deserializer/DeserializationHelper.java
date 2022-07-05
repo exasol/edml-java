@@ -56,7 +56,8 @@ class DeserializationHelper {
             return Optional.empty();
         }
     }
-    public static String jsonObjectToString(JsonObject jsonObject){
-return jsonObject.toString();
+
+    public static String jsonObjectToString(JsonObject jsonObject) {
+        return jsonObject.toString();
     }
 }
