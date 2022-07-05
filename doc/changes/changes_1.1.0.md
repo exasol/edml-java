@@ -8,7 +8,7 @@ EDML 1.4 / Support for additional configuration
 
 ## Features
 
-* Add EDML 1.4 Schema (with optional json object for additional configuration)
+* #4 Add EDML 1.4 Schema (with optional json object for additional configuration)
 
 ## Dependency Updates
 
