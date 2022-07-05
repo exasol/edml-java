@@ -45,7 +45,7 @@ public class EdmlSchemaValidator {
 
     /**
      * Validates the schema from given file using a JSON-schema validator.
-     * 
+     *
      * @param schemaMappingDefinition schema mapping definition to validate
      * @throws ExasolDocumentMappingLanguageException if schema is violated
      */

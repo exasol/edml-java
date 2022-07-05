@@ -35,7 +35,7 @@ class EdmlDefinitionTest {
     }
 
     @ParameterizedTest
-    @MethodSource({ "getEdmlClasses" })
+    @MethodSource({"getEdmlClasses"})
     void testEquals(final Class<?> forClass) {
         EqualsVerifier.simple().forClass(forClass).verify();
     }

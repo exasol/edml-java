@@ -48,7 +48,7 @@ public class EdmlSerializer {
 
     /**
      * Serialize the {@link EdmlDefinition}.
-     * 
+     *
      * @param edmlDefinition {@link EdmlDefinition} to serialize
      * @return JSON representation
      */

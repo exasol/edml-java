@@ -19,7 +19,7 @@ import jakarta.json.*;
 public class EdmlDeserializer {
     /**
      * Deserialize an {@link EdmlDefinition} from JSON.
-     * 
+     *
      * @param edmlDefinitionAsJson serialized JSON
      * @return deserialized {@link EdmlDefinition}
      */
@@ -31,8 +31,8 @@ public class EdmlDeserializer {
                 .destinationTable(readRequiredString(json, KEY_DESTINATION_TABLE));
         Optional.ofNullable(json.getString(KEY_DESCRIPTION, null)).ifPresent(builder::description);
         readOptionalBoolean(json, KEY_ADD_SOURCE_REFERENCE_COLUMN).ifPresent(builder::addSourceReferenceColumn);
-        //we serialize the json object again, we can then just deserialise it again to a jsonobject later and read it out where we need it
-        JsonObject additionalConfiguration  = json.getJsonObject(KEY_ADDITIONAL_CONFIGURATION); // will return null if not found
+        //we serialize the json object again, we can then just deserialise it again to a json object later and read it out where we need it
+        JsonObject additionalConfiguration = json.getJsonObject(KEY_ADDITIONAL_CONFIGURATION); // will return null if not found
         Optional.ofNullable(additionalConfiguration).ifPresent(addConfig -> builder.additionalConfiguration(jsonObjectToString(addConfig)));
         final JsonObject mapping = json.getJsonObject(KEY_MAPPING);
         builder.mapping(new MappingDeserializer().deserializeMapping(mapping));

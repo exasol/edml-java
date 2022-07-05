@@ -54,7 +54,7 @@ public class MappingTestFiles {
      * @throws IOException on read or write error.
      */
     public static File generateInvalidFile(final String baseMappingName,
-            final Function<JSONObject, JSONObject> invalidator, final Path tempDir) throws IOException {
+                                           final Function<JSONObject, JSONObject> invalidator, final Path tempDir) throws IOException {
         final File tempFile = File.createTempFile("schemaTmp", ".json", tempDir.toFile());
         try (final FileWriter fileWriter = new FileWriter(tempFile)) {
             fileWriter.write(generateInvalid(baseMappingName, invalidator));
@@ -64,7 +64,7 @@ public class MappingTestFiles {
     }
 
     public static String generateInvalid(final String baseMappingName,
-            final Function<JSONObject, JSONObject> invalidator) throws IOException {
+                                         final Function<JSONObject, JSONObject> invalidator) throws IOException {
         try (final InputStream inputStream = getMappingAsStream(baseMappingName)) {
             final JSONObject baseObject = new JSONObject(new JSONTokener(inputStream));
             final JSONObject invalidObject = invalidator.apply(baseObject);

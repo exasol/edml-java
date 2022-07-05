@@ -13,7 +13,7 @@ public abstract class AbstractExceptionMessageImprover implements ExceptionMessa
 
     /**
      * Get possible values for a given schema element.
-     * 
+     *
      * @param schema violated schema element
      * @return list of possible options
      */

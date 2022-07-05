@@ -92,12 +92,12 @@ class EdmlDeserializerTest {
 
     @Test
     void testHelperJsonObjectToString() {
-        var jsonInput =        "{\"additionalConfiguration\":{\"csv-headers\":true}}";
+        var jsonInput = "{\"additionalConfiguration\":{\"csv-headers\":true}}";
         var jsonReader = Json.createReader(new StringReader(jsonInput));
         var jsonObject = jsonReader.readObject();
-        var additionalConfigurationObject =  jsonObject.getJsonObject("additionalConfiguration");
+        var additionalConfigurationObject = jsonObject.getJsonObject("additionalConfiguration");
         var desiredOutput = "{\"csv-headers\":true}";
         var producedOutput = jsonObjectToString(additionalConfigurationObject);
-                        assertThat(desiredOutput, equalTo(producedOutput));
+        assertThat(desiredOutput, equalTo(producedOutput));
     }
 }

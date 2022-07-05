@@ -64,7 +64,7 @@ class EdmlSchemaValidatorTest {
     }
 
     private void testInvalid(final String base, final Function<JSONObject, JSONObject> invalidator,
-            final Matcher<String> messageMatcher) throws IOException {
+                             final Matcher<String> messageMatcher) throws IOException {
         final String invalidMapping = generateInvalid(base, invalidator);
         final ExasolDocumentMappingLanguageException exception = assertThrows(
                 ExasolDocumentMappingLanguageException.class, () -> runValidation(invalidMapping));
