@@ -37,8 +37,9 @@ public class EdmlDeserializer {
         // out where we need it
         JsonObject additionalConfiguration = json.getJsonObject(KEY_ADDITIONAL_CONFIGURATION); // will return null if
                                                                                                // not found
-        Optional.ofNullable(additionalConfiguration)
-                .ifPresent(addConfig -> builder.additionalConfiguration(jsonObjectToString(addConfig)));
+        if(additionalConfiguration != null) {
+            builder.additionalConfiguration(jsonObjectToString(additionalConfiguration));
+        }
         final JsonObject mapping = json.getJsonObject(KEY_MAPPING);
         builder.mapping(new MappingDeserializer().deserializeMapping(mapping));
         return builder.build();
