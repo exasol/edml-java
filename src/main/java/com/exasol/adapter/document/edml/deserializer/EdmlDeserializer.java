@@ -1,8 +1,7 @@
 package com.exasol.adapter.document.edml.deserializer;
 
 import static com.exasol.adapter.document.edml.EdmlKeys.*;
-import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.readOptionalBoolean;
-import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.readRequiredString;
+import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.*;
 
 import java.io.StringReader;
 import java.util.Optional;
@@ -11,7 +10,10 @@ import com.exasol.adapter.document.edml.EdmlDefinition;
 import com.exasol.adapter.document.edml.validator.EdmlSchemaValidator;
 import com.exasol.errorreporting.ExaError;
 
-import jakarta.json.*;
+import jakarta.json.Json;
+import jakarta.json.JsonException;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 
 /**
  * This class deserializes an {@link EdmlDefinition} from JSON.
@@ -19,7 +21,7 @@ import jakarta.json.*;
 public class EdmlDeserializer {
     /**
      * Deserialize an {@link EdmlDefinition} from JSON.
-     * 
+     *
      * @param edmlDefinitionAsJson serialized JSON
      * @return deserialized {@link EdmlDefinition}
      */
@@ -31,6 +33,13 @@ public class EdmlDeserializer {
                 .destinationTable(readRequiredString(json, KEY_DESTINATION_TABLE));
         Optional.ofNullable(json.getString(KEY_DESCRIPTION, null)).ifPresent(builder::description);
         readOptionalBoolean(json, KEY_ADD_SOURCE_REFERENCE_COLUMN).ifPresent(builder::addSourceReferenceColumn);
+        // we serialize the json object again, we can then just deserialise it again to a json object later and read it
+        // out where we need it
+        JsonObject additionalConfiguration = json.getJsonObject(KEY_ADDITIONAL_CONFIGURATION); // will return null if
+                                                                                               // not found
+        if(additionalConfiguration != null) {
+            builder.additionalConfiguration(jsonObjectToString(additionalConfiguration));
+        }
         final JsonObject mapping = json.getJsonObject(KEY_MAPPING);
         builder.mapping(new MappingDeserializer().deserializeMapping(mapping));
         return builder.build();

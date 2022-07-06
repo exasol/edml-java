@@ -2,7 +2,10 @@ package com.exasol.adapter.document.edml;
 
 import static com.exasol.adapter.document.edml.MappingErrorBehaviour.ABORT;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**

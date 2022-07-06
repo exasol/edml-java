@@ -3,7 +3,10 @@ package com.exasol.adapter.document.edml;
 import static com.exasol.adapter.document.edml.ConvertableMappingErrorBehaviour.CONVERT_OR_ABORT;
 import static com.exasol.adapter.document.edml.TruncateableMappingErrorBehaviour.TRUNCATE;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 /**

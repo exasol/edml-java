@@ -3,7 +3,9 @@ package com.exasol.adapter.document.edml.deserializer;
 import static com.exasol.adapter.document.edml.EdmlKeys.*;
 import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.exasol.adapter.document.edml.*;

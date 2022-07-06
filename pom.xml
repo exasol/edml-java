@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.exasol</groupId>
     <artifactId>edml-java</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <name>EDML Java</name>
     <description>Library for reading and writing EDML definitions.</description>
-    <url>https://github.com/exasol/edml-java</url>
+    <url>https://github.com/exasol/edml-java/</url>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <junit.version>5.8.2</junit.version>
         <jacoco.version>0.8.7</jacoco.version>
@@ -84,18 +81,12 @@
         <dependency>
             <groupId>jakarta.json</groupId>
             <artifactId>jakarta.json-api</artifactId>
-            <version>2.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>jakarta.json</artifactId>
-            <version>2.0.1</version>
-            <scope>runtime</scope>
+            <version>2.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.everit-org.json-schema</groupId>
             <artifactId>org.everit.json.schema</artifactId>
-            <version>1.14.0</version>
+            <version>1.14.1</version>
         </dependency>
         <!-- test dependencies -->
         <dependency>
@@ -125,7 +116,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>4.3.1</version>
+            <version>4.6.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -134,13 +125,21 @@
             <version>3.10</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <!-- Required to avoid exception "jakarta.json.JsonException: Provider org.eclipse.parsson.JsonProviderImpl not found" -->
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.json</artifactId>
+            <version>2.0.1</version>
+            <classifier>module</classifier>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>2.2.0</version>
+                <version>2.4.6</version>
                 <executions>
                     <execution>
                         <goals>
@@ -167,7 +166,7 @@
     <parent>
         <artifactId>edml-java-generated-parent</artifactId>
         <groupId>com.exasol</groupId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
         <relativePath>pk_generated_parent.pom</relativePath>
     </parent>
 </project>

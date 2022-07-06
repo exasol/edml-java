@@ -1,12 +1,17 @@
 package com.exasol.adapter.document.edml.deserializer;
 
+import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.jsonObjectToString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+
+import java.io.StringReader;
 
 import org.junit.jupiter.api.Test;
 
 import com.exasol.adapter.document.edml.*;
 import com.exasol.adapter.document.edml.serializer.EdmlSerializer;
+
+import jakarta.json.Json;
 
 class EdmlDeserializerTest {
     @Test
@@ -84,5 +89,16 @@ class EdmlDeserializerTest {
     private EdmlDefinition getEdmlDefinitionForMapping(final MappingDefinition mapping) {
         return EdmlDefinition.builder().source("test").destinationTable("test").mapping(Fields.builder()//
                 .mapField("myProperty", mapping).build()).build();
+    }
+
+    @Test
+    void testHelperJsonObjectToString() {
+        var jsonInput = "{\"additionalConfiguration\":{\"csv-headers\":true}}";
+        var jsonReader = Json.createReader(new StringReader(jsonInput));
+        var jsonObject = jsonReader.readObject();
+        var additionalConfigurationObject = jsonObject.getJsonObject("additionalConfiguration");
+        var desiredOutput = "{\"csv-headers\":true}";
+        var producedOutput = jsonObjectToString(additionalConfigurationObject);
+        assertThat(desiredOutput, equalTo(producedOutput));
     }
 }

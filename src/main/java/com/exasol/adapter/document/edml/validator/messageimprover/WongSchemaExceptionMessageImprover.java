@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.everit.json.schema.*;
+import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.ValidationException;
 
 import com.exasol.adapter.document.edml.validator.ExceptionMessageImprover;
 import com.exasol.errorreporting.ExaError;

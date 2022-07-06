@@ -16,7 +16,7 @@ public class Fields implements MappingDefinition {
 
     /**
      * Create a builder for {@link Fields}.
-     * 
+     *
      * @return {@link FieldsBuilder}
      */
     public static FieldsBuilder builder() {
@@ -36,7 +36,7 @@ public class Fields implements MappingDefinition {
 
         /**
          * Add a field mapping.
-         * 
+         *
          * @param fieldName    name of the property in the document
          * @param fieldMapping {@link MappingDefinition}
          * @return self for fluent programming
@@ -48,7 +48,7 @@ public class Fields implements MappingDefinition {
 
         /**
          * Build the {@link Fields}.
-         * 
+         *
          * @return built {@link Fields}
          */
         public Fields build() {

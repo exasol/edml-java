@@ -1,6 +1,8 @@
 package com.exasol.adapter.document.edml;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NonNull;
 
 /**
  * Java representation of an EDML definition file.
@@ -18,4 +20,6 @@ public class EdmlDefinition {
     private final boolean addSourceReferenceColumn = false;
     @NonNull
     private final MappingDefinition mapping;
+    @Builder.Default
+    private final String additionalConfiguration = "";
 }

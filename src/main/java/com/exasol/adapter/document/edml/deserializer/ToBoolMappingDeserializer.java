@@ -3,7 +3,10 @@ package com.exasol.adapter.document.edml.deserializer;
 import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.readEnum;
 import static com.exasol.adapter.document.edml.deserializer.MappingDeserializer.deserializeToColumnMapping;
 
-import com.exasol.adapter.document.edml.*;
+import com.exasol.adapter.document.edml.ConvertableMappingErrorBehaviour;
+import com.exasol.adapter.document.edml.EdmlKeys;
+import com.exasol.adapter.document.edml.MappingDefinition;
+import com.exasol.adapter.document.edml.ToBoolMapping;
 
 import jakarta.json.JsonObject;
 

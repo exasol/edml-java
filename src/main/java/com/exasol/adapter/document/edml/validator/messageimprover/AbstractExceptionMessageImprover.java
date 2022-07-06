@@ -1,8 +1,12 @@
 package com.exasol.adapter.document.edml.validator.messageimprover;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.everit.json.schema.*;
+import org.everit.json.schema.ObjectSchema;
+import org.everit.json.schema.ReferenceSchema;
+import org.everit.json.schema.Schema;
 
 import com.exasol.adapter.document.edml.validator.ExceptionMessageImprover;
 
@@ -13,7 +17,7 @@ public abstract class AbstractExceptionMessageImprover implements ExceptionMessa
 
     /**
      * Get possible values for a given schema element.
-     * 
+     *
      * @param schema violated schema element
      * @return list of possible options
      */

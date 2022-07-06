@@ -5,13 +5,18 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
-import org.everit.json.schema.*;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.ValidationException;
+import org.everit.json.schema.Validator;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.exasol.adapter.document.edml.ExasolDocumentMappingLanguageException;
-import com.exasol.adapter.document.edml.validator.messageimprover.*;
+import com.exasol.adapter.document.edml.validator.messageimprover.NoMappingExceptionMessageImprover;
+import com.exasol.adapter.document.edml.validator.messageimprover.UnknownKeyTypeExceptionMessageImprover;
+import com.exasol.adapter.document.edml.validator.messageimprover.UnknownMappingExceptionMessageImprover;
+import com.exasol.adapter.document.edml.validator.messageimprover.WongSchemaExceptionMessageImprover;
 import com.exasol.errorreporting.ExaError;
 
 /**
@@ -22,7 +27,7 @@ import com.exasol.errorreporting.ExaError;
  * </p>
  */
 public class EdmlSchemaValidator {
-    private static final String MAPPING_LANGUAGE_SCHEMA = "schemas/edml-1.3.0.json";
+    private static final String MAPPING_LANGUAGE_SCHEMA = "schemas/edml-1.4.0.json";
     private static final List<ExceptionMessageImprover> EXCEPTION_MESSAGE_IMPROVER = List.of(
             new UnknownKeyTypeExceptionMessageImprover(), new UnknownMappingExceptionMessageImprover(),
             new NoMappingExceptionMessageImprover(), new WongSchemaExceptionMessageImprover());
@@ -45,7 +50,7 @@ public class EdmlSchemaValidator {
 
     /**
      * Validates the schema from given file using a JSON-schema validator.
-     * 
+     *
      * @param schemaMappingDefinition schema mapping definition to validate
      * @throws ExasolDocumentMappingLanguageException if schema is violated
      */
