@@ -1,20 +1,21 @@
 package com.exasol.adapter.document.edml.deserializer;
 
-import com.exasol.adapter.document.edml.*;
-import com.exasol.errorreporting.ExaError;
-import jakarta.json.JsonObject;
+import static com.exasol.adapter.document.edml.EdmlKeys.*;
+import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.exasol.adapter.document.edml.EdmlKeys.*;
-import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.*;
+import com.exasol.adapter.document.edml.*;
+import com.exasol.errorreporting.ExaError;
+
+import jakarta.json.JsonObject;
 
 class MappingDeserializer {
     static void deserializeToColumnMapping(final JsonObject json,
-                                           final AbstractToColumnMapping.AbstractToColumnMappingBuilder<?, ?> builder) {
+            final AbstractToColumnMapping.AbstractToColumnMappingBuilder<?, ?> builder) {
         Optional.ofNullable(json.getString(KEY_DESTINATION_NAME, null)).ifPresent(builder::destinationName);
         Optional.ofNullable(json.getString(KEY_DESCRIPTION, null)).ifPresent(builder::description);
         readEnum(json, KEY_KEY, KeyType.class).ifPresent(builder::key);
@@ -22,7 +23,7 @@ class MappingDeserializer {
     }
 
     static void deserializeToNumberMapping(final JsonObject json,
-                                           final AbstractToNumberMapping.AbstractToNumberMappingBuilder<?, ?> builder) {
+            final AbstractToNumberMapping.AbstractToNumberMappingBuilder<?, ?> builder) {
         deserializeToColumnMapping(json, builder);
         readEnum(json, KEY_OVERFLOW_BEHAVIOUR, MappingErrorBehaviour.class).ifPresent(builder::overflowBehaviour);
         readEnum(json, KEY_NOT_NUMERIC_BEHAVIOUR, ConvertableMappingErrorBehaviour.class)
@@ -30,7 +31,7 @@ class MappingDeserializer {
     }
 
     static void deserializeToVarcharColumnMapping(final JsonObject json,
-                                                  final AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<?, ?> builder) {
+            final AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<?, ?> builder) {
         deserializeToColumnMapping(json, builder);
         readOptionalInt(json, KEY_VARCHAR_COLUMN_SIZE).ifPresent(builder::varcharColumnSize);
     }

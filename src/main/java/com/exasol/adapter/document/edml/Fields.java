@@ -1,9 +1,9 @@
 package com.exasol.adapter.document.edml;
 
+import java.util.LinkedHashMap;
+
 import lombok.Data;
 import lombok.Singular;
-
-import java.util.LinkedHashMap;
 
 /**
  * Java representation of the {@code fields} object in the EDML.

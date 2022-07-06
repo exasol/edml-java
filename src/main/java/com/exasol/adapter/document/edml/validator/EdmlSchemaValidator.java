@@ -1,11 +1,10 @@
 package com.exasol.adapter.document.edml.validator;
 
-import com.exasol.adapter.document.edml.ExasolDocumentMappingLanguageException;
-import com.exasol.adapter.document.edml.validator.messageimprover.NoMappingExceptionMessageImprover;
-import com.exasol.adapter.document.edml.validator.messageimprover.UnknownKeyTypeExceptionMessageImprover;
-import com.exasol.adapter.document.edml.validator.messageimprover.UnknownMappingExceptionMessageImprover;
-import com.exasol.adapter.document.edml.validator.messageimprover.WongSchemaExceptionMessageImprover;
-import com.exasol.errorreporting.ExaError;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Optional;
+
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.ValidationException;
 import org.everit.json.schema.Validator;
@@ -13,10 +12,12 @@ import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
+import com.exasol.adapter.document.edml.ExasolDocumentMappingLanguageException;
+import com.exasol.adapter.document.edml.validator.messageimprover.NoMappingExceptionMessageImprover;
+import com.exasol.adapter.document.edml.validator.messageimprover.UnknownKeyTypeExceptionMessageImprover;
+import com.exasol.adapter.document.edml.validator.messageimprover.UnknownMappingExceptionMessageImprover;
+import com.exasol.adapter.document.edml.validator.messageimprover.WongSchemaExceptionMessageImprover;
+import com.exasol.errorreporting.ExaError;
 
 /**
  * Validator for mapping definitions using a JSON-schema validator.

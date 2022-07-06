@@ -1,18 +1,20 @@
 package com.exasol.adapter.document.edml.serializer;
 
-import com.exasol.adapter.document.edml.EdmlDefinition;
-import com.exasol.adapter.document.edml.Fields;
-import com.exasol.adapter.document.edml.ToTableMapping;
-import com.exasol.adapter.document.edml.ToVarcharMapping;
-import jakarta.json.JsonObjectBuilder;
-import jakarta.json.spi.JsonProvider;
+import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addIfNotNullOrEmpty;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addIfNotNullOrEmpty;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import com.exasol.adapter.document.edml.EdmlDefinition;
+import com.exasol.adapter.document.edml.Fields;
+import com.exasol.adapter.document.edml.ToTableMapping;
+import com.exasol.adapter.document.edml.ToVarcharMapping;
+
+import jakarta.json.JsonObjectBuilder;
+import jakarta.json.spi.JsonProvider;
 
 //[utest->dsn~edml-serialization~1]
 class EdmlSerializerTest {
@@ -29,9 +31,9 @@ class EdmlSerializerTest {
     void testSerializeToTableMapping() {
         final EdmlDefinition edmlDefinition = EdmlDefinition.builder().source("test").destinationTable("test")
                 .mapping(Fields.builder().mapField("test", //
-                                ToTableMapping.builder().mapping(Fields.builder()//
-                                        .mapField("id", ToVarcharMapping.builder().build())//
-                                        .build()).build())
+                        ToTableMapping.builder().mapping(Fields.builder()//
+                                .mapField("id", ToVarcharMapping.builder().build())//
+                                .build()).build())
                         .build())
                 .build();
         final String serialized = new EdmlSerializer().serialize(edmlDefinition);
@@ -40,10 +42,7 @@ class EdmlSerializerTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"null, FALSE",
-            "'', FALSE",
-            "testtest, TRUE"}
-            , nullValues = {"null"})
+    @CsvSource(value = { "null, FALSE", "'', FALSE", "testtest, TRUE" }, nullValues = { "null" })
     void testAddIfNotNullOrEmptyMethodNull(String value, boolean testResult) {
         JsonProvider JSON = JsonProvider.provider();
         String key = "test";
@@ -55,4 +54,3 @@ class EdmlSerializerTest {
     }
 
 }
-

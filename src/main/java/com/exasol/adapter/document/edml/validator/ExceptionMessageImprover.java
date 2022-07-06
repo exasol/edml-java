@@ -1,8 +1,8 @@
 package com.exasol.adapter.document.edml.validator;
 
-import org.everit.json.schema.ValidationException;
-
 import java.util.Optional;
+
+import org.everit.json.schema.ValidationException;
 
 /**
  * Classes implementing this interface improve schema validation error messages.

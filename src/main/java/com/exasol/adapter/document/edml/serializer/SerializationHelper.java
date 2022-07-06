@@ -17,7 +17,8 @@ public class SerializationHelper {
      * @param key               the key
      * @param value             the value
      */
-    public static void addIfNotNullOrEmpty(final JsonObjectBuilder jsonObjectBuilder, final String key, final String value) {
+    public static void addIfNotNullOrEmpty(final JsonObjectBuilder jsonObjectBuilder, final String key,
+            final String value) {
         if (value != null && !value.isEmpty()) {
             jsonObjectBuilder.add(key, value);
         }

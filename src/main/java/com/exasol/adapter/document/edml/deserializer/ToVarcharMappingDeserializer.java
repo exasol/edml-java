@@ -1,15 +1,16 @@
 package com.exasol.adapter.document.edml.deserializer;
 
-import com.exasol.adapter.document.edml.ConvertableMappingErrorBehaviour;
-import com.exasol.adapter.document.edml.MappingDefinition;
-import com.exasol.adapter.document.edml.ToVarcharMapping;
-import com.exasol.adapter.document.edml.TruncateableMappingErrorBehaviour;
-import jakarta.json.JsonObject;
-
 import static com.exasol.adapter.document.edml.EdmlKeys.KEY_NON_STRING_BEHAVIOUR;
 import static com.exasol.adapter.document.edml.EdmlKeys.KEY_OVERFLOW_BEHAVIOUR;
 import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.readEnum;
 import static com.exasol.adapter.document.edml.deserializer.MappingDeserializer.deserializeToVarcharColumnMapping;
+
+import com.exasol.adapter.document.edml.ConvertableMappingErrorBehaviour;
+import com.exasol.adapter.document.edml.MappingDefinition;
+import com.exasol.adapter.document.edml.ToVarcharMapping;
+import com.exasol.adapter.document.edml.TruncateableMappingErrorBehaviour;
+
+import jakarta.json.JsonObject;
 
 /**
  * Deserializer for {@link ToVarcharMapping}.

@@ -1,9 +1,11 @@
 package com.exasol.adapter.document.edml.validator;
 
-import com.exasol.adapter.document.edml.ExasolDocumentMappingLanguageException;
-import org.hamcrest.Matcher;
-import org.json.JSONObject;
-import org.junit.jupiter.api.Test;
+import static com.exasol.adapter.document.edml.MappingTestFiles.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.startsWith;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -11,12 +13,11 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.logging.Logger;
 
-import static com.exasol.adapter.document.edml.MappingTestFiles.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.startsWith;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.hamcrest.Matcher;
+import org.json.JSONObject;
+import org.junit.jupiter.api.Test;
+
+import com.exasol.adapter.document.edml.ExasolDocumentMappingLanguageException;
 
 class EdmlSchemaValidatorTest {
     private static final Logger LOGGER = Logger.getLogger(EdmlSchemaValidatorTest.class.getSimpleName());
@@ -63,7 +64,7 @@ class EdmlSchemaValidatorTest {
     }
 
     private void testInvalid(final String base, final Function<JSONObject, JSONObject> invalidator,
-                             final Matcher<String> messageMatcher) throws IOException {
+            final Matcher<String> messageMatcher) throws IOException {
         final String invalidMapping = generateInvalid(base, invalidator);
         final ExasolDocumentMappingLanguageException exception = assertThrows(
                 ExasolDocumentMappingLanguageException.class, () -> runValidation(invalidMapping));

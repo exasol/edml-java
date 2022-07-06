@@ -1,19 +1,20 @@
 package com.exasol.adapter.document.edml.serializer;
 
-import com.exasol.adapter.document.edml.*;
-import com.exasol.errorreporting.ExaError;
-import jakarta.json.JsonObjectBuilder;
-import jakarta.json.JsonWriter;
-import jakarta.json.spi.JsonProvider;
-import lombok.Getter;
+import static com.exasol.adapter.document.edml.EdmlKeys.*;
+import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addIfNotNullOrEmpty;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UncheckedIOException;
 import java.util.Map;
 
-import static com.exasol.adapter.document.edml.EdmlKeys.*;
-import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addIfNotNullOrEmpty;
+import com.exasol.adapter.document.edml.*;
+import com.exasol.errorreporting.ExaError;
+
+import jakarta.json.JsonObjectBuilder;
+import jakarta.json.JsonWriter;
+import jakarta.json.spi.JsonProvider;
+import lombok.Getter;
 
 /**
  * JSON serializer for {@link EdmlDefinition}s.
