@@ -1,12 +1,11 @@
 package com.exasol.adapter.document.edml.deserializer;
 
-import java.util.Map;
-
 import com.exasol.adapter.document.edml.Fields;
 import com.exasol.adapter.document.edml.MappingDefinition;
-
 import jakarta.json.JsonObject;
 import jakarta.json.JsonValue;
+
+import java.util.Map;
 
 /**
  * Deserializer for {@link Fields}.

@@ -1,15 +1,16 @@
 package com.exasol.adapter.document.edml.deserializer;
 
-import static com.exasol.adapter.document.edml.EdmlKeys.*;
-import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.*;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
 import com.exasol.adapter.document.edml.*;
 import com.exasol.errorreporting.ExaError;
-
 import jakarta.json.JsonObject;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.exasol.adapter.document.edml.EdmlKeys.*;
+import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.*;
 
 class MappingDeserializer {
     static void deserializeToColumnMapping(final JsonObject json,

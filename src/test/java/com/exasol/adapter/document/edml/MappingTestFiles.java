@@ -1,13 +1,16 @@
 package com.exasol.adapter.document.edml;
 
-import java.io.*;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.function.Function;
-
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 public class MappingTestFiles {
 

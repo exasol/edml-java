@@ -5,11 +5,17 @@ package com.exasol.adapter.document.edml;
  * option that is only applicable for certain types.
  */
 public enum TruncateableMappingErrorBehaviour {
-    /** Truncate the value to the destination column size. */
+    /**
+     * Truncate the value to the destination column size.
+     */
     TRUNCATE,
-    /** Abort the whole query */
+    /**
+     * Abort the whole query
+     */
     ABORT,
-    /** Use NULL instead */
+    /**
+     * Use NULL instead
+     */
     NULL
 
 }

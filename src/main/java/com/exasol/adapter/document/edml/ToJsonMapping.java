@@ -1,9 +1,12 @@
 package com.exasol.adapter.document.edml;
 
-import static com.exasol.adapter.document.edml.MappingErrorBehaviour.ABORT;
-
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import static com.exasol.adapter.document.edml.MappingErrorBehaviour.ABORT;
 
 /**
  * Java representation of the EDML {@code toJsonMapping}.

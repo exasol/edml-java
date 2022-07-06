@@ -1,13 +1,12 @@
 package com.exasol.adapter.document.edml.deserializer;
 
-import static com.exasol.adapter.document.edml.EdmlKeys.*;
+import com.exasol.adapter.document.edml.MappingDefinition;
+import com.exasol.adapter.document.edml.ToTableMapping;
+import jakarta.json.JsonObject;
 
 import java.util.Optional;
 
-import com.exasol.adapter.document.edml.MappingDefinition;
-import com.exasol.adapter.document.edml.ToTableMapping;
-
-import jakarta.json.JsonObject;
+import static com.exasol.adapter.document.edml.EdmlKeys.*;
 
 /**
  * Deserializer for {@link ToTableMapping}.

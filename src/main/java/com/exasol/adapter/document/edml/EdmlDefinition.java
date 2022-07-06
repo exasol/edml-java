@@ -1,6 +1,8 @@
 package com.exasol.adapter.document.edml;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NonNull;
 
 /**
  * Java representation of an EDML definition file.

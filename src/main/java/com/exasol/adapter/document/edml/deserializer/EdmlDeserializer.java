@@ -1,17 +1,18 @@
 package com.exasol.adapter.document.edml.deserializer;
 
-import static com.exasol.adapter.document.edml.EdmlKeys.*;
-import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.*;
-
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.Optional;
-
 import com.exasol.adapter.document.edml.EdmlDefinition;
 import com.exasol.adapter.document.edml.validator.EdmlSchemaValidator;
 import com.exasol.errorreporting.ExaError;
+import jakarta.json.Json;
+import jakarta.json.JsonException;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 
-import jakarta.json.*;
+import java.io.StringReader;
+import java.util.Optional;
+
+import static com.exasol.adapter.document.edml.EdmlKeys.*;
+import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.*;
 
 /**
  * This class deserializes an {@link EdmlDefinition} from JSON.

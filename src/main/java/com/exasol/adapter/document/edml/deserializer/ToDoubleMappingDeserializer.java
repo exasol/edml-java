@@ -1,11 +1,10 @@
 package com.exasol.adapter.document.edml.deserializer;
 
-import static com.exasol.adapter.document.edml.deserializer.MappingDeserializer.deserializeToNumberMapping;
-
 import com.exasol.adapter.document.edml.MappingDefinition;
 import com.exasol.adapter.document.edml.ToDoubleMapping;
-
 import jakarta.json.JsonObject;
+
+import static com.exasol.adapter.document.edml.deserializer.MappingDeserializer.deserializeToNumberMapping;
 
 /**
  * Deserializer for {@link ToDoubleMapping}.

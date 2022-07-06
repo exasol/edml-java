@@ -1,16 +1,15 @@
 package com.exasol.adapter.document.edml.deserializer;
 
-import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.jsonObjectToString;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
+import com.exasol.adapter.document.edml.*;
+import com.exasol.adapter.document.edml.serializer.EdmlSerializer;
 import jakarta.json.Json;
 import org.junit.jupiter.api.Test;
 
-import com.exasol.adapter.document.edml.*;
-import com.exasol.adapter.document.edml.serializer.EdmlSerializer;
-
 import java.io.StringReader;
+
+import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.jsonObjectToString;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 class EdmlDeserializerTest {
     @Test

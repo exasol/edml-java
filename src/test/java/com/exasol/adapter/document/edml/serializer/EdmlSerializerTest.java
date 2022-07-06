@@ -1,16 +1,18 @@
 package com.exasol.adapter.document.edml.serializer;
 
-import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addIfNotNullOrEmpty;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-
+import com.exasol.adapter.document.edml.EdmlDefinition;
+import com.exasol.adapter.document.edml.Fields;
+import com.exasol.adapter.document.edml.ToTableMapping;
+import com.exasol.adapter.document.edml.ToVarcharMapping;
 import jakarta.json.JsonObjectBuilder;
 import jakarta.json.spi.JsonProvider;
 import org.junit.jupiter.api.Test;
-
-import com.exasol.adapter.document.edml.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addIfNotNullOrEmpty;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 //[utest->dsn~edml-serialization~1]
 class EdmlSerializerTest {

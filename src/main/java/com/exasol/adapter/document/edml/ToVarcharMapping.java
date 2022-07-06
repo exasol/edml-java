@@ -1,10 +1,13 @@
 package com.exasol.adapter.document.edml;
 
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
 import static com.exasol.adapter.document.edml.ConvertableMappingErrorBehaviour.CONVERT_OR_ABORT;
 import static com.exasol.adapter.document.edml.TruncateableMappingErrorBehaviour.TRUNCATE;
-
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 /**
  * Java representation of the EDML {@code toVarcharMapping}.

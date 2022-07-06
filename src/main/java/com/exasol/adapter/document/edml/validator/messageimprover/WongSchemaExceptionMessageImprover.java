@@ -1,13 +1,14 @@
 package com.exasol.adapter.document.edml.validator.messageimprover;
 
+import com.exasol.adapter.document.edml.validator.ExceptionMessageImprover;
+import com.exasol.errorreporting.ExaError;
+import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.ValidationException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import org.everit.json.schema.*;
-
-import com.exasol.adapter.document.edml.validator.ExceptionMessageImprover;
-import com.exasol.errorreporting.ExaError;
 
 /**
  * This {@link ExceptionMessageImprover} improves the exception message for unsupported values for {@code $schema}.

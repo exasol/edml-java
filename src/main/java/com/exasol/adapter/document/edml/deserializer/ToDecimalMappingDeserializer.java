@@ -1,11 +1,12 @@
 package com.exasol.adapter.document.edml.deserializer;
 
+import com.exasol.adapter.document.edml.EdmlKeys;
+import com.exasol.adapter.document.edml.MappingDefinition;
+import com.exasol.adapter.document.edml.ToDecimalMapping;
+import jakarta.json.JsonObject;
+
 import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.readOptionalInt;
 import static com.exasol.adapter.document.edml.deserializer.MappingDeserializer.deserializeToNumberMapping;
-
-import com.exasol.adapter.document.edml.*;
-
-import jakarta.json.JsonObject;
 
 /**
  * Deserializer for {@link ToDecimalMapping}.
