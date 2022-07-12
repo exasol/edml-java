@@ -41,12 +41,12 @@ public class SerializationHelper {
                                            final String value) {
 
         if (value != null && !value.isEmpty()) {
-            final JsonProvider JSON = JsonProvider.provider();
+            final JsonProvider jsonProvider = JsonProvider.provider();
             //read the string into a json object
             JsonReader jsonReader = Json.createReader(new StringReader(value));
             JsonObject newJsonObject = jsonReader.readObject();
             jsonReader.close();
-            JsonObjectBuilder newJsonObjectBuilder = JSON.createObjectBuilder(newJsonObject);
+            JsonObjectBuilder newJsonObjectBuilder = jsonProvider.createObjectBuilder(newJsonObject);
             jsonObjectBuilder.add(key, newJsonObjectBuilder);
         }
     }
