@@ -1,5 +1,6 @@
 package com.exasol.adapter.document.edml.serializer;
 
+import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addAsJsonObjectIfNotNullOrEmpty;
 import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addIfNotNullOrEmpty;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -49,6 +50,18 @@ class EdmlSerializerTest {
 
         final JsonObjectBuilder mappingBuilder = JSON.createObjectBuilder();
         addIfNotNullOrEmpty(mappingBuilder, key, value);
+        var result = mappingBuilder.build();
+        assertThat(result.containsKey(key), equalTo(testResult));
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = { "null, FALSE", "'', FALSE", "{    \"csv-headers\": true  }, TRUE" }, nullValues = { "null" })
+    void testAddJsonObjectIfNotNullOrEmptyMethodNull(String value, boolean testResult) {
+        JsonProvider JSON = JsonProvider.provider();
+        String key = "test";
+
+        final JsonObjectBuilder mappingBuilder = JSON.createObjectBuilder();
+        addAsJsonObjectIfNotNullOrEmpty(mappingBuilder, key, value);
         var result = mappingBuilder.build();
         assertThat(result.containsKey(key), equalTo(testResult));
     }

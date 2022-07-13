@@ -1,7 +1,7 @@
 package com.exasol.adapter.document.edml.serializer;
 
 import static com.exasol.adapter.document.edml.EdmlKeys.*;
-import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addIfNotNullOrEmpty;
+import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addAsJsonObjectIfNotNullOrEmpty;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -60,7 +60,7 @@ public class EdmlSerializer {
         addIfNotNull(edmlJson, KEY_SOURCE, edmlDefinition.getSource());
         addIfNotNull(edmlJson, KEY_DESTINATION_TABLE, edmlDefinition.getDestinationTable());
         addIfNotNull(edmlJson, KEY_DESCRIPTION, edmlDefinition.getDescription());
-        addIfNotNullOrEmpty(edmlJson, KEY_ADDITIONAL_CONFIGURATION, edmlDefinition.getAdditionalConfiguration());
+        addAsJsonObjectIfNotNullOrEmpty(edmlJson, KEY_ADDITIONAL_CONFIGURATION, edmlDefinition.getAdditionalConfiguration());
         edmlJson.add(KEY_ADD_SOURCE_REFERENCE_COLUMN, edmlDefinition.isAddSourceReferenceColumn());
         edmlJson.add(KEY_MAPPING, serializeMapping(edmlDefinition.getMapping()));
         return toJson(edmlJson);
