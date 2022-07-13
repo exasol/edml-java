@@ -1,4 +1,4 @@
-# EDML Java 1.1.1, released 2022-07-12
+# EDML Java 1.1.1, released 2022-07-13
 
 Code name: Fix serialisation for additionalConfiguration
 
