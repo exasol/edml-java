@@ -1,4 +1,4 @@
-# EDML Java 1.1.2, released 2022-12-19
+# EDML Java 1.1.2, released 2022-12-20
 
 Code name: Dependency Upgrade
 
