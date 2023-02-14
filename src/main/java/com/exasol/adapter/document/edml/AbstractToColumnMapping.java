@@ -21,15 +21,10 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
     public abstract static class AbstractToColumnMappingBuilder<C extends AbstractToColumnMapping, B extends AbstractToColumnMappingBuilder<C, B>> {
 
         private String destinationName;
-
         private String description;
-
         private boolean key$set;
-
         private KeyType key$value;
-
         private boolean required$set;
-
         private boolean required$value;
 
         protected abstract B self();
@@ -37,27 +32,27 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         public abstract C build();
 
         /**
+         * @param destinationName destination name
          * @return {@code this}.
          */
-
         public B destinationName(final String destinationName) {
             this.destinationName = destinationName;
             return self();
         }
 
         /**
+         * @param description description
          * @return {@code this}.
          */
-
         public B description(final String description) {
             this.description = description;
             return self();
         }
 
         /**
+         * @param key key type
          * @return {@code this}.
          */
-
         public B key(final KeyType key) {
             this.key$value = key;
             this.key$set = true;
@@ -65,6 +60,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         }
 
         /**
+         * @param required required
          * @return {@code this}.
          */
 
@@ -75,7 +71,6 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         }
 
         @Override
-
         public String toString() {
             return "AbstractToColumnMapping.AbstractToColumnMappingBuilder(destinationName=" + this.destinationName
                     + ", description=" + this.description + ", key$value=" + this.key$value + ", required$value="
@@ -175,7 +170,6 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
     }
 
     @Override
-
     public String toString() {
         return "AbstractToColumnMapping(destinationName=" + this.getDestinationName() + ", description="
                 + this.getDescription() + ", key=" + this.getKey() + ", required=" + this.isRequired() + ")";

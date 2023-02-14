@@ -50,27 +50,20 @@ public class EdmlDefinition {
     public static class EdmlDefinitionBuilder {
 
         private String source;
-
         private String destinationTable;
-
         private boolean description$set;
-
         private String description$value;
-
         private boolean addSourceReferenceColumn$set;
-
         private boolean addSourceReferenceColumn$value;
-
         private MappingDefinition mapping;
-
         private boolean additionalConfiguration$set;
-
         private String additionalConfiguration$value;
 
         EdmlDefinitionBuilder() {
         }
 
         /**
+         * @param source source
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder source(final String source) {
@@ -82,6 +75,7 @@ public class EdmlDefinition {
         }
 
         /**
+         * @param destinationTable destination table
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder destinationTable(final String destinationTable) {
@@ -93,6 +87,7 @@ public class EdmlDefinition {
         }
 
         /**
+         * @param description description
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder description(final String description) {
@@ -102,6 +97,7 @@ public class EdmlDefinition {
         }
 
         /**
+         * @param addSourceReferenceColumn {@code true} if a source reference column should be added
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder addSourceReferenceColumn(final boolean addSourceReferenceColumn) {
@@ -111,6 +107,7 @@ public class EdmlDefinition {
         }
 
         /**
+         * @param mapping mapping
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder mapping(final MappingDefinition mapping) {
@@ -122,6 +119,7 @@ public class EdmlDefinition {
         }
 
         /**
+         * @param additionalConfiguration additional configuration
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder additionalConfiguration(final String additionalConfiguration) {

@@ -31,6 +31,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         public abstract ToBoolMapping build();
 
         /**
+         * @param notBooleanBehavior the behaviour in case the value is not a boolean
          * @return {@code this}.
          */
         public B notBooleanBehavior(final ConvertableMappingErrorBehaviour notBooleanBehavior) {
@@ -40,7 +41,6 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         }
 
         @Override
-
         public String toString() {
             return "ToBoolMapping.ToBoolMappingBuilder(super=" + super.toString() + ", notBooleanBehavior$value="
                     + this.notBooleanBehavior$value + ")";

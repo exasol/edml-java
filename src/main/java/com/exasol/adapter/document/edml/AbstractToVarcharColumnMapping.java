@@ -29,6 +29,7 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
         public abstract C build();
 
         /**
+         * @param varcharColumnSize size for {@code VARCHAR} columns
          * @return {@code this}.
          */
         public B varcharColumnSize(final int varcharColumnSize) {

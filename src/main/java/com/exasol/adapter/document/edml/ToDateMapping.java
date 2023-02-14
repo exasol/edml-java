@@ -21,7 +21,6 @@ public final class ToDateMapping extends AbstractToColumnMapping {
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToDateMapping, B> {
 
         private boolean notDateBehavior$set;
-
         private ConvertableMappingErrorBehaviour notDateBehavior$value;
 
         @Override
@@ -31,6 +30,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         public abstract ToDateMapping build();
 
         /**
+         * @param notDateBehavior the behaviour in case the value is not a date
          * @return {@code this}.
          */
         public B notDateBehavior(final ConvertableMappingErrorBehaviour notDateBehavior) {

@@ -31,17 +31,15 @@ public final class ToTableMapping implements MappingDefinition {
     public static class ToTableMappingBuilder {
 
         private String destinationTable;
-
         private MappingDefinition mapping;
-
         private boolean description$set;
-
         private String description$value;
 
         ToTableMappingBuilder() {
         }
 
         /**
+         * @param destinationTable destination table
          * @return {@code this}.
          */
         public ToTableMapping.ToTableMappingBuilder destinationTable(final String destinationTable) {
@@ -50,6 +48,7 @@ public final class ToTableMapping implements MappingDefinition {
         }
 
         /**
+         * @param mapping mapping
          * @return {@code this}.
          */
         public ToTableMapping.ToTableMappingBuilder mapping(final MappingDefinition mapping) {
@@ -61,6 +60,7 @@ public final class ToTableMapping implements MappingDefinition {
         }
 
         /**
+         * @param description description
          * @return {@code this}.
          */
         public ToTableMapping.ToTableMappingBuilder description(final String description) {

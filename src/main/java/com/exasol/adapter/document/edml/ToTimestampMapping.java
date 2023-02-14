@@ -31,11 +31,8 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToTimestampMapping, B> {
 
         private boolean notTimestampBehavior$set;
-
         private ConvertableMappingErrorBehaviour notTimestampBehavior$value;
-
         private boolean useTimestampWithLocalTimezoneType$set;
-
         private boolean useTimestampWithLocalTimezoneType$value;
 
         @Override
@@ -45,6 +42,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         public abstract ToTimestampMapping build();
 
         /**
+         * @param notTimestampBehavior the not-timestamp behaviour
          * @return {@code this}.
          */
         public B notTimestampBehavior(final ConvertableMappingErrorBehaviour notTimestampBehavior) {
@@ -54,6 +52,8 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         }
 
         /**
+         * @param useTimestampWithLocalTimezoneType {@code true} if data type {@code TIMESTAMP WITH LOCAL TIMEZONE}
+         *                                          should be used instead of {@code TIMESTAMP}
          * @return {@code this}.
          */
         public B useTimestampWithLocalTimezoneType(final boolean useTimestampWithLocalTimezoneType) {
@@ -161,8 +161,9 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     /**
      * If set to {@code true} this adapter will use a {@code TIMESTAMP WITH LOCAL TIMEZONE} Exasol column instead of a
      * {@code TIMEZONE} column.
+     * 
+     * @return {@code true} if {@code TIMESTAMP WITH LOCAL TIMEZONE} is used
      */
-
     public boolean isUseTimestampWithLocalTimezoneType() {
         return this.useTimestampWithLocalTimezoneType;
     }

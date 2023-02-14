@@ -34,6 +34,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
         public abstract C build();
 
         /**
+         * @param overflowBehaviour the overflow behaviour
          * @return {@code this}.
          */
         public B overflowBehaviour(final MappingErrorBehaviour overflowBehaviour) {
@@ -43,6 +44,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
         }
 
         /**
+         * @param notNumericBehaviour the not-numeric behaviour
          * @return {@code this}.
          */
         public B notNumericBehaviour(final ConvertableMappingErrorBehaviour notNumericBehaviour) {

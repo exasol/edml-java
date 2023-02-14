@@ -33,6 +33,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
         public abstract ToJsonMapping build();
 
         /**
+         * @param overflowBehaviour the overflow behaviour
          * @return {@code this}.
          */
         public B overflowBehaviour(final MappingErrorBehaviour overflowBehaviour) {

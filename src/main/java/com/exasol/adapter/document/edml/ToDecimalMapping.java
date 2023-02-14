@@ -22,15 +22,12 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         return 0;
     }
 
-    public static abstract class ToDecimalMappingBuilder<B extends ToDecimalMapping.ToDecimalMappingBuilder<B>>
+    public abstract static class ToDecimalMappingBuilder<B extends ToDecimalMapping.ToDecimalMappingBuilder<B>>
             extends AbstractToNumberMapping.AbstractToNumberMappingBuilder<ToDecimalMapping, B> {
 
         private boolean decimalPrecision$set;
-
         private int decimalPrecision$value;
-
         private boolean decimalScale$set;
-
         private int decimalScale$value;
 
         @Override
@@ -40,6 +37,7 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         public abstract ToDecimalMapping build();
 
         /**
+         * @param decimalPrecision precision
          * @return {@code this}.
          */
         public B decimalPrecision(final int decimalPrecision) {
@@ -49,6 +47,7 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         }
 
         /**
+         * @param decimalScale scale
          * @return {@code this}.
          */
         public B decimalScale(final int decimalScale) {

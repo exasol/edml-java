@@ -29,11 +29,8 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
             extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<ToVarcharMapping, B> {
 
         private boolean nonStringBehaviour$set;
-
         private ConvertableMappingErrorBehaviour nonStringBehaviour$value;
-
         private boolean overflowBehaviour$set;
-
         private TruncateableMappingErrorBehaviour overflowBehaviour$value;
 
         @Override
@@ -43,6 +40,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         public abstract ToVarcharMapping build();
 
         /**
+         * @param nonStringBehaviour the non-string behaviour
          * @return {@code this}.
          */
         public B nonStringBehaviour(final ConvertableMappingErrorBehaviour nonStringBehaviour) {
@@ -52,6 +50,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         }
 
         /**
+         * @param overflowBehaviour the overflow behaviour
          * @return {@code this}.
          */
         public B overflowBehaviour(final TruncateableMappingErrorBehaviour overflowBehaviour) {
