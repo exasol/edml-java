@@ -11,20 +11,6 @@
         <junit.version>5.9.2</junit.version>
         <vscommon.version>15.2.0</vscommon.version>
     </properties>
-    <repositories>
-        <repository>
-            <id>oss.sonatype.org-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <!-- Required for dependency com.github.everit-org.json-schema:org.everit.json.schema-->
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
     <dependencies>
         <dependency>
             <groupId>com.exasol</groupId>
@@ -37,9 +23,9 @@
             <version>2.1.1</version>
         </dependency>
         <dependency>
-            <groupId>com.github.everit-org.json-schema</groupId>
-            <artifactId>org.everit.json.schema</artifactId>
-            <version>1.14.1</version>
+            <groupId>org.leadpony.justify</groupId>
+            <artifactId>justify</artifactId>
+            <version>3.1.0</version>
         </dependency>
         <!-- test dependencies -->
         <dependency>

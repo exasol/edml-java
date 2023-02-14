@@ -1,23 +1,18 @@
 package com.exasol.adapter.document.edml.validator;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
+import static java.util.stream.Collectors.joining;
 
-import org.everit.json.schema.Schema;
-import org.everit.json.schema.ValidationException;
-import org.everit.json.schema.Validator;
-import org.everit.json.schema.loader.SchemaLoader;
-import org.json.JSONObject;
-import org.json.JSONTokener;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+import org.leadpony.justify.api.*;
 
 import com.exasol.adapter.document.edml.ExasolDocumentMappingLanguageException;
-import com.exasol.adapter.document.edml.validator.messageimprover.NoMappingExceptionMessageImprover;
-import com.exasol.adapter.document.edml.validator.messageimprover.UnknownKeyTypeExceptionMessageImprover;
-import com.exasol.adapter.document.edml.validator.messageimprover.UnknownMappingExceptionMessageImprover;
-import com.exasol.adapter.document.edml.validator.messageimprover.WongSchemaExceptionMessageImprover;
 import com.exasol.errorreporting.ExaError;
+
+import jakarta.json.stream.JsonParser;
 
 /**
  * Validator for mapping definitions using a JSON-schema validator.
@@ -28,19 +23,17 @@ import com.exasol.errorreporting.ExaError;
  */
 public class EdmlSchemaValidator {
     private static final String MAPPING_LANGUAGE_SCHEMA = "schemas/edml-1.4.0.json";
-    private static final List<ExceptionMessageImprover> EXCEPTION_MESSAGE_IMPROVER = List.of(
-            new UnknownKeyTypeExceptionMessageImprover(), new UnknownMappingExceptionMessageImprover(),
-            new NoMappingExceptionMessageImprover(), new WongSchemaExceptionMessageImprover());
-    private final Schema schema;
+    private final JsonValidationService service;
+    private final JsonSchema schema;
 
     /**
      * Create an instance of {@link EdmlSchemaValidator}.
      */
     public EdmlSchemaValidator() {
+        this.service = JsonValidationService.newInstance();
         final ClassLoader classLoader = EdmlSchemaValidator.class.getClassLoader();
         try (final InputStream inputStream = classLoader.getResourceAsStream(MAPPING_LANGUAGE_SCHEMA)) {
-            final JSONObject rawSchema = new JSONObject(new JSONTokener(inputStream));
-            this.schema = SchemaLoader.load(rawSchema);
+            this.schema = service.readSchema(inputStream);
         } catch (final IOException exception) {
             throw new IllegalStateException(ExaError.messageBuilder("F-EDML-22")
                     .message("Internal error (Failed to open EDML-schema from resources).").ticketMitigation()
@@ -55,38 +48,43 @@ public class EdmlSchemaValidator {
      * @throws ExasolDocumentMappingLanguageException if schema is violated
      */
     public void validate(final String schemaMappingDefinition) {
-        final JSONObject definitionObject = new JSONObject(new JSONTokener(schemaMappingDefinition));
-        validate(definitionObject);
+        final List<String> validationErrors = getValidationErrors(schemaMappingDefinition);
+        if (validationErrors.isEmpty()) {
+            return;
+        }
+        throw new ExasolDocumentMappingLanguageException(
+                ExaError.messageBuilder("F-EDML-53").message("Syntax validation error: {{VALIDATION_ERROR|uq}}")
+                        .parameter("VALIDATION_ERROR", improveErrorMessages(validationErrors)).toString());
     }
 
-    private void validate(final JSONObject schemaMappingDefinition) {
-        try {
-            final Validator validator = Validator.builder().build();
-            validator.performValidation(this.schema, schemaMappingDefinition);
-        } catch (final ValidationException originalException) {
-            throw new ExasolDocumentMappingLanguageException(
-                    ExaError.messageBuilder("F-EDML-51").message("Syntax error in mapping definition.")
-                            .mitigation("See causing exception for details.").toString(),
-                    makeValidationExceptionMoreReadable(originalException));
+    private String improveErrorMessages(final List<String> validationErrors) {
+        return validationErrors.stream().collect(joining(", "));
+    }
+
+    private List<String> getValidationErrors(final String schemaMappingDefinition) {
+        final ErrorCollector errorCollector = new ErrorCollector();
+        final ProblemHandler handler = service.createProblemPrinter(errorCollector);
+        try (Reader reader = new StringReader(schemaMappingDefinition);
+                final JsonParser parser = service.createParser(reader, schema, handler)) {
+            consumeEvents(parser);
+            return errorCollector.errors;
+        } catch (final IOException exception) {
+            throw new UncheckedIOException(exception);
         }
     }
 
-    private ExasolDocumentMappingLanguageException makeValidationExceptionMoreReadable(
-            final ValidationException exception) {
-        final List<ValidationException> causingExceptions = exception.getCausingExceptions();
-        if (!causingExceptions.isEmpty()) {
-            final ValidationException firstException = causingExceptions.get(0);
-            return makeValidationExceptionMoreReadable(firstException);
-        } else {
-            for (final ExceptionMessageImprover improver : EXCEPTION_MESSAGE_IMPROVER) {
-                final Optional<String> improveResult = improver.tryToImprove(exception);
-                if (improveResult.isPresent()) {
-                    return new ExasolDocumentMappingLanguageException(improveResult.get());
-                }
-            }
-            return new ExasolDocumentMappingLanguageException(
-                    ExaError.messageBuilder("F-EDML-53").message("Syntax validation error: {{VALIDATION_ERROR|uq}}.")
-                            .parameter("VALIDATION_ERROR", exception.getMessage()).toString());
+    private void consumeEvents(final JsonParser parser) {
+        while (parser.hasNext()) {
+            parser.next();
+        }
+    }
+
+    private static class ErrorCollector implements Consumer<String> {
+        private final List<String> errors = new ArrayList<>();
+
+        @Override
+        public void accept(final String message) {
+            errors.add(message);
         }
     }
 }
