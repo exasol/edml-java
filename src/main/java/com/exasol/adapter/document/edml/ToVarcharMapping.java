@@ -45,25 +45,22 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         /**
          * @return {@code this}.
          */
-
         public B nonStringBehaviour(final ConvertableMappingErrorBehaviour nonStringBehaviour) {
             this.nonStringBehaviour$value = nonStringBehaviour;
-            nonStringBehaviour$set = true;
+            this.nonStringBehaviour$set = true;
             return self();
         }
 
         /**
          * @return {@code this}.
          */
-
         public B overflowBehaviour(final TruncateableMappingErrorBehaviour overflowBehaviour) {
             this.overflowBehaviour$value = overflowBehaviour;
-            overflowBehaviour$set = true;
+            this.overflowBehaviour$set = true;
             return self();
         }
 
         @Override
-
         public String toString() {
             return "ToVarcharMapping.ToVarcharMappingBuilder(super=" + super.toString() + ", nonStringBehaviour$value="
                     + this.nonStringBehaviour$value + ", overflowBehaviour$value=" + this.overflowBehaviour$value + ")";
@@ -77,13 +74,11 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         }
 
         @Override
-
         protected ToVarcharMapping.ToVarcharMappingBuilderImpl self() {
             return this;
         }
 
         @Override
-
         public ToVarcharMapping build() {
             return new ToVarcharMapping(this);
         }
@@ -91,14 +86,16 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
 
     protected ToVarcharMapping(final ToVarcharMapping.ToVarcharMappingBuilder<?> b) {
         super(b);
-        if (b.nonStringBehaviour$set)
+        if (b.nonStringBehaviour$set) {
             this.nonStringBehaviour = b.nonStringBehaviour$value;
-        else
+        } else {
             this.nonStringBehaviour = ToVarcharMapping.$default$nonStringBehaviour();
-        if (b.overflowBehaviour$set)
+        }
+        if (b.overflowBehaviour$set) {
             this.overflowBehaviour = b.overflowBehaviour$value;
-        else
+        } else {
             this.overflowBehaviour = ToVarcharMapping.$default$overflowBehaviour();
+        }
     }
 
     public static ToVarcharMapping.ToVarcharMappingBuilder<?> builder() {
@@ -106,27 +103,32 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
     }
 
     @Override
-
     public boolean equals(final Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
-        if (!(o instanceof ToVarcharMapping))
+        }
+        if (!(o instanceof ToVarcharMapping)) {
             return false;
+        }
         final ToVarcharMapping other = (ToVarcharMapping) o;
-        if (!other.canEqual((Object) this))
+        if (!other.canEqual(this)) {
             return false;
-        if (!super.equals(o))
+        }
+        if (!super.equals(o)) {
             return false;
+        }
         final Object this$nonStringBehaviour = this.getNonStringBehaviour();
         final Object other$nonStringBehaviour = other.getNonStringBehaviour();
         if (this$nonStringBehaviour == null ? other$nonStringBehaviour != null
-                : !this$nonStringBehaviour.equals(other$nonStringBehaviour))
+                : !this$nonStringBehaviour.equals(other$nonStringBehaviour)) {
             return false;
+        }
         final Object this$overflowBehaviour = this.getOverflowBehaviour();
         final Object other$overflowBehaviour = other.getOverflowBehaviour();
         if (this$overflowBehaviour == null ? other$overflowBehaviour != null
-                : !this$overflowBehaviour.equals(other$overflowBehaviour))
+                : !this$overflowBehaviour.equals(other$overflowBehaviour)) {
             return false;
+        }
         return true;
     }
 
@@ -136,19 +138,17 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
     }
 
     @Override
-
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
         final Object $nonStringBehaviour = this.getNonStringBehaviour();
-        result = result * PRIME + ($nonStringBehaviour == null ? 43 : $nonStringBehaviour.hashCode());
+        result = (result * PRIME) + ($nonStringBehaviour == null ? 43 : $nonStringBehaviour.hashCode());
         final Object $overflowBehaviour = this.getOverflowBehaviour();
-        result = result * PRIME + ($overflowBehaviour == null ? 43 : $overflowBehaviour.hashCode());
+        result = (result * PRIME) + ($overflowBehaviour == null ? 43 : $overflowBehaviour.hashCode());
         return result;
     }
 
     @Override
-
     public String toString() {
         return "ToVarcharMapping(super=" + super.toString() + ", nonStringBehaviour=" + this.getNonStringBehaviour()
                 + ", overflowBehaviour=" + this.getOverflowBehaviour() + ")";

@@ -33,10 +33,9 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         /**
          * @return {@code this}.
          */
-
         public B notBooleanBehavior(final ConvertableMappingErrorBehaviour notBooleanBehavior) {
             this.notBooleanBehavior$value = notBooleanBehavior;
-            notBooleanBehavior$set = true;
+            this.notBooleanBehavior$set = true;
             return self();
         }
 
@@ -55,13 +54,11 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         }
 
         @Override
-
         protected ToBoolMapping.ToBoolMappingBuilderImpl self() {
             return this;
         }
 
         @Override
-
         public ToBoolMapping build() {
             return new ToBoolMapping(this);
         }
@@ -69,10 +66,11 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
 
     protected ToBoolMapping(final ToBoolMapping.ToBoolMappingBuilder<?> b) {
         super(b);
-        if (b.notBooleanBehavior$set)
+        if (b.notBooleanBehavior$set) {
             this.notBooleanBehavior = b.notBooleanBehavior$value;
-        else
+        } else {
             this.notBooleanBehavior = ToBoolMapping.$default$notBooleanBehavior();
+        }
     }
 
     public static ToBoolMapping.ToBoolMappingBuilder<?> builder() {
@@ -80,22 +78,26 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
     }
 
     @Override
-
     public boolean equals(final Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
-        if (!(o instanceof ToBoolMapping))
+        }
+        if (!(o instanceof ToBoolMapping)) {
             return false;
+        }
         final ToBoolMapping other = (ToBoolMapping) o;
-        if (!other.canEqual((Object) this))
+        if (!other.canEqual(this)) {
             return false;
-        if (!super.equals(o))
+        }
+        if (!super.equals(o)) {
             return false;
+        }
         final Object this$notBooleanBehavior = this.getNotBooleanBehavior();
         final Object other$notBooleanBehavior = other.getNotBooleanBehavior();
         if (this$notBooleanBehavior == null ? other$notBooleanBehavior != null
-                : !this$notBooleanBehavior.equals(other$notBooleanBehavior))
+                : !this$notBooleanBehavior.equals(other$notBooleanBehavior)) {
             return false;
+        }
         return true;
     }
 
@@ -105,17 +107,15 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
     }
 
     @Override
-
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
         final Object $notBooleanBehavior = this.getNotBooleanBehavior();
-        result = result * PRIME + ($notBooleanBehavior == null ? 43 : $notBooleanBehavior.hashCode());
+        result = (result * PRIME) + ($notBooleanBehavior == null ? 43 : $notBooleanBehavior.hashCode());
         return result;
     }
 
     @Override
-
     public String toString() {
         return "ToBoolMapping(super=" + super.toString() + ", notBooleanBehavior=" + this.getNotBooleanBehavior() + ")";
     }

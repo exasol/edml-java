@@ -23,25 +23,21 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
         private int varcharColumnSize$value;
 
         @Override
-
         protected abstract B self();
 
         @Override
-
         public abstract C build();
 
         /**
          * @return {@code this}.
          */
-
         public B varcharColumnSize(final int varcharColumnSize) {
             this.varcharColumnSize$value = varcharColumnSize;
-            varcharColumnSize$set = true;
+            this.varcharColumnSize$set = true;
             return self();
         }
 
         @Override
-
         public String toString() {
             return "AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder(super=" + super.toString()
                     + ", varcharColumnSize$value=" + this.varcharColumnSize$value + ")";
@@ -55,26 +51,31 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
     protected AbstractToVarcharColumnMapping(
             final AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<?, ?> b) {
         super(b);
-        if (b.varcharColumnSize$set)
+        if (b.varcharColumnSize$set) {
             this.varcharColumnSize = b.varcharColumnSize$value;
-        else
+        } else {
             this.varcharColumnSize = AbstractToVarcharColumnMapping.$default$varcharColumnSize();
+        }
     }
 
     @Override
-
     public boolean equals(final Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
-        if (!(o instanceof AbstractToVarcharColumnMapping))
+        }
+        if (!(o instanceof AbstractToVarcharColumnMapping)) {
             return false;
+        }
         final AbstractToVarcharColumnMapping other = (AbstractToVarcharColumnMapping) o;
-        if (!other.canEqual((Object) this))
+        if (!other.canEqual(this)) {
             return false;
-        if (!super.equals(o))
+        }
+        if (!super.equals(o)) {
             return false;
-        if (this.getVarcharColumnSize() != other.getVarcharColumnSize())
+        }
+        if (this.getVarcharColumnSize() != other.getVarcharColumnSize()) {
             return false;
+        }
         return true;
     }
 
@@ -84,16 +85,14 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
     }
 
     @Override
-
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
-        result = result * PRIME + this.getVarcharColumnSize();
+        result = (result * PRIME) + this.getVarcharColumnSize();
         return result;
     }
 
     @Override
-
     public String toString() {
         return "AbstractToVarcharColumnMapping(super=" + super.toString() + ", varcharColumnSize="
                 + this.getVarcharColumnSize() + ")";

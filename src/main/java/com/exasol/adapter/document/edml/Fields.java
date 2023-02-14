@@ -62,19 +62,22 @@ public class Fields implements MappingDefinition {
     }
 
     @Override
-
     public boolean equals(final Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
-        if (!(o instanceof Fields))
+        }
+        if (!(o instanceof Fields)) {
             return false;
+        }
         final Fields other = (Fields) o;
-        if (!other.canEqual((Object) this))
+        if (!other.canEqual(this)) {
             return false;
+        }
         final Object this$fields = this.getFields();
         final Object other$fields = other.getFields();
-        if (this$fields == null ? other$fields != null : !this$fields.equals(other$fields))
+        if (this$fields == null ? other$fields != null : !this$fields.equals(other$fields)) {
             return false;
+        }
         return true;
     }
 
@@ -83,17 +86,15 @@ public class Fields implements MappingDefinition {
     }
 
     @Override
-
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
         final Object $fields = this.getFields();
-        result = result * PRIME + ($fields == null ? 43 : $fields.hashCode());
+        result = (result * PRIME) + ($fields == null ? 43 : $fields.hashCode());
         return result;
     }
 
     @Override
-
     public String toString() {
         return "Fields(fields=" + this.getFields() + ")";
     }

@@ -34,35 +34,30 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         private int decimalScale$value;
 
         @Override
-
         protected abstract B self();
 
         @Override
-
         public abstract ToDecimalMapping build();
 
         /**
          * @return {@code this}.
          */
-
         public B decimalPrecision(final int decimalPrecision) {
             this.decimalPrecision$value = decimalPrecision;
-            decimalPrecision$set = true;
+            this.decimalPrecision$set = true;
             return self();
         }
 
         /**
          * @return {@code this}.
          */
-
         public B decimalScale(final int decimalScale) {
             this.decimalScale$value = decimalScale;
-            decimalScale$set = true;
+            this.decimalScale$set = true;
             return self();
         }
 
         @Override
-
         public String toString() {
             return "ToDecimalMapping.ToDecimalMappingBuilder(super=" + super.toString() + ", decimalPrecision$value="
                     + this.decimalPrecision$value + ", decimalScale$value=" + this.decimalScale$value + ")";
@@ -76,13 +71,11 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         }
 
         @Override
-
         protected ToDecimalMapping.ToDecimalMappingBuilderImpl self() {
             return this;
         }
 
         @Override
-
         public ToDecimalMapping build() {
             return new ToDecimalMapping(this);
         }
@@ -90,14 +83,16 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
 
     protected ToDecimalMapping(final ToDecimalMapping.ToDecimalMappingBuilder<?> b) {
         super(b);
-        if (b.decimalPrecision$set)
+        if (b.decimalPrecision$set) {
             this.decimalPrecision = b.decimalPrecision$value;
-        else
+        } else {
             this.decimalPrecision = ToDecimalMapping.$default$decimalPrecision();
-        if (b.decimalScale$set)
+        }
+        if (b.decimalScale$set) {
             this.decimalScale = b.decimalScale$value;
-        else
+        } else {
             this.decimalScale = ToDecimalMapping.$default$decimalScale();
+        }
     }
 
     public static ToDecimalMapping.ToDecimalMappingBuilder<?> builder() {
@@ -105,21 +100,26 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
     }
 
     @Override
-
     public boolean equals(final Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
-        if (!(o instanceof ToDecimalMapping))
+        }
+        if (!(o instanceof ToDecimalMapping)) {
             return false;
+        }
         final ToDecimalMapping other = (ToDecimalMapping) o;
-        if (!other.canEqual((Object) this))
+        if (!other.canEqual(this)) {
             return false;
-        if (!super.equals(o))
+        }
+        if (!super.equals(o)) {
             return false;
-        if (this.getDecimalPrecision() != other.getDecimalPrecision())
+        }
+        if (this.getDecimalPrecision() != other.getDecimalPrecision()) {
             return false;
-        if (this.getDecimalScale() != other.getDecimalScale())
+        }
+        if (this.getDecimalScale() != other.getDecimalScale()) {
             return false;
+        }
         return true;
     }
 
@@ -129,17 +129,15 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
     }
 
     @Override
-
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
-        result = result * PRIME + this.getDecimalPrecision();
-        result = result * PRIME + this.getDecimalScale();
+        result = (result * PRIME) + this.getDecimalPrecision();
+        result = (result * PRIME) + this.getDecimalScale();
         return result;
     }
 
     @Override
-
     public String toString() {
         return "ToDecimalMapping(super=" + super.toString() + ", decimalPrecision=" + this.getDecimalPrecision()
                 + ", decimalScale=" + this.getDecimalScale() + ")";

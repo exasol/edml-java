@@ -18,8 +18,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
      * @param <C> type used by lombok
      * @param <B> type used by lombok
      */
-    @SuppressWarnings("java:S1610")
-    public static abstract class AbstractToColumnMappingBuilder<C extends AbstractToColumnMapping, B extends AbstractToColumnMappingBuilder<C, B>> {
+    public abstract static class AbstractToColumnMappingBuilder<C extends AbstractToColumnMapping, B extends AbstractToColumnMappingBuilder<C, B>> {
 
         private String destinationName;
 
@@ -61,7 +60,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
         public B key(final KeyType key) {
             this.key$value = key;
-            key$set = true;
+            this.key$set = true;
             return self();
         }
 
@@ -71,7 +70,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
         public B required(final boolean required) {
             this.required$value = required;
-            required$set = true;
+            this.required$set = true;
             return self();
         }
 
@@ -95,14 +94,16 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
     protected AbstractToColumnMapping(final AbstractToColumnMapping.AbstractToColumnMappingBuilder<?, ?> b) {
         this.destinationName = b.destinationName;
         this.description = b.description;
-        if (b.key$set)
+        if (b.key$set) {
             this.key = b.key$value;
-        else
+        } else {
             this.key = AbstractToColumnMapping.$default$key();
-        if (b.required$set)
+        }
+        if (b.required$set) {
             this.required = b.required$value;
-        else
+        } else {
             this.required = AbstractToColumnMapping.$default$required();
+        }
     }
 
     public String getDestinationName() {
@@ -122,30 +123,36 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
     }
 
     @Override
-
     public boolean equals(final Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
-        if (!(o instanceof AbstractToColumnMapping))
+        }
+        if (!(o instanceof AbstractToColumnMapping)) {
             return false;
+        }
         final AbstractToColumnMapping other = (AbstractToColumnMapping) o;
-        if (!other.canEqual((Object) this))
+        if (!other.canEqual(this)) {
             return false;
-        if (this.isRequired() != other.isRequired())
+        }
+        if (this.isRequired() != other.isRequired()) {
             return false;
+        }
         final Object this$destinationName = this.getDestinationName();
         final Object other$destinationName = other.getDestinationName();
         if (this$destinationName == null ? other$destinationName != null
-                : !this$destinationName.equals(other$destinationName))
+                : !this$destinationName.equals(other$destinationName)) {
             return false;
+        }
         final Object this$description = this.getDescription();
         final Object other$description = other.getDescription();
-        if (this$description == null ? other$description != null : !this$description.equals(other$description))
+        if (this$description == null ? other$description != null : !this$description.equals(other$description)) {
             return false;
+        }
         final Object this$key = this.getKey();
         final Object other$key = other.getKey();
-        if (this$key == null ? other$key != null : !this$key.equals(other$key))
+        if (this$key == null ? other$key != null : !this$key.equals(other$key)) {
             return false;
+        }
         return true;
     }
 
@@ -157,13 +164,13 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
-        result = result * PRIME + (this.isRequired() ? 79 : 97);
+        result = (result * PRIME) + (this.isRequired() ? 79 : 97);
         final Object $destinationName = this.getDestinationName();
-        result = result * PRIME + ($destinationName == null ? 43 : $destinationName.hashCode());
+        result = (result * PRIME) + ($destinationName == null ? 43 : $destinationName.hashCode());
         final Object $description = this.getDescription();
-        result = result * PRIME + ($description == null ? 43 : $description.hashCode());
+        result = (result * PRIME) + ($description == null ? 43 : $description.hashCode());
         final Object $key = this.getKey();
-        result = result * PRIME + ($key == null ? 43 : $key.hashCode());
+        result = (result * PRIME) + ($key == null ? 43 : $key.hashCode());
         return result;
     }
 

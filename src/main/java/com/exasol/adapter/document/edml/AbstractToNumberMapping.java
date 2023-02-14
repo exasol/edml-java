@@ -28,35 +28,30 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
         private ConvertableMappingErrorBehaviour notNumericBehaviour$value;
 
         @Override
-
         protected abstract B self();
 
         @Override
-
         public abstract C build();
 
         /**
          * @return {@code this}.
          */
-
         public B overflowBehaviour(final MappingErrorBehaviour overflowBehaviour) {
             this.overflowBehaviour$value = overflowBehaviour;
-            overflowBehaviour$set = true;
+            this.overflowBehaviour$set = true;
             return self();
         }
 
         /**
          * @return {@code this}.
          */
-
         public B notNumericBehaviour(final ConvertableMappingErrorBehaviour notNumericBehaviour) {
             this.notNumericBehaviour$value = notNumericBehaviour;
-            notNumericBehaviour$set = true;
+            this.notNumericBehaviour$set = true;
             return self();
         }
 
         @Override
-
         public String toString() {
             return "AbstractToNumberMapping.AbstractToNumberMappingBuilder(super=" + super.toString()
                     + ", overflowBehaviour$value=" + this.overflowBehaviour$value + ", notNumericBehaviour$value="
@@ -74,38 +69,45 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
 
     protected AbstractToNumberMapping(final AbstractToNumberMapping.AbstractToNumberMappingBuilder<?, ?> b) {
         super(b);
-        if (b.overflowBehaviour$set)
+        if (b.overflowBehaviour$set) {
             this.overflowBehaviour = b.overflowBehaviour$value;
-        else
+        } else {
             this.overflowBehaviour = AbstractToNumberMapping.$default$overflowBehaviour();
-        if (b.notNumericBehaviour$set)
+        }
+        if (b.notNumericBehaviour$set) {
             this.notNumericBehaviour = b.notNumericBehaviour$value;
-        else
+        } else {
             this.notNumericBehaviour = AbstractToNumberMapping.$default$notNumericBehaviour();
+        }
     }
 
     @Override
-
     public boolean equals(final Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
-        if (!(o instanceof AbstractToNumberMapping))
+        }
+        if (!(o instanceof AbstractToNumberMapping)) {
             return false;
+        }
         final AbstractToNumberMapping other = (AbstractToNumberMapping) o;
-        if (!other.canEqual((Object) this))
+        if (!other.canEqual(this)) {
             return false;
-        if (!super.equals(o))
+        }
+        if (!super.equals(o)) {
             return false;
+        }
         final Object this$overflowBehaviour = this.getOverflowBehaviour();
         final Object other$overflowBehaviour = other.getOverflowBehaviour();
         if (this$overflowBehaviour == null ? other$overflowBehaviour != null
-                : !this$overflowBehaviour.equals(other$overflowBehaviour))
+                : !this$overflowBehaviour.equals(other$overflowBehaviour)) {
             return false;
+        }
         final Object this$notNumericBehaviour = this.getNotNumericBehaviour();
         final Object other$notNumericBehaviour = other.getNotNumericBehaviour();
         if (this$notNumericBehaviour == null ? other$notNumericBehaviour != null
-                : !this$notNumericBehaviour.equals(other$notNumericBehaviour))
+                : !this$notNumericBehaviour.equals(other$notNumericBehaviour)) {
             return false;
+        }
         return true;
     }
 
@@ -120,14 +122,13 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
         final int PRIME = 59;
         int result = super.hashCode();
         final Object $overflowBehaviour = this.getOverflowBehaviour();
-        result = result * PRIME + ($overflowBehaviour == null ? 43 : $overflowBehaviour.hashCode());
+        result = (result * PRIME) + ($overflowBehaviour == null ? 43 : $overflowBehaviour.hashCode());
         final Object $notNumericBehaviour = this.getNotNumericBehaviour();
-        result = result * PRIME + ($notNumericBehaviour == null ? 43 : $notNumericBehaviour.hashCode());
+        result = (result * PRIME) + ($notNumericBehaviour == null ? 43 : $notNumericBehaviour.hashCode());
         return result;
     }
 
     @Override
-
     public String toString() {
         return "AbstractToNumberMapping(super=" + super.toString() + ", overflowBehaviour="
                 + this.getOverflowBehaviour() + ", notNumericBehaviour=" + this.getNotNumericBehaviour() + ")";

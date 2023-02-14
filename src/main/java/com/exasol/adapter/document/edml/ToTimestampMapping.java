@@ -7,6 +7,7 @@ package com.exasol.adapter.document.edml;
 
 public final class ToTimestampMapping extends AbstractToColumnMapping {
     private final ConvertableMappingErrorBehaviour notTimestampBehavior;
+
     /**
      * If set to {@code true} this adapter will use a {@code TIMESTAMP WITH LOCAL TIMEZONE} Exasol column instead of a
      * {@code TIMEZONE} column.
@@ -38,35 +39,30 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         private boolean useTimestampWithLocalTimezoneType$value;
 
         @Override
-
         protected abstract B self();
 
         @Override
-
         public abstract ToTimestampMapping build();
 
         /**
          * @return {@code this}.
          */
-
         public B notTimestampBehavior(final ConvertableMappingErrorBehaviour notTimestampBehavior) {
             this.notTimestampBehavior$value = notTimestampBehavior;
-            notTimestampBehavior$set = true;
+            this.notTimestampBehavior$set = true;
             return self();
         }
 
         /**
          * @return {@code this}.
          */
-
         public B useTimestampWithLocalTimezoneType(final boolean useTimestampWithLocalTimezoneType) {
             this.useTimestampWithLocalTimezoneType$value = useTimestampWithLocalTimezoneType;
-            useTimestampWithLocalTimezoneType$set = true;
+            this.useTimestampWithLocalTimezoneType$set = true;
             return self();
         }
 
         @Override
-
         public String toString() {
             return "ToTimestampMapping.ToTimestampMappingBuilder(super=" + super.toString()
                     + ", notTimestampBehavior$value=" + this.notTimestampBehavior$value
@@ -81,13 +77,11 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         }
 
         @Override
-
         protected ToTimestampMapping.ToTimestampMappingBuilderImpl self() {
             return this;
         }
 
         @Override
-
         public ToTimestampMapping build() {
             return new ToTimestampMapping(this);
         }
@@ -95,14 +89,16 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
 
     protected ToTimestampMapping(final ToTimestampMapping.ToTimestampMappingBuilder<?> b) {
         super(b);
-        if (b.notTimestampBehavior$set)
+        if (b.notTimestampBehavior$set) {
             this.notTimestampBehavior = b.notTimestampBehavior$value;
-        else
+        } else {
             this.notTimestampBehavior = ToTimestampMapping.$default$notTimestampBehavior();
-        if (b.useTimestampWithLocalTimezoneType$set)
+        }
+        if (b.useTimestampWithLocalTimezoneType$set) {
             this.useTimestampWithLocalTimezoneType = b.useTimestampWithLocalTimezoneType$value;
-        else
+        } else {
             this.useTimestampWithLocalTimezoneType = ToTimestampMapping.$default$useTimestampWithLocalTimezoneType();
+        }
     }
 
     public static ToTimestampMapping.ToTimestampMappingBuilder<?> builder() {
@@ -110,24 +106,29 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     }
 
     @Override
-
     public boolean equals(final Object o) {
-        if (o == this)
+        if (o == this) {
             return true;
-        if (!(o instanceof ToTimestampMapping))
+        }
+        if (!(o instanceof ToTimestampMapping)) {
             return false;
+        }
         final ToTimestampMapping other = (ToTimestampMapping) o;
-        if (!other.canEqual((Object) this))
+        if (!other.canEqual(this)) {
             return false;
-        if (!super.equals(o))
+        }
+        if (!super.equals(o)) {
             return false;
-        if (this.isUseTimestampWithLocalTimezoneType() != other.isUseTimestampWithLocalTimezoneType())
+        }
+        if (this.isUseTimestampWithLocalTimezoneType() != other.isUseTimestampWithLocalTimezoneType()) {
             return false;
+        }
         final Object this$notTimestampBehavior = this.getNotTimestampBehavior();
         final Object other$notTimestampBehavior = other.getNotTimestampBehavior();
         if (this$notTimestampBehavior == null ? other$notTimestampBehavior != null
-                : !this$notTimestampBehavior.equals(other$notTimestampBehavior))
+                : !this$notTimestampBehavior.equals(other$notTimestampBehavior)) {
             return false;
+        }
         return true;
     }
 
@@ -137,18 +138,16 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     }
 
     @Override
-
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
-        result = result * PRIME + (this.isUseTimestampWithLocalTimezoneType() ? 79 : 97);
+        result = (result * PRIME) + (this.isUseTimestampWithLocalTimezoneType() ? 79 : 97);
         final Object $notTimestampBehavior = this.getNotTimestampBehavior();
-        result = result * PRIME + ($notTimestampBehavior == null ? 43 : $notTimestampBehavior.hashCode());
+        result = (result * PRIME) + ($notTimestampBehavior == null ? 43 : $notTimestampBehavior.hashCode());
         return result;
     }
 
     @Override
-
     public String toString() {
         return "ToTimestampMapping(super=" + super.toString() + ", notTimestampBehavior="
                 + this.getNotTimestampBehavior() + ", useTimestampWithLocalTimezoneType="
