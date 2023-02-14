@@ -1,4 +1,4 @@
-# EDML Java 1.1.3, released 2023-??-??
+# EDML Java 1.1.3, released 2023-02-14
 
 Code name:
 
