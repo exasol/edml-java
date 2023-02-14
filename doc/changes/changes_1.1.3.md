@@ -11,6 +11,10 @@ This release replaces `org.json:json` dependency which has vulnerability CVE-202
 * #10: Added language to release config file
 * #11: Replaced `org.json:json` dependency with `jakarta.json-api`
 
+## Refactoring
+
+* #13: Removed lombok library
+
 ## Dependency Updates
 
 ### Compile Dependency Updates
@@ -34,3 +38,4 @@ This release replaces `org.json:json` dependency which has vulnerability CVE-202
 * Updated `org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M7` to `3.0.0-M8`
 * Updated `org.codehaus.mojo:versions-maven-plugin:2.13.0` to `2.14.2`
 * Updated `org.itsallcode:openfasttrace-maven-plugin:1.5.0` to `1.6.1`
+* Removed `org.projectlombok:lombok-maven-plugin:1.18.20.0`
