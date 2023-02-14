@@ -26,8 +26,8 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         return true;
     }
 
-    public static abstract class ToTimestampMappingBuilder<C extends ToTimestampMapping, B extends ToTimestampMapping.ToTimestampMappingBuilder<C, B>>
-            extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<C, B> {
+    public static abstract class ToTimestampMappingBuilder<B extends ToTimestampMapping.ToTimestampMappingBuilder<B>>
+            extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToTimestampMapping, B> {
 
         private boolean notTimestampBehavior$set;
 
@@ -43,7 +43,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
 
         @java.lang.Override
 
-        public abstract C build();
+        public abstract ToTimestampMapping build();
 
         /**
          * @return {@code this}.
@@ -74,8 +74,8 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         }
     }
 
-    private static final class ToTimestampMappingBuilderImpl extends
-            ToTimestampMapping.ToTimestampMappingBuilder<ToTimestampMapping, ToTimestampMapping.ToTimestampMappingBuilderImpl> {
+    private static final class ToTimestampMappingBuilderImpl
+            extends ToTimestampMapping.ToTimestampMappingBuilder<ToTimestampMapping.ToTimestampMappingBuilderImpl> {
 
         private ToTimestampMappingBuilderImpl() {
         }
@@ -93,7 +93,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         }
     }
 
-    protected ToTimestampMapping(final ToTimestampMapping.ToTimestampMappingBuilder<?, ?> b) {
+    protected ToTimestampMapping(final ToTimestampMapping.ToTimestampMappingBuilder<?> b) {
         super(b);
         if (b.notTimestampBehavior$set)
             this.notTimestampBehavior = b.notTimestampBehavior$value;
@@ -105,7 +105,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
             this.useTimestampWithLocalTimezoneType = ToTimestampMapping.$default$useTimestampWithLocalTimezoneType();
     }
 
-    public static ToTimestampMapping.ToTimestampMappingBuilder<?, ?> builder() {
+    public static ToTimestampMapping.ToTimestampMappingBuilder<?> builder() {
         return new ToTimestampMapping.ToTimestampMappingBuilderImpl();
     }
 

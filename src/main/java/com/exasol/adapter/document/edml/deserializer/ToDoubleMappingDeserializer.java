@@ -13,7 +13,7 @@ import jakarta.json.JsonObject;
 class ToDoubleMappingDeserializer implements MappingDefinitionDeserializer {
     @Override
     public MappingDefinition deserialize(final JsonObject json) {
-        final ToDoubleMapping.ToDoubleMappingBuilder<?, ?> builder = ToDoubleMapping.builder();
+        final ToDoubleMapping.ToDoubleMappingBuilder<?> builder = ToDoubleMapping.builder();
         deserializeToNumberMapping(json, builder);
         return builder.build();
     }

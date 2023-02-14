@@ -17,8 +17,8 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         return ConvertableMappingErrorBehaviour.ABORT;
     }
 
-    public static abstract class ToDateMappingBuilder<C extends ToDateMapping, B extends ToDateMapping.ToDateMappingBuilder<C, B>>
-            extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<C, B> {
+    public static abstract class ToDateMappingBuilder<B extends ToDateMapping.ToDateMappingBuilder<B>>
+            extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToDateMapping, B> {
 
         private boolean notDateBehavior$set;
 
@@ -30,7 +30,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
 
         @java.lang.Override
 
-        public abstract C build();
+        public abstract ToDateMapping build();
 
         /**
          * @return {@code this}.
@@ -51,7 +51,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
     }
 
     private static final class ToDateMappingBuilderImpl
-            extends ToDateMapping.ToDateMappingBuilder<ToDateMapping, ToDateMapping.ToDateMappingBuilderImpl> {
+            extends ToDateMapping.ToDateMappingBuilder<ToDateMapping.ToDateMappingBuilderImpl> {
 
         private ToDateMappingBuilderImpl() {
         }
@@ -69,7 +69,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         }
     }
 
-    protected ToDateMapping(final ToDateMapping.ToDateMappingBuilder<?, ?> b) {
+    protected ToDateMapping(final ToDateMapping.ToDateMappingBuilder<?> b) {
         super(b);
         if (b.notDateBehavior$set)
             this.notDateBehavior = b.notDateBehavior$value;
@@ -77,7 +77,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
             this.notDateBehavior = ToDateMapping.$default$notDateBehavior();
     }
 
-    public static ToDateMapping.ToDateMappingBuilder<?, ?> builder() {
+    public static ToDateMapping.ToDateMappingBuilder<?> builder() {
         return new ToDateMapping.ToDateMappingBuilderImpl();
     }
 

@@ -19,8 +19,8 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
         return ABORT;
     }
 
-    public static abstract class ToJsonMappingBuilder<C extends ToJsonMapping, B extends ToJsonMapping.ToJsonMappingBuilder<C, B>>
-            extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<C, B> {
+    public static abstract class ToJsonMappingBuilder<B extends ToJsonMapping.ToJsonMappingBuilder<B>>
+            extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<ToJsonMapping, B> {
 
         private boolean overflowBehaviour$set;
 
@@ -32,7 +32,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
 
         @java.lang.Override
 
-        public abstract C build();
+        public abstract ToJsonMapping build();
 
         /**
          * @return {@code this}.
@@ -53,7 +53,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
     }
 
     private static final class ToJsonMappingBuilderImpl
-            extends ToJsonMapping.ToJsonMappingBuilder<ToJsonMapping, ToJsonMapping.ToJsonMappingBuilderImpl> {
+            extends ToJsonMapping.ToJsonMappingBuilder<ToJsonMapping.ToJsonMappingBuilderImpl> {
 
         private ToJsonMappingBuilderImpl() {
         }
@@ -71,7 +71,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
         }
     }
 
-    protected ToJsonMapping(final ToJsonMapping.ToJsonMappingBuilder<?, ?> b) {
+    protected ToJsonMapping(final ToJsonMapping.ToJsonMappingBuilder<?> b) {
         super(b);
         if (b.overflowBehaviour$set)
             this.overflowBehaviour = b.overflowBehaviour$value;
@@ -79,7 +79,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
             this.overflowBehaviour = ToJsonMapping.$default$overflowBehaviour();
     }
 
-    public static ToJsonMapping.ToJsonMappingBuilder<?, ?> builder() {
+    public static ToJsonMapping.ToJsonMappingBuilder<?> builder() {
         return new ToJsonMapping.ToJsonMappingBuilderImpl();
     }
 

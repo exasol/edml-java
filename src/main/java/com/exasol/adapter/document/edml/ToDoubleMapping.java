@@ -10,15 +10,15 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         visitor.visit(this);
     }
 
-    public static abstract class ToDoubleMappingBuilder<C extends ToDoubleMapping, B extends ToDoubleMapping.ToDoubleMappingBuilder<C, B>>
-            extends AbstractToNumberMapping.AbstractToNumberMappingBuilder<C, B> {
+    public static abstract class ToDoubleMappingBuilder<B extends ToDoubleMapping.ToDoubleMappingBuilder<B>>
+            extends AbstractToNumberMapping.AbstractToNumberMappingBuilder<ToDoubleMapping, B> {
         @java.lang.Override
 
         protected abstract B self();
 
         @java.lang.Override
 
-        public abstract C build();
+        public abstract ToDoubleMapping build();
 
         @java.lang.Override
 
@@ -27,8 +27,8 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         }
     }
 
-    private static final class ToDoubleMappingBuilderImpl extends
-            ToDoubleMapping.ToDoubleMappingBuilder<ToDoubleMapping, ToDoubleMapping.ToDoubleMappingBuilderImpl> {
+    private static final class ToDoubleMappingBuilderImpl
+            extends ToDoubleMapping.ToDoubleMappingBuilder<ToDoubleMapping.ToDoubleMappingBuilderImpl> {
 
         private ToDoubleMappingBuilderImpl() {
         }
@@ -46,11 +46,11 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         }
     }
 
-    protected ToDoubleMapping(final ToDoubleMapping.ToDoubleMappingBuilder<?, ?> b) {
+    protected ToDoubleMapping(final ToDoubleMapping.ToDoubleMappingBuilder<?> b) {
         super(b);
     }
 
-    public static ToDoubleMapping.ToDoubleMappingBuilder<?, ?> builder() {
+    public static ToDoubleMapping.ToDoubleMappingBuilder<?> builder() {
         return new ToDoubleMapping.ToDoubleMappingBuilderImpl();
     }
 

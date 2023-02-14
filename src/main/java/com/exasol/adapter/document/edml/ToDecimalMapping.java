@@ -22,8 +22,8 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         return 0;
     }
 
-    public static abstract class ToDecimalMappingBuilder<C extends ToDecimalMapping, B extends ToDecimalMapping.ToDecimalMappingBuilder<C, B>>
-            extends AbstractToNumberMapping.AbstractToNumberMappingBuilder<C, B> {
+    public static abstract class ToDecimalMappingBuilder<B extends ToDecimalMapping.ToDecimalMappingBuilder<B>>
+            extends AbstractToNumberMapping.AbstractToNumberMappingBuilder<ToDecimalMapping, B> {
 
         private boolean decimalPrecision$set;
 
@@ -39,7 +39,7 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
 
         @java.lang.Override
 
-        public abstract C build();
+        public abstract ToDecimalMapping build();
 
         /**
          * @return {@code this}.
@@ -69,8 +69,8 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         }
     }
 
-    private static final class ToDecimalMappingBuilderImpl extends
-            ToDecimalMapping.ToDecimalMappingBuilder<ToDecimalMapping, ToDecimalMapping.ToDecimalMappingBuilderImpl> {
+    private static final class ToDecimalMappingBuilderImpl
+            extends ToDecimalMapping.ToDecimalMappingBuilder<ToDecimalMapping.ToDecimalMappingBuilderImpl> {
 
         private ToDecimalMappingBuilderImpl() {
         }
@@ -88,7 +88,7 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         }
     }
 
-    protected ToDecimalMapping(final ToDecimalMapping.ToDecimalMappingBuilder<?, ?> b) {
+    protected ToDecimalMapping(final ToDecimalMapping.ToDecimalMappingBuilder<?> b) {
         super(b);
         if (b.decimalPrecision$set)
             this.decimalPrecision = b.decimalPrecision$value;
@@ -100,7 +100,7 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
             this.decimalScale = ToDecimalMapping.$default$decimalScale();
     }
 
-    public static ToDecimalMapping.ToDecimalMappingBuilder<?, ?> builder() {
+    public static ToDecimalMapping.ToDecimalMappingBuilder<?> builder() {
         return new ToDecimalMapping.ToDecimalMappingBuilderImpl();
     }
 

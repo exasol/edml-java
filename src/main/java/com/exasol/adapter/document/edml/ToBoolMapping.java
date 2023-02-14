@@ -17,20 +17,18 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         return ConvertableMappingErrorBehaviour.ABORT;
     }
 
-    public static abstract class ToBoolMappingBuilder<C extends ToBoolMapping, B extends ToBoolMapping.ToBoolMappingBuilder<C, B>>
-            extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<C, B> {
+    public static abstract class ToBoolMappingBuilder<B extends ToBoolMapping.ToBoolMappingBuilder<B>>
+            extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToBoolMapping, B> {
 
         private boolean notBooleanBehavior$set;
 
         private ConvertableMappingErrorBehaviour notBooleanBehavior$value;
 
         @java.lang.Override
-
         protected abstract B self();
 
         @java.lang.Override
-
-        public abstract C build();
+        public abstract ToBoolMapping build();
 
         /**
          * @return {@code this}.
@@ -51,7 +49,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
     }
 
     private static final class ToBoolMappingBuilderImpl
-            extends ToBoolMapping.ToBoolMappingBuilder<ToBoolMapping, ToBoolMapping.ToBoolMappingBuilderImpl> {
+            extends ToBoolMapping.ToBoolMappingBuilder<ToBoolMapping.ToBoolMappingBuilderImpl> {
 
         private ToBoolMappingBuilderImpl() {
         }
@@ -69,7 +67,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         }
     }
 
-    protected ToBoolMapping(final ToBoolMapping.ToBoolMappingBuilder<?, ?> b) {
+    protected ToBoolMapping(final ToBoolMapping.ToBoolMappingBuilder<?> b) {
         super(b);
         if (b.notBooleanBehavior$set)
             this.notBooleanBehavior = b.notBooleanBehavior$value;
@@ -77,7 +75,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
             this.notBooleanBehavior = ToBoolMapping.$default$notBooleanBehavior();
     }
 
-    public static ToBoolMapping.ToBoolMappingBuilder<?, ?> builder() {
+    public static ToBoolMapping.ToBoolMappingBuilder<?> builder() {
         return new ToBoolMapping.ToBoolMappingBuilderImpl();
     }
 

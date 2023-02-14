@@ -25,8 +25,8 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         return TRUNCATE;
     }
 
-    public static abstract class ToVarcharMappingBuilder<C extends ToVarcharMapping, B extends ToVarcharMapping.ToVarcharMappingBuilder<C, B>>
-            extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<C, B> {
+    public static abstract class ToVarcharMappingBuilder<B extends ToVarcharMapping.ToVarcharMappingBuilder<B>>
+            extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<ToVarcharMapping, B> {
 
         private boolean nonStringBehaviour$set;
 
@@ -37,12 +37,10 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         private TruncateableMappingErrorBehaviour overflowBehaviour$value;
 
         @java.lang.Override
-
         protected abstract B self();
 
         @java.lang.Override
-
-        public abstract C build();
+        public abstract ToVarcharMapping build();
 
         /**
          * @return {@code this}.
@@ -72,8 +70,8 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         }
     }
 
-    private static final class ToVarcharMappingBuilderImpl extends
-            ToVarcharMapping.ToVarcharMappingBuilder<ToVarcharMapping, ToVarcharMapping.ToVarcharMappingBuilderImpl> {
+    private static final class ToVarcharMappingBuilderImpl
+            extends ToVarcharMapping.ToVarcharMappingBuilder<ToVarcharMapping.ToVarcharMappingBuilderImpl> {
 
         private ToVarcharMappingBuilderImpl() {
         }
@@ -91,7 +89,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         }
     }
 
-    protected ToVarcharMapping(final ToVarcharMapping.ToVarcharMappingBuilder<?, ?> b) {
+    protected ToVarcharMapping(final ToVarcharMapping.ToVarcharMappingBuilder<?> b) {
         super(b);
         if (b.nonStringBehaviour$set)
             this.nonStringBehaviour = b.nonStringBehaviour$value;
@@ -103,7 +101,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
             this.overflowBehaviour = ToVarcharMapping.$default$overflowBehaviour();
     }
 
-    public static ToVarcharMapping.ToVarcharMappingBuilder<?, ?> builder() {
+    public static ToVarcharMapping.ToVarcharMappingBuilder<?> builder() {
         return new ToVarcharMapping.ToVarcharMappingBuilderImpl();
     }
 
