@@ -63,7 +63,9 @@ class EdmlSchemaValidatorTest {
     }
 
     private void testInvalidContent(final List<String> invalidMappingLines, final Matcher<String> messageMatcher) {
-        testInvalidContent(invalidMappingLines.stream().collect(joining("\n")), messageMatcher);
+        testInvalidContent(invalidMappingLines.stream() //
+                .map(s -> s.replace('\'', '"')) //
+                .collect(joining("\n")), messageMatcher);
     }
 
     private void testInvalidContent(final String invalidMapping, final Matcher<String> messageMatcher) {
@@ -75,68 +77,70 @@ class EdmlSchemaValidatorTest {
     @Test
     void testInvalidNoDestName() throws IOException {
         testInvalidContent(List.of("{", //
-                "  \"$schema\": \"../../main/resources/schemas/edml-1.2.0.json\",", //
-                "  \"source\": \"MY_BOOKS\",", //
-                "  \"description\": \"Maps MY_BOOKS to BOOKS\",", //
-                "  \"addSourceReferenceColumn\": true,", //
-                "  \"mapping\": {", //
-                "    \"fields\": {", //
-                "      \"isbn\": {", //
-                "        \"toVarcharMapping\": {", //
-                "          \"varcharColumnSize\": 20,", //
-                "          \"description\": \"The isbn is mapped to a string with max length of 20\",", //
-                "          \"overflowBehaviour\": \"ABORT\",", //
-                "          \"required\": true,", //
-                "          \"key\": \"global\"", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'ABORT',", //
+                "          'required': true,", //
+                "          'key': 'global'", //
                 "        }", //
                 "      }", //
                 "    }", //
                 "  }", //
                 "}"),
-                equalTo("F-EDML-53: Syntax validation error: [19,1][] The object must have a property whose name is \"destinationTable\"."));
+                equalTo("F-EDML-53: Syntax validation error: [19,1][]"
+                        + " The object must have a property whose name is \"destinationTable\"."));
     }
 
     @Test
     void testInvalidNoSchemaSet() throws IOException {
         testInvalidContent(List.of("{", //
-                "  \"source\": \"MY_BOOKS\",", //
-                "  \"destinationTable\": \"BOOKS\",", //
-                "  \"description\": \"Maps MY_BOOKS to BOOKS\",", //
-                "  \"addSourceReferenceColumn\": true,", //
-                "  \"mapping\": {", //
-                "    \"fields\": {", //
-                "      \"isbn\": {", //
-                "        \"toVarcharMapping\": {", //
-                "          \"varcharColumnSize\": 20,", //
-                "          \"description\": \"The isbn is mapped to a string with max length of 20\",", //
-                "          \"overflowBehaviour\": \"ABORT\",", //
-                "          \"required\": true,", //
-                "          \"key\": \"global\"", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'ABORT',", //
+                "          'required': true,", //
+                "          'key': 'global'", //
                 "        }", //
                 "      }", //
                 "    }", //
                 "  }", //
                 "}"),
-                equalTo("F-EDML-53: Syntax validation error: [19,1][] The object must have a property whose name is \"$schema\"."));
+                equalTo("F-EDML-53: Syntax validation error: [19,1][]"
+                        + " The object must have a property whose name is \"$schema\"."));
     }
 
     @Test
     void testInvalidWrongSchemaSet() throws IOException {
         testInvalidContent(List.of("{", //
-                "  \"$schema\": \"invalidSchema\",", //
-                "  \"source\": \"MY_BOOKS\",", //
-                "  \"destinationTable\": \"BOOKS\",", //
-                "  \"description\": \"Maps MY_BOOKS to BOOKS\",", //
-                "  \"addSourceReferenceColumn\": true,", //
-                "  \"mapping\": {", //
-                "    \"fields\": {", //
-                "      \"isbn\": {", //
-                "        \"toVarcharMapping\": {", //
-                "          \"varcharColumnSize\": 20,", //
-                "          \"description\": \"The isbn is mapped to a string with max length of 20\",", //
-                "          \"overflowBehaviour\": \"ABORT\",", //
-                "          \"required\": true,", //
-                "          \"key\": \"global\"", //
+                "  '$schema': 'invalidSchema',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'ABORT',", //
+                "          'required': true,", //
+                "          'key': 'global'", //
                 "        }", //
                 "      }", //
                 "    }", //
@@ -147,126 +151,129 @@ class EdmlSchemaValidatorTest {
     @Test
     void testInvalidUnknownRootProperty() throws IOException {
         testInvalidContent(List.of("{", //
-                "  \"unknownProperty\": \"someValue\",", //
-                "  \"$schema\": \"../../main/resources/schemas/edml-1.2.0.json\",", //
-                "  \"source\": \"MY_BOOKS\",", //
-                "  \"destinationTable\": \"BOOKS\",", //
-                "  \"description\": \"Maps MY_BOOKS to BOOKS\",", //
-                "  \"addSourceReferenceColumn\": true,", //
-                "  \"mapping\": {", //
-                "    \"fields\": {", //
-                "      \"isbn\": {", //
-                "        \"toVarcharMapping\": {", //
-                "          \"varcharColumnSize\": 20,", //
-                "          \"description\": \"The isbn is mapped to a string with max length of 20\",", //
-                "          \"overflowBehaviour\": \"ABORT\",", //
-                "          \"required\": true,", //
-                "          \"key\": \"global\"", //
+                "  'unknownProperty': 'someValue',", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'ABORT',", //
+                "          'required': true,", //
+                "          'key': 'global'", //
                 "        }", //
                 "      }", //
                 "    }", //
                 "  }", //
                 "}"),
-                equalTo("F-EDML-53: Syntax validation error: [2,32][/unknownProperty] The object must not have a property whose name is \"unknownProperty\"."));
+                equalTo("F-EDML-53: Syntax validation error: [2,32][/unknownProperty]"
+                        + " The object must not have a property whose name is \"unknownProperty\"."));
     }
 
     @Test
     void testInvalidUnknownMappingType() throws IOException {
         testInvalidContent(List.of("{", //
-                "  \"$schema\": \"../../main/resources/schemas/edml-1.2.0.json\",", //
-                "  \"source\": \"MY_BOOKS\",", //
-                "  \"destinationTable\": \"BOOKS\",", //
-                "  \"description\": \"Maps MY_BOOKS to BOOKS\",", //
-                "  \"addSourceReferenceColumn\": true,", //
-                "  \"mapping\": {", //
-                "    \"fields\": {", //
-                "      \"isbn\": {", //
-                "        \"toStriiiiiiingMapping\": {}", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toStriiiiiiingMapping': {}", //
                 "      }", //
                 "    }", //
                 "  }", //
                 "}"),
-                equalTo("F-EDML-53: Syntax validation error: [10,34][/mapping/fields/isbn/toStriiiiiiingMapping] The object must not have a property whose name is \"toStriiiiiiingMapping\"."));
+                equalTo("F-EDML-53: Syntax validation error: [10,34][/mapping/fields/isbn/toStriiiiiiingMapping]"
+                        + " The object must not have a property whose name is \"toStriiiiiiingMapping\"."));
     }
 
     @Test
     void testInvalidUnknownMappingInToTable() throws IOException {
         testInvalidContent(List.of("{", //
-                "  \"$schema\": \"../../main/resources/schemas/edml-1.0.0.json\",", //
-                "  \"source\": \"MY_BOOKS\",", //
-                "  \"destinationTable\": \"BOOKS\",", //
-                "  \"description\": \"Maps MY_BOOKS to BOOKS\",", //
-                "  \"mapping\": {", //
-                "    \"fields\": {", //
-                "      \"chapters\": {", //
-                "        \"toTableMapping\": {", //
-                "          \"mapping\": {", //
-                "            \"toStriiiiingMapping\": {}", //
+                "  '$schema': '../../main/resources/schemas/edml-1.0.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'chapters': {", //
+                "        'toTableMapping': {", //
+                "          'mapping': {", //
+                "            'toStriiiiingMapping': {}", //
                 "          }", //
                 "        }", //
                 "      }", //
                 "    }", //
                 "  }", //
                 "}"),
-                startsWith(
-                        "F-EDML-53: Syntax validation error: [11,36][/mapping/fields/chapters/toTableMapping/mapping/toStriiiiingMapping] The object must not have a property whose name is \"toStriiiiingMapping\"."));
+                startsWith("F-EDML-53: Syntax validation error:"
+                        + " [11,36][/mapping/fields/chapters/toTableMapping/mapping/toStriiiiingMapping] "
+                        + "The object must not have a property whose name is \"toStriiiiingMapping\"."));
     }
 
     @Test
     void testInvalidToTableWithNoFields() throws IOException {
         testInvalidContent(List.of("{", //
-                "  \"$schema\": \"../../main/resources/schemas/edml-1.0.0.json\",", //
-                "  \"source\": \"MY_BOOKS\",", //
-                "  \"destinationTable\": \"BOOKS\",", //
-                "  \"description\": \"Maps MY_BOOKS to BOOKS\",", //
-                "  \"mapping\": {", //
-                "    \"fields\": {", //
-                "      \"chapters\": {", //
-                "        \"toTableMapping\": {", //
+                "  '$schema': '../../main/resources/schemas/edml-1.0.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'chapters': {", //
+                "        'toTableMapping': {", //
                 "        }", //
                 "      }", //
                 "    }", //
                 "  }", //
                 "}"),
-                startsWith(
-                        "F-EDML-53: Syntax validation error: [10,9][/mapping/fields/chapters/toTableMapping] The object must have a property whose name is \"mapping\"."));
+                startsWith("F-EDML-53: Syntax validation error: [10,9][/mapping/fields/chapters/toTableMapping]"
+                        + " The object must have a property whose name is \"mapping\"."));
     }
 
     @Test
     void testInvalidKeyValue() throws IOException {
         testInvalidContent(List.of("{", //
-                "  \"$schema\": \"../../main/resources/schemas/edml-1.2.0.json\",", //
-                "  \"source\": \"MY_BOOKS\",", //
-                "  \"destinationTable\": \"BOOKS\",", //
-                "  \"description\": \"Maps MY_BOOKS to BOOKS\",", //
-                "  \"addSourceReferenceColumn\": true,", //
-                "  \"mapping\": {", //
-                "    \"fields\": {", //
-                "      \"isbn\": {", //
-                "        \"toVarcharMapping\": {", //
-                "          \"varcharColumnSize\": 20,", //
-                "          \"description\": \"The isbn is mapped to a string with max length of 20\",", //
-                "          \"overflowBehaviour\": \"ABORT\",", //
-                "          \"required\": true,", //
-                "          \"key\": \"\"", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'ABORT',", //
+                "          'required': true,", //
+                "          'key': ''", //
                 "        }", //
                 "      }", //
                 "    }", //
                 "  }", //
                 "}" //
 
-        ), equalTo(
-                "F-EDML-53: Syntax validation error: [15,19][/mapping/fields/isbn/toVarcharMapping/key] The value must be one of [\"local\", \"global\", \"none\"]."));
+        ), equalTo("F-EDML-53: Syntax validation error: [15,19][/mapping/fields/isbn/toVarcharMapping/key] "
+                + "The value must be one of ['local', 'global', 'none'].".replace('\'', '"')));
     }
 
     @Test
     void testInvalidNoMapping() throws IOException {
         testInvalidContent(List.of("{", //
-                "  \"$schema\": \"../../main/resources/schemas/edml-1.2.0.json\",", //
-                "  \"source\": \"MY_BOOKS\",", //
-                "  \"destinationTable\": \"BOOKS\",", //
-                "  \"description\": \"Maps MY_BOOKS to BOOKS\",", //
-                "  \"addSourceReferenceColumn\": true", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true", //
                 "}" //
 
         ), equalTo(
@@ -276,14 +283,14 @@ class EdmlSchemaValidatorTest {
     @Test
     void testInvalidNoFields() throws IOException {
         testInvalidContent(List.of("{", //
-                "  \"$schema\": \"../../main/resources/schemas/edml-1.2.0.json\",", //
-                "  \"source\": \"MY_BOOKS\",", //
-                "  \"destinationTable\": \"BOOKS\",", //
-                "  \"description\": \"Maps MY_BOOKS to BOOKS\",", //
-                "  \"addSourceReferenceColumn\": true,", //
-                "  \"mapping\": {}", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {}", //
                 "}"),
-                startsWith(
-                        "F-EDML-53: Syntax validation error: [7,15][/mapping] The object must have at least 1 property(ies), but actual number is 0."));
+                startsWith("F-EDML-53: Syntax validation error: [7,15][/mapping]"
+                        + " The object must have at least 1 property(ies), but actual number is 0."));
     }
 }
