@@ -7,7 +7,7 @@
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | [error-reporting-java][0]        | [MIT License][1]                                                                                             |
 | [Jakarta JSON Processing API][2] | [Eclipse Public License 2.0][3]; [GNU General Public License, version 2 with the GNU Classpath Exception][4] |
-| [everit-org/json-schema][5]      | [Apache License, Version 2.0][6]                                                                             |
+| [org.leadpony.justify][5]        | [The Apache Software License, Version 2.0][6]                                                                |
 | [Project Lombok][7]              | [The MIT License][8]                                                                                         |
 
 ## Test Dependencies
@@ -60,7 +60,7 @@
 [2]: https://github.com/eclipse-ee4j/jsonp
 [3]: https://projects.eclipse.org/license/epl-2.0
 [4]: https://projects.eclipse.org/license/secondary-gpl-2.0-cp
-[5]: https://github.com/everit-org/json-schema
+[5]: https://github.com/leadpony/justify
 [6]: http://www.apache.org/licenses/LICENSE-2.0.txt
 [7]: https://projectlombok.org
 [8]: https://projectlombok.org/LICENSE
@@ -79,7 +79,7 @@
 [21]: https://www.mojohaus.org/flatten-maven-plugin/
 [22]: https://sonatype.github.io/ossindex-maven/maven-plugin/
 [23]: https://maven.apache.org/surefire/maven-surefire-plugin/
-[24]: https://www.mojohaus.org/versions-maven-plugin/
+[24]: https://www.mojohaus.org/versions/versions-maven-plugin/
 [25]: https://maven.apache.org/plugins/maven-deploy-plugin/
 [26]: https://maven.apache.org/plugins/maven-gpg-plugin/
 [27]: https://maven.apache.org/plugins/maven-source-plugin/

@@ -1,20 +1,19 @@
 package com.exasol.adapter.document.edml.validator;
 
 import static com.exasol.adapter.document.edml.MappingTestFiles.*;
+import static java.util.stream.Collectors.joining;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.logging.Logger;
 
 import org.hamcrest.Matcher;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import com.exasol.adapter.document.edml.ExasolDocumentMappingLanguageException;
@@ -63,105 +62,235 @@ class EdmlSchemaValidatorTest {
         runValidationWithResource(WHOLE_TABLE_TO_TABLE_MAPPING);
     }
 
-    private void testInvalid(final String base, final Function<JSONObject, JSONObject> invalidator,
-            final Matcher<String> messageMatcher) throws IOException {
-        final String invalidMapping = generateInvalid(base, invalidator);
+    private void testInvalidContent(final List<String> invalidMappingLines, final Matcher<String> messageMatcher) {
+        testInvalidContent(invalidMappingLines.stream() //
+                .map(s -> s.replace('\'', '"')) //
+                .collect(joining("\n")), messageMatcher);
+    }
+
+    private void testInvalidContent(final String invalidMapping, final Matcher<String> messageMatcher) {
         final ExasolDocumentMappingLanguageException exception = assertThrows(
                 ExasolDocumentMappingLanguageException.class, () -> runValidation(invalidMapping));
-        assertAll(
-                () -> assertThat(exception.getMessage(),
-                        equalTo("F-EDML-51: Syntax error in mapping definition. See causing exception for details.")),
-                () -> assertThat(exception.getCause().getMessage(), messageMatcher));
+        assertThat(exception.getMessage(), messageMatcher);
     }
 
     @Test
     void testInvalidNoDestName() throws IOException {
-        testInvalid(BASIC_MAPPING, base -> {
-            base.remove("destinationTable");
-            return base;
-        }, equalTo("F-EDML-53: Syntax validation error: #: required key [destinationTable] not found."));
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'ABORT',", //
+                "          'required': true,", //
+                "          'key': 'global'", //
+                "        }", //
+                "      }", //
+                "    }", //
+                "  }", //
+                "}"),
+                equalTo("F-EDML-53: Syntax validation error: [19,1][]"
+                        + " The object must have a property whose name is \"destinationTable\"."));
     }
 
     @Test
     void testInvalidNoSchemaSet() throws IOException {
-        testInvalid(BASIC_MAPPING, base -> {
-            base.remove("$schema");
-            return base;
-        }, equalTo("F-EDML-53: Syntax validation error: #: required key [$schema] not found."));
+        testInvalidContent(List.of("{", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'ABORT',", //
+                "          'required': true,", //
+                "          'key': 'global'", //
+                "        }", //
+                "      }", //
+                "    }", //
+                "  }", //
+                "}"),
+                equalTo("F-EDML-53: Syntax validation error: [19,1][]"
+                        + " The object must have a property whose name is \"$schema\"."));
     }
 
     @Test
     void testInvalidWrongSchemaSet() throws IOException {
-        testInvalid(BASIC_MAPPING, base -> {
-            base.put("$schema", "wrongSchema");
-            return base;
-        }, startsWith("F-EDML-56: Illegal value for $schema. Supported schema versions are ["));
+        testInvalidContent(List.of("{", //
+                "  '$schema': 'invalidSchema',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'ABORT',", //
+                "          'required': true,", //
+                "          'key': 'global'", //
+                "        }", //
+                "      }", //
+                "    }", //
+                "  }", //
+                "}"), startsWith("F-EDML-53: Syntax validation error: [2,28][/$schema] The value must be one of ["));
     }
 
     @Test
     void testInvalidUnknownRootProperty() throws IOException {
-        testInvalid(BASIC_MAPPING, base -> {
-            base.put("unknownProperty", "someValue");
-            return base;
-        }, equalTo("F-EDML-53: Syntax validation error: #: extraneous key [unknownProperty] is not permitted."));
+        testInvalidContent(List.of("{", //
+                "  'unknownProperty': 'someValue',", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'ABORT',", //
+                "          'required': true,", //
+                "          'key': 'global'", //
+                "        }", //
+                "      }", //
+                "    }", //
+                "  }", //
+                "}"),
+                equalTo("F-EDML-53: Syntax validation error: [2,32][/unknownProperty]"
+                        + " The object must not have a property whose name is \"unknownProperty\"."));
     }
 
     @Test
     void testInvalidUnknownMappingType() throws IOException {
-        testInvalid(BASIC_MAPPING, base -> {
-            final JSONObject isbn = base.getJSONObject("mapping").getJSONObject("fields").getJSONObject("isbn");
-            isbn.remove("toVarcharMapping");
-            isbn.put("toStriiiiiiingMapping", "");
-            return base;
-        }, startsWith(
-                "F-EDML-54: #/mapping/fields/isbn: extraneous key [toStriiiiiiingMapping] is not permitted. Use one of the following mapping definitions: ["));
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toStriiiiiiingMapping': {}", //
+                "      }", //
+                "    }", //
+                "  }", //
+                "}"),
+                equalTo("F-EDML-53: Syntax validation error: [10,34][/mapping/fields/isbn/toStriiiiiiingMapping]"
+                        + " The object must not have a property whose name is \"toStriiiiiiingMapping\"."));
     }
 
     @Test
     void testInvalidUnknownMappingInToTable() throws IOException {
-        testInvalid(MULTI_COLUMN_TO_TABLE_MAPPING, base -> {
-            final JSONObject mapping = base.getJSONObject("mapping").getJSONObject("fields").getJSONObject("chapters")
-                    .getJSONObject("toTableMapping").getJSONObject("mapping");
-            mapping.remove("fields");
-            mapping.put("toStriiiiingMapping", "");
-            return base;
-        }, startsWith(
-                "F-EDML-54: #/mapping/fields/chapters/toTableMapping/mapping: extraneous key [toStriiiiingMapping] is not permitted. Use one of the following mapping definitions: ["));
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.0.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'chapters': {", //
+                "        'toTableMapping': {", //
+                "          'mapping': {", //
+                "            'toStriiiiingMapping': {}", //
+                "          }", //
+                "        }", //
+                "      }", //
+                "    }", //
+                "  }", //
+                "}"),
+                startsWith("F-EDML-53: Syntax validation error:"
+                        + " [11,36][/mapping/fields/chapters/toTableMapping/mapping/toStriiiiingMapping] "
+                        + "The object must not have a property whose name is \"toStriiiiingMapping\"."));
     }
 
     @Test
     void testInvalidToTableWithNoFields() throws IOException {
-        testInvalid(MULTI_COLUMN_TO_TABLE_MAPPING, base -> {
-            base.getJSONObject("mapping").getJSONObject("fields").getJSONObject("chapters")
-                    .getJSONObject("toTableMapping").getJSONObject("mapping").remove("fields");
-            return base;
-        }, startsWith(
-                "F-EDML-52: '#/mapping/fields/chapters/toTableMapping/mapping' is empty. Specify at least one mapping. Possible mappings are ["));
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.0.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'chapters': {", //
+                "        'toTableMapping': {", //
+                "        }", //
+                "      }", //
+                "    }", //
+                "  }", //
+                "}"),
+                startsWith("F-EDML-53: Syntax validation error: [10,9][/mapping/fields/chapters/toTableMapping]"
+                        + " The object must have a property whose name is \"mapping\"."));
     }
 
     @Test
     void testInvalidKeyValue() throws IOException {
-        testInvalid(BASIC_MAPPING, base -> {
-            base.getJSONObject("mapping").getJSONObject("fields").getJSONObject("name")
-                    .getJSONObject("toVarcharMapping").put("key", "");
-            return base;
-        }, equalTo(
-                "F-EDML-55: #/mapping/fields/name/toVarcharMapping/key: Illegal value for property 'key'. Please set key property to 'local' or 'global'."));
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'ABORT',", //
+                "          'required': true,", //
+                "          'key': ''", //
+                "        }", //
+                "      }", //
+                "    }", //
+                "  }", //
+                "}" //
+
+        ), equalTo("F-EDML-53: Syntax validation error: [15,19][/mapping/fields/isbn/toVarcharMapping/key] "
+                + "The value must be one of ['local', 'global', 'none'].".replace('\'', '"')));
     }
 
     @Test
     void testInvalidNoMapping() throws IOException {
-        testInvalid(BASIC_MAPPING, base -> {
-            base.remove("mapping");
-            return base;
-        }, equalTo("F-EDML-53: Syntax validation error: #: required key [mapping] not found."));
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true", //
+                "}" //
+
+        ), equalTo(
+                "F-EDML-53: Syntax validation error: [7,1][] The object must have a property whose name is \"mapping\"."));
     }
 
     @Test
     void testInvalidNoFields() throws IOException {
-        testInvalid(BASIC_MAPPING, base -> {
-            base.getJSONObject("mapping").remove("fields");
-            return base;
-        }, startsWith("F-EDML-52: '#/mapping' is empty. Specify at least one mapping. Possible mappings are ["));
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {}", //
+                "}"),
+                startsWith("F-EDML-53: Syntax validation error: [7,15][/mapping]"
+                        + " The object must have at least 1 property(ies), but actual number is 0."));
     }
 }
