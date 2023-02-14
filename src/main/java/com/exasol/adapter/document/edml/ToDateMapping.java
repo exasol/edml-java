@@ -101,6 +101,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         return true;
     }
 
+    @Override
     protected boolean canEqual(final java.lang.Object other) {
         return other instanceof ToDateMapping;
     }

@@ -132,6 +132,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         return true;
     }
 
+    @Override
     protected boolean canEqual(final java.lang.Object other) {
         return other instanceof ToVarcharMapping;
     }

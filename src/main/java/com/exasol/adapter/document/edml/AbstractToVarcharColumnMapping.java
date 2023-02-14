@@ -15,7 +15,7 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
      * @param <C> type used by lombok
      * @param <B> type used by lombok
      */
-    public static abstract class AbstractToVarcharColumnMappingBuilder<C extends AbstractToVarcharColumnMapping, B extends AbstractToVarcharColumnMappingBuilder<C, B>>
+    public abstract static class AbstractToVarcharColumnMappingBuilder<C extends AbstractToVarcharColumnMapping, B extends AbstractToVarcharColumnMappingBuilder<C, B>>
             extends AbstractToColumnMappingBuilder<C, B> {
 
         private boolean varcharColumnSize$set;
@@ -78,6 +78,7 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
         return true;
     }
 
+    @Override
     protected boolean canEqual(final java.lang.Object other) {
         return other instanceof AbstractToVarcharColumnMapping;
     }

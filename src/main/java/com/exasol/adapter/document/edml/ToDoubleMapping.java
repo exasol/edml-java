@@ -69,6 +69,7 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         return true;
     }
 
+    @Override
     protected boolean canEqual(final java.lang.Object other) {
         return other instanceof ToDoubleMapping;
     }

@@ -16,7 +16,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
      * @param <C> type used by lombok
      * @param <B> type used by lombok
      */
-    public static abstract class AbstractToNumberMappingBuilder<C extends AbstractToNumberMapping, B extends AbstractToNumberMappingBuilder<C, B>>
+    public abstract static class AbstractToNumberMappingBuilder<C extends AbstractToNumberMapping, B extends AbstractToNumberMappingBuilder<C, B>>
             extends AbstractToColumnMappingBuilder<C, B> {
 
         private boolean overflowBehaviour$set;
@@ -109,6 +109,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
         return true;
     }
 
+    @Override
     protected boolean canEqual(final java.lang.Object other) {
         return other instanceof AbstractToNumberMapping;
     }
