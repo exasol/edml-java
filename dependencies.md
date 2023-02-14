@@ -60,7 +60,7 @@
 [2]: https://github.com/eclipse-ee4j/jsonp
 [3]: https://projects.eclipse.org/license/epl-2.0
 [4]: https://projects.eclipse.org/license/secondary-gpl-2.0-cp
-[5]: https://github.com/leadpony/justify/justify
+[5]: https://github.com/leadpony/justify
 [6]: http://www.apache.org/licenses/LICENSE-2.0.txt
 [7]: https://projectlombok.org
 [8]: https://projectlombok.org/LICENSE
