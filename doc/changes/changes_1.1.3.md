@@ -15,6 +15,7 @@ This release replaces `org.json:json` dependency which has vulnerability CVE-202
 
 ### Compile Dependency Updates
 
+* Updated `com.exasol:error-reporting-java:1.0.0` to `1.0.1`
 * Removed `com.github.everit-org.json-schema:org.everit.json.schema:1.14.1`
 * Added `org.leadpony.justify:justify:3.1.0`
 
