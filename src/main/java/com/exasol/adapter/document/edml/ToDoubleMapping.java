@@ -10,85 +10,89 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         visitor.visit(this);
     }
 
-
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
-    public static abstract class ToDoubleMappingBuilder<C extends ToDoubleMapping, B extends ToDoubleMapping.ToDoubleMappingBuilder<C, B>> extends AbstractToNumberMapping.AbstractToNumberMappingBuilder<C, B> {
+
+    public static abstract class ToDoubleMappingBuilder<C extends ToDoubleMapping, B extends ToDoubleMapping.ToDoubleMappingBuilder<C, B>>
+            extends AbstractToNumberMapping.AbstractToNumberMappingBuilder<C, B> {
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         protected abstract B self();
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public abstract C build();
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public java.lang.String toString() {
             return "ToDoubleMapping.ToDoubleMappingBuilder(super=" + super.toString() + ")";
         }
     }
 
-
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
-    private static final class ToDoubleMappingBuilderImpl extends ToDoubleMapping.ToDoubleMappingBuilder<ToDoubleMapping, ToDoubleMapping.ToDoubleMappingBuilderImpl> {
+
+    private static final class ToDoubleMappingBuilderImpl extends
+            ToDoubleMapping.ToDoubleMappingBuilder<ToDoubleMapping, ToDoubleMapping.ToDoubleMappingBuilderImpl> {
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         private ToDoubleMappingBuilderImpl() {
         }
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         protected ToDoubleMapping.ToDoubleMappingBuilderImpl self() {
             return this;
         }
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public ToDoubleMapping build() {
             return new ToDoubleMapping(this);
         }
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     protected ToDoubleMapping(final ToDoubleMapping.ToDoubleMappingBuilder<?, ?> b) {
         super(b);
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public static ToDoubleMapping.ToDoubleMappingBuilder<?, ?> builder() {
         return new ToDoubleMapping.ToDoubleMappingBuilderImpl();
     }
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public boolean equals(final java.lang.Object o) {
-        if (o == this) return true;
-        if (!(o instanceof ToDoubleMapping)) return false;
+        if (o == this)
+            return true;
+        if (!(o instanceof ToDoubleMapping))
+            return false;
         final ToDoubleMapping other = (ToDoubleMapping) o;
-        if (!other.canEqual((java.lang.Object) this)) return false;
-        if (!super.equals(o)) return false;
+        if (!other.canEqual((java.lang.Object) this))
+            return false;
+        if (!super.equals(o))
+            return false;
         return true;
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     protected boolean canEqual(final java.lang.Object other) {
         return other instanceof ToDoubleMapping;
     }
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public int hashCode() {
         final int result = super.hashCode();
         return result;
@@ -96,7 +100,7 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public java.lang.String toString() {
         return "ToDoubleMapping(super=" + super.toString() + ")";
     }

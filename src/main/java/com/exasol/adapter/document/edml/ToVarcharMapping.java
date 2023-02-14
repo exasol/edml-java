@@ -3,7 +3,7 @@ package com.exasol.adapter.document.edml;
 
 import static com.exasol.adapter.document.edml.ConvertableMappingErrorBehaviour.CONVERT_OR_ABORT;
 import static com.exasol.adapter.document.edml.TruncateableMappingErrorBehaviour.TRUNCATE;
-import lombok.Builder;
+
 // sonar can't deal with Lombok
 /**
  * Java representation of the EDML {@code toVarcharMapping}.
@@ -19,49 +19,49 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     private static ConvertableMappingErrorBehaviour $default$nonStringBehaviour() {
         return CONVERT_OR_ABORT;
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     private static TruncateableMappingErrorBehaviour $default$overflowBehaviour() {
         return TRUNCATE;
     }
 
-
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
-    public static abstract class ToVarcharMappingBuilder<C extends ToVarcharMapping, B extends ToVarcharMapping.ToVarcharMappingBuilder<C, B>> extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<C, B> {
+
+    public static abstract class ToVarcharMappingBuilder<C extends ToVarcharMapping, B extends ToVarcharMapping.ToVarcharMappingBuilder<C, B>>
+            extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<C, B> {
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         private boolean nonStringBehaviour$set;
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         private ConvertableMappingErrorBehaviour nonStringBehaviour$value;
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         private boolean overflowBehaviour$set;
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         private TruncateableMappingErrorBehaviour overflowBehaviour$value;
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         protected abstract B self();
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public abstract C build();
 
         /**
          * @return {@code this}.
          */
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public B nonStringBehaviour(final ConvertableMappingErrorBehaviour nonStringBehaviour) {
             this.nonStringBehaviour$value = nonStringBehaviour;
             nonStringBehaviour$set = true;
@@ -72,7 +72,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
          * @return {@code this}.
          */
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public B overflowBehaviour(final TruncateableMappingErrorBehaviour overflowBehaviour) {
             this.overflowBehaviour$value = overflowBehaviour;
             overflowBehaviour$set = true;
@@ -81,79 +81,92 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public java.lang.String toString() {
-            return "ToVarcharMapping.ToVarcharMappingBuilder(super=" + super.toString() + ", nonStringBehaviour$value=" + this.nonStringBehaviour$value + ", overflowBehaviour$value=" + this.overflowBehaviour$value + ")";
+            return "ToVarcharMapping.ToVarcharMappingBuilder(super=" + super.toString() + ", nonStringBehaviour$value="
+                    + this.nonStringBehaviour$value + ", overflowBehaviour$value=" + this.overflowBehaviour$value + ")";
         }
     }
 
-
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
-    private static final class ToVarcharMappingBuilderImpl extends ToVarcharMapping.ToVarcharMappingBuilder<ToVarcharMapping, ToVarcharMapping.ToVarcharMappingBuilderImpl> {
+
+    private static final class ToVarcharMappingBuilderImpl extends
+            ToVarcharMapping.ToVarcharMappingBuilder<ToVarcharMapping, ToVarcharMapping.ToVarcharMappingBuilderImpl> {
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         private ToVarcharMappingBuilderImpl() {
         }
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         protected ToVarcharMapping.ToVarcharMappingBuilderImpl self() {
             return this;
         }
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public ToVarcharMapping build() {
             return new ToVarcharMapping(this);
         }
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     protected ToVarcharMapping(final ToVarcharMapping.ToVarcharMappingBuilder<?, ?> b) {
         super(b);
-        if (b.nonStringBehaviour$set) this.nonStringBehaviour = b.nonStringBehaviour$value;
-         else this.nonStringBehaviour = ToVarcharMapping.$default$nonStringBehaviour();
-        if (b.overflowBehaviour$set) this.overflowBehaviour = b.overflowBehaviour$value;
-         else this.overflowBehaviour = ToVarcharMapping.$default$overflowBehaviour();
+        if (b.nonStringBehaviour$set)
+            this.nonStringBehaviour = b.nonStringBehaviour$value;
+        else
+            this.nonStringBehaviour = ToVarcharMapping.$default$nonStringBehaviour();
+        if (b.overflowBehaviour$set)
+            this.overflowBehaviour = b.overflowBehaviour$value;
+        else
+            this.overflowBehaviour = ToVarcharMapping.$default$overflowBehaviour();
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public static ToVarcharMapping.ToVarcharMappingBuilder<?, ?> builder() {
         return new ToVarcharMapping.ToVarcharMappingBuilderImpl();
     }
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public boolean equals(final java.lang.Object o) {
-        if (o == this) return true;
-        if (!(o instanceof ToVarcharMapping)) return false;
+        if (o == this)
+            return true;
+        if (!(o instanceof ToVarcharMapping))
+            return false;
         final ToVarcharMapping other = (ToVarcharMapping) o;
-        if (!other.canEqual((java.lang.Object) this)) return false;
-        if (!super.equals(o)) return false;
+        if (!other.canEqual((java.lang.Object) this))
+            return false;
+        if (!super.equals(o))
+            return false;
         final java.lang.Object this$nonStringBehaviour = this.getNonStringBehaviour();
         final java.lang.Object other$nonStringBehaviour = other.getNonStringBehaviour();
-        if (this$nonStringBehaviour == null ? other$nonStringBehaviour != null : !this$nonStringBehaviour.equals(other$nonStringBehaviour)) return false;
+        if (this$nonStringBehaviour == null ? other$nonStringBehaviour != null
+                : !this$nonStringBehaviour.equals(other$nonStringBehaviour))
+            return false;
         final java.lang.Object this$overflowBehaviour = this.getOverflowBehaviour();
         final java.lang.Object other$overflowBehaviour = other.getOverflowBehaviour();
-        if (this$overflowBehaviour == null ? other$overflowBehaviour != null : !this$overflowBehaviour.equals(other$overflowBehaviour)) return false;
+        if (this$overflowBehaviour == null ? other$overflowBehaviour != null
+                : !this$overflowBehaviour.equals(other$overflowBehaviour))
+            return false;
         return true;
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     protected boolean canEqual(final java.lang.Object other) {
         return other instanceof ToVarcharMapping;
     }
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
@@ -166,19 +179,20 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public java.lang.String toString() {
-        return "ToVarcharMapping(super=" + super.toString() + ", nonStringBehaviour=" + this.getNonStringBehaviour() + ", overflowBehaviour=" + this.getOverflowBehaviour() + ")";
+        return "ToVarcharMapping(super=" + super.toString() + ", nonStringBehaviour=" + this.getNonStringBehaviour()
+                + ", overflowBehaviour=" + this.getOverflowBehaviour() + ")";
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public ConvertableMappingErrorBehaviour getNonStringBehaviour() {
         return this.nonStringBehaviour;
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public TruncateableMappingErrorBehaviour getOverflowBehaviour() {
         return this.overflowBehaviour;
     }

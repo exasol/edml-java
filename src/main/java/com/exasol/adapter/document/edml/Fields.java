@@ -2,14 +2,12 @@
 package com.exasol.adapter.document.edml;
 
 import java.util.LinkedHashMap;
-import lombok.Singular;
 
 /**
  * Java representation of the {@code fields} object in the EDML.
  */
 public class Fields implements MappingDefinition {
     // name is given by EDML
-    @Singular("mapField")
     @SuppressWarnings("java:S1700")
     private final LinkedHashMap<String, MappingDefinition> fields;
 
@@ -26,7 +24,6 @@ public class Fields implements MappingDefinition {
     public void accept(final MappingDefinitionVisitor visitor) {
         visitor.visit(this);
     }
-
 
     /**
      * Builder for {@link Fields}.
@@ -57,40 +54,44 @@ public class Fields implements MappingDefinition {
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public Fields(final LinkedHashMap<String, MappingDefinition> fields) {
         this.fields = fields;
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public LinkedHashMap<String, MappingDefinition> getFields() {
         return this.fields;
     }
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public boolean equals(final java.lang.Object o) {
-        if (o == this) return true;
-        if (!(o instanceof Fields)) return false;
+        if (o == this)
+            return true;
+        if (!(o instanceof Fields))
+            return false;
         final Fields other = (Fields) o;
-        if (!other.canEqual((java.lang.Object) this)) return false;
+        if (!other.canEqual((java.lang.Object) this))
+            return false;
         final java.lang.Object this$fields = this.getFields();
         final java.lang.Object other$fields = other.getFields();
-        if (this$fields == null ? other$fields != null : !this$fields.equals(other$fields)) return false;
+        if (this$fields == null ? other$fields != null : !this$fields.equals(other$fields))
+            return false;
         return true;
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     protected boolean canEqual(final java.lang.Object other) {
         return other instanceof Fields;
     }
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
@@ -101,7 +102,7 @@ public class Fields implements MappingDefinition {
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public java.lang.String toString() {
         return "Fields(fields=" + this.getFields() + ")";
     }

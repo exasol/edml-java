@@ -2,7 +2,7 @@
 package com.exasol.adapter.document.edml;
 
 import static com.exasol.adapter.document.edml.MappingErrorBehaviour.ABORT;
-import lombok.Builder;
+
 // sonar can't deal with Lombok
 /**
  * Java representation of the EDML {@code toJsonMapping}.
@@ -17,37 +17,37 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     private static MappingErrorBehaviour $default$overflowBehaviour() {
         return ABORT;
     }
 
-
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
-    public static abstract class ToJsonMappingBuilder<C extends ToJsonMapping, B extends ToJsonMapping.ToJsonMappingBuilder<C, B>> extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<C, B> {
+
+    public static abstract class ToJsonMappingBuilder<C extends ToJsonMapping, B extends ToJsonMapping.ToJsonMappingBuilder<C, B>>
+            extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<C, B> {
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         private boolean overflowBehaviour$set;
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         private MappingErrorBehaviour overflowBehaviour$value;
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         protected abstract B self();
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public abstract C build();
 
         /**
          * @return {@code this}.
          */
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public B overflowBehaviour(final MappingErrorBehaviour overflowBehaviour) {
             this.overflowBehaviour$value = overflowBehaviour;
             overflowBehaviour$set = true;
@@ -56,74 +56,83 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public java.lang.String toString() {
-            return "ToJsonMapping.ToJsonMappingBuilder(super=" + super.toString() + ", overflowBehaviour$value=" + this.overflowBehaviour$value + ")";
+            return "ToJsonMapping.ToJsonMappingBuilder(super=" + super.toString() + ", overflowBehaviour$value="
+                    + this.overflowBehaviour$value + ")";
         }
     }
 
-
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
-    private static final class ToJsonMappingBuilderImpl extends ToJsonMapping.ToJsonMappingBuilder<ToJsonMapping, ToJsonMapping.ToJsonMappingBuilderImpl> {
+
+    private static final class ToJsonMappingBuilderImpl
+            extends ToJsonMapping.ToJsonMappingBuilder<ToJsonMapping, ToJsonMapping.ToJsonMappingBuilderImpl> {
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         private ToJsonMappingBuilderImpl() {
         }
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         protected ToJsonMapping.ToJsonMappingBuilderImpl self() {
             return this;
         }
 
         @java.lang.Override
         @java.lang.SuppressWarnings("all")
-        @lombok.Generated
+
         public ToJsonMapping build() {
             return new ToJsonMapping(this);
         }
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     protected ToJsonMapping(final ToJsonMapping.ToJsonMappingBuilder<?, ?> b) {
         super(b);
-        if (b.overflowBehaviour$set) this.overflowBehaviour = b.overflowBehaviour$value;
-         else this.overflowBehaviour = ToJsonMapping.$default$overflowBehaviour();
+        if (b.overflowBehaviour$set)
+            this.overflowBehaviour = b.overflowBehaviour$value;
+        else
+            this.overflowBehaviour = ToJsonMapping.$default$overflowBehaviour();
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public static ToJsonMapping.ToJsonMappingBuilder<?, ?> builder() {
         return new ToJsonMapping.ToJsonMappingBuilderImpl();
     }
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public boolean equals(final java.lang.Object o) {
-        if (o == this) return true;
-        if (!(o instanceof ToJsonMapping)) return false;
+        if (o == this)
+            return true;
+        if (!(o instanceof ToJsonMapping))
+            return false;
         final ToJsonMapping other = (ToJsonMapping) o;
-        if (!other.canEqual((java.lang.Object) this)) return false;
-        if (!super.equals(o)) return false;
+        if (!other.canEqual((java.lang.Object) this))
+            return false;
+        if (!super.equals(o))
+            return false;
         final java.lang.Object this$overflowBehaviour = this.getOverflowBehaviour();
         final java.lang.Object other$overflowBehaviour = other.getOverflowBehaviour();
-        if (this$overflowBehaviour == null ? other$overflowBehaviour != null : !this$overflowBehaviour.equals(other$overflowBehaviour)) return false;
+        if (this$overflowBehaviour == null ? other$overflowBehaviour != null
+                : !this$overflowBehaviour.equals(other$overflowBehaviour))
+            return false;
         return true;
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     protected boolean canEqual(final java.lang.Object other) {
         return other instanceof ToJsonMapping;
     }
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
@@ -134,13 +143,13 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
 
     @java.lang.Override
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public java.lang.String toString() {
         return "ToJsonMapping(super=" + super.toString() + ", overflowBehaviour=" + this.getOverflowBehaviour() + ")";
     }
 
     @java.lang.SuppressWarnings("all")
-    @lombok.Generated
+
     public MappingErrorBehaviour getOverflowBehaviour() {
         return this.overflowBehaviour;
     }
