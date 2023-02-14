@@ -61,40 +61,40 @@ public class Fields implements MappingDefinition {
         return this.fields;
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof Fields))
             return false;
         final Fields other = (Fields) o;
-        if (!other.canEqual((java.lang.Object) this))
+        if (!other.canEqual((Object) this))
             return false;
-        final java.lang.Object this$fields = this.getFields();
-        final java.lang.Object other$fields = other.getFields();
+        final Object this$fields = this.getFields();
+        final Object other$fields = other.getFields();
         if (this$fields == null ? other$fields != null : !this$fields.equals(other$fields))
             return false;
         return true;
     }
 
-    protected boolean canEqual(final java.lang.Object other) {
+    protected boolean canEqual(final Object other) {
         return other instanceof Fields;
     }
 
-    @java.lang.Override
+    @Override
 
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
-        final java.lang.Object $fields = this.getFields();
+        final Object $fields = this.getFields();
         result = result * PRIME + ($fields == null ? 43 : $fields.hashCode());
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "Fields(fields=" + this.getFields() + ")";
     }
 }

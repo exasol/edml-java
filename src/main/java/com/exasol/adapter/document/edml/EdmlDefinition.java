@@ -137,22 +137,22 @@ public class EdmlDefinition {
         }
 
         public EdmlDefinition build() {
-            String description$value = this.description$value;
+            String description = this.description$value;
             if (!this.description$set)
-                description$value = EdmlDefinition.$default$description();
-            boolean addSourceReferenceColumn$value = this.addSourceReferenceColumn$value;
+                description = EdmlDefinition.$default$description();
+            boolean addSourceReferenceColumn = this.addSourceReferenceColumn$value;
             if (!this.addSourceReferenceColumn$set)
-                addSourceReferenceColumn$value = EdmlDefinition.$default$addSourceReferenceColumn();
-            String additionalConfiguration$value = this.additionalConfiguration$value;
+                addSourceReferenceColumn = EdmlDefinition.$default$addSourceReferenceColumn();
+            String additionalConfiguration = this.additionalConfiguration$value;
             if (!this.additionalConfiguration$set)
-                additionalConfiguration$value = EdmlDefinition.$default$additionalConfiguration();
-            return new EdmlDefinition(this.source, this.destinationTable, description$value,
-                    addSourceReferenceColumn$value, this.mapping, additionalConfiguration$value);
+                additionalConfiguration = EdmlDefinition.$default$additionalConfiguration();
+            return new EdmlDefinition(this.source, this.destinationTable, description, addSourceReferenceColumn,
+                    this.mapping, additionalConfiguration);
         }
 
-        @java.lang.Override
+        @Override
 
-        public java.lang.String toString() {
+        public String toString() {
             return "EdmlDefinition.EdmlDefinitionBuilder(source=" + this.source + ", destinationTable="
                     + this.destinationTable + ", description$value=" + this.description$value
                     + ", addSourceReferenceColumn$value=" + this.addSourceReferenceColumn$value + ", mapping="
@@ -188,69 +188,69 @@ public class EdmlDefinition {
         return this.additionalConfiguration;
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof EdmlDefinition))
             return false;
         final EdmlDefinition other = (EdmlDefinition) o;
-        if (!other.canEqual((java.lang.Object) this))
+        if (!other.canEqual((Object) this))
             return false;
         if (this.isAddSourceReferenceColumn() != other.isAddSourceReferenceColumn())
             return false;
-        final java.lang.Object this$source = this.getSource();
-        final java.lang.Object other$source = other.getSource();
+        final Object this$source = this.getSource();
+        final Object other$source = other.getSource();
         if (this$source == null ? other$source != null : !this$source.equals(other$source))
             return false;
-        final java.lang.Object this$destinationTable = this.getDestinationTable();
-        final java.lang.Object other$destinationTable = other.getDestinationTable();
+        final Object this$destinationTable = this.getDestinationTable();
+        final Object other$destinationTable = other.getDestinationTable();
         if (this$destinationTable == null ? other$destinationTable != null
                 : !this$destinationTable.equals(other$destinationTable))
             return false;
-        final java.lang.Object this$description = this.getDescription();
-        final java.lang.Object other$description = other.getDescription();
+        final Object this$description = this.getDescription();
+        final Object other$description = other.getDescription();
         if (this$description == null ? other$description != null : !this$description.equals(other$description))
             return false;
-        final java.lang.Object this$mapping = this.getMapping();
-        final java.lang.Object other$mapping = other.getMapping();
+        final Object this$mapping = this.getMapping();
+        final Object other$mapping = other.getMapping();
         if (this$mapping == null ? other$mapping != null : !this$mapping.equals(other$mapping))
             return false;
-        final java.lang.Object this$additionalConfiguration = this.getAdditionalConfiguration();
-        final java.lang.Object other$additionalConfiguration = other.getAdditionalConfiguration();
+        final Object this$additionalConfiguration = this.getAdditionalConfiguration();
+        final Object other$additionalConfiguration = other.getAdditionalConfiguration();
         if (this$additionalConfiguration == null ? other$additionalConfiguration != null
                 : !this$additionalConfiguration.equals(other$additionalConfiguration))
             return false;
         return true;
     }
 
-    protected boolean canEqual(final java.lang.Object other) {
+    protected boolean canEqual(final Object other) {
         return other instanceof EdmlDefinition;
     }
 
-    @java.lang.Override
+    @Override
 
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
         result = result * PRIME + (this.isAddSourceReferenceColumn() ? 79 : 97);
-        final java.lang.Object $source = this.getSource();
+        final Object $source = this.getSource();
         result = result * PRIME + ($source == null ? 43 : $source.hashCode());
-        final java.lang.Object $destinationTable = this.getDestinationTable();
+        final Object $destinationTable = this.getDestinationTable();
         result = result * PRIME + ($destinationTable == null ? 43 : $destinationTable.hashCode());
-        final java.lang.Object $description = this.getDescription();
+        final Object $description = this.getDescription();
         result = result * PRIME + ($description == null ? 43 : $description.hashCode());
-        final java.lang.Object $mapping = this.getMapping();
+        final Object $mapping = this.getMapping();
         result = result * PRIME + ($mapping == null ? 43 : $mapping.hashCode());
-        final java.lang.Object $additionalConfiguration = this.getAdditionalConfiguration();
+        final Object $additionalConfiguration = this.getAdditionalConfiguration();
         result = result * PRIME + ($additionalConfiguration == null ? 43 : $additionalConfiguration.hashCode());
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "EdmlDefinition(source=" + this.getSource() + ", destinationTable=" + this.getDestinationTable()
                 + ", description=" + this.getDescription() + ", addSourceReferenceColumn="
                 + this.isAddSourceReferenceColumn() + ", mapping=" + this.getMapping() + ", additionalConfiguration="

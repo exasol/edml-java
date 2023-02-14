@@ -12,17 +12,17 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
 
     public static abstract class ToDoubleMappingBuilder<B extends ToDoubleMapping.ToDoubleMappingBuilder<B>>
             extends AbstractToNumberMapping.AbstractToNumberMappingBuilder<ToDoubleMapping, B> {
-        @java.lang.Override
+        @Override
 
         protected abstract B self();
 
-        @java.lang.Override
+        @Override
 
         public abstract ToDoubleMapping build();
 
-        @java.lang.Override
+        @Override
 
-        public java.lang.String toString() {
+        public String toString() {
             return "ToDoubleMapping.ToDoubleMappingBuilder(super=" + super.toString() + ")";
         }
     }
@@ -33,13 +33,13 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         private ToDoubleMappingBuilderImpl() {
         }
 
-        @java.lang.Override
+        @Override
 
         protected ToDoubleMapping.ToDoubleMappingBuilderImpl self() {
             return this;
         }
 
-        @java.lang.Override
+        @Override
 
         public ToDoubleMapping build() {
             return new ToDoubleMapping(this);
@@ -54,15 +54,15 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         return new ToDoubleMapping.ToDoubleMappingBuilderImpl();
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof ToDoubleMapping))
             return false;
         final ToDoubleMapping other = (ToDoubleMapping) o;
-        if (!other.canEqual((java.lang.Object) this))
+        if (!other.canEqual((Object) this))
             return false;
         if (!super.equals(o))
             return false;
@@ -70,20 +70,20 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
     }
 
     @Override
-    protected boolean canEqual(final java.lang.Object other) {
+    protected boolean canEqual(final Object other) {
         return other instanceof ToDoubleMapping;
     }
 
-    @java.lang.Override
+    @Override
 
     public int hashCode() {
         final int result = super.hashCode();
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "ToDoubleMapping(super=" + super.toString() + ")";
     }
 }

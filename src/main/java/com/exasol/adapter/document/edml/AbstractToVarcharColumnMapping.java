@@ -22,11 +22,11 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
 
         private int varcharColumnSize$value;
 
-        @java.lang.Override
+        @Override
 
         protected abstract B self();
 
-        @java.lang.Override
+        @Override
 
         public abstract C build();
 
@@ -40,9 +40,9 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
             return self();
         }
 
-        @java.lang.Override
+        @Override
 
-        public java.lang.String toString() {
+        public String toString() {
             return "AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder(super=" + super.toString()
                     + ", varcharColumnSize$value=" + this.varcharColumnSize$value + ")";
         }
@@ -61,15 +61,15 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
             this.varcharColumnSize = AbstractToVarcharColumnMapping.$default$varcharColumnSize();
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof AbstractToVarcharColumnMapping))
             return false;
         final AbstractToVarcharColumnMapping other = (AbstractToVarcharColumnMapping) o;
-        if (!other.canEqual((java.lang.Object) this))
+        if (!other.canEqual((Object) this))
             return false;
         if (!super.equals(o))
             return false;
@@ -79,11 +79,11 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
     }
 
     @Override
-    protected boolean canEqual(final java.lang.Object other) {
+    protected boolean canEqual(final Object other) {
         return other instanceof AbstractToVarcharColumnMapping;
     }
 
-    @java.lang.Override
+    @Override
 
     public int hashCode() {
         final int PRIME = 59;
@@ -92,9 +92,9 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "AbstractToVarcharColumnMapping(super=" + super.toString() + ", varcharColumnSize="
                 + this.getVarcharColumnSize() + ")";
     }

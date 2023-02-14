@@ -36,10 +36,10 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
 
         private TruncateableMappingErrorBehaviour overflowBehaviour$value;
 
-        @java.lang.Override
+        @Override
         protected abstract B self();
 
-        @java.lang.Override
+        @Override
         public abstract ToVarcharMapping build();
 
         /**
@@ -62,9 +62,9 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
             return self();
         }
 
-        @java.lang.Override
+        @Override
 
-        public java.lang.String toString() {
+        public String toString() {
             return "ToVarcharMapping.ToVarcharMappingBuilder(super=" + super.toString() + ", nonStringBehaviour$value="
                     + this.nonStringBehaviour$value + ", overflowBehaviour$value=" + this.overflowBehaviour$value + ")";
         }
@@ -76,13 +76,13 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         private ToVarcharMappingBuilderImpl() {
         }
 
-        @java.lang.Override
+        @Override
 
         protected ToVarcharMapping.ToVarcharMappingBuilderImpl self() {
             return this;
         }
 
-        @java.lang.Override
+        @Override
 
         public ToVarcharMapping build() {
             return new ToVarcharMapping(this);
@@ -105,25 +105,25 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         return new ToVarcharMapping.ToVarcharMappingBuilderImpl();
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof ToVarcharMapping))
             return false;
         final ToVarcharMapping other = (ToVarcharMapping) o;
-        if (!other.canEqual((java.lang.Object) this))
+        if (!other.canEqual((Object) this))
             return false;
         if (!super.equals(o))
             return false;
-        final java.lang.Object this$nonStringBehaviour = this.getNonStringBehaviour();
-        final java.lang.Object other$nonStringBehaviour = other.getNonStringBehaviour();
+        final Object this$nonStringBehaviour = this.getNonStringBehaviour();
+        final Object other$nonStringBehaviour = other.getNonStringBehaviour();
         if (this$nonStringBehaviour == null ? other$nonStringBehaviour != null
                 : !this$nonStringBehaviour.equals(other$nonStringBehaviour))
             return false;
-        final java.lang.Object this$overflowBehaviour = this.getOverflowBehaviour();
-        final java.lang.Object other$overflowBehaviour = other.getOverflowBehaviour();
+        final Object this$overflowBehaviour = this.getOverflowBehaviour();
+        final Object other$overflowBehaviour = other.getOverflowBehaviour();
         if (this$overflowBehaviour == null ? other$overflowBehaviour != null
                 : !this$overflowBehaviour.equals(other$overflowBehaviour))
             return false;
@@ -131,25 +131,25 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
     }
 
     @Override
-    protected boolean canEqual(final java.lang.Object other) {
+    protected boolean canEqual(final Object other) {
         return other instanceof ToVarcharMapping;
     }
 
-    @java.lang.Override
+    @Override
 
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
-        final java.lang.Object $nonStringBehaviour = this.getNonStringBehaviour();
+        final Object $nonStringBehaviour = this.getNonStringBehaviour();
         result = result * PRIME + ($nonStringBehaviour == null ? 43 : $nonStringBehaviour.hashCode());
-        final java.lang.Object $overflowBehaviour = this.getOverflowBehaviour();
+        final Object $overflowBehaviour = this.getOverflowBehaviour();
         result = result * PRIME + ($overflowBehaviour == null ? 43 : $overflowBehaviour.hashCode());
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "ToVarcharMapping(super=" + super.toString() + ", nonStringBehaviour=" + this.getNonStringBehaviour()
                 + ", overflowBehaviour=" + this.getOverflowBehaviour() + ")";
     }

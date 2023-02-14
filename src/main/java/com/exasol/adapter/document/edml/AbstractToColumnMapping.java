@@ -75,9 +75,9 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
             return self();
         }
 
-        @java.lang.Override
+        @Override
 
-        public java.lang.String toString() {
+        public String toString() {
             return "AbstractToColumnMapping.AbstractToColumnMappingBuilder(destinationName=" + this.destinationName
                     + ", description=" + this.description + ", key$value=" + this.key$value + ", required$value="
                     + this.required$value + ")";
@@ -121,56 +121,55 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         return this.required;
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof AbstractToColumnMapping))
             return false;
         final AbstractToColumnMapping other = (AbstractToColumnMapping) o;
-        if (!other.canEqual((java.lang.Object) this))
+        if (!other.canEqual((Object) this))
             return false;
         if (this.isRequired() != other.isRequired())
             return false;
-        final java.lang.Object this$destinationName = this.getDestinationName();
-        final java.lang.Object other$destinationName = other.getDestinationName();
+        final Object this$destinationName = this.getDestinationName();
+        final Object other$destinationName = other.getDestinationName();
         if (this$destinationName == null ? other$destinationName != null
                 : !this$destinationName.equals(other$destinationName))
             return false;
-        final java.lang.Object this$description = this.getDescription();
-        final java.lang.Object other$description = other.getDescription();
+        final Object this$description = this.getDescription();
+        final Object other$description = other.getDescription();
         if (this$description == null ? other$description != null : !this$description.equals(other$description))
             return false;
-        final java.lang.Object this$key = this.getKey();
-        final java.lang.Object other$key = other.getKey();
+        final Object this$key = this.getKey();
+        final Object other$key = other.getKey();
         if (this$key == null ? other$key != null : !this$key.equals(other$key))
             return false;
         return true;
     }
 
-    protected boolean canEqual(final java.lang.Object other) {
+    protected boolean canEqual(final Object other) {
         return other instanceof AbstractToColumnMapping;
     }
 
-    @java.lang.Override
-
+    @Override
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
         result = result * PRIME + (this.isRequired() ? 79 : 97);
-        final java.lang.Object $destinationName = this.getDestinationName();
+        final Object $destinationName = this.getDestinationName();
         result = result * PRIME + ($destinationName == null ? 43 : $destinationName.hashCode());
-        final java.lang.Object $description = this.getDescription();
+        final Object $description = this.getDescription();
         result = result * PRIME + ($description == null ? 43 : $description.hashCode());
-        final java.lang.Object $key = this.getKey();
+        final Object $key = this.getKey();
         result = result * PRIME + ($key == null ? 43 : $key.hashCode());
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "AbstractToColumnMapping(destinationName=" + this.getDestinationName() + ", description="
                 + this.getDescription() + ", key=" + this.getKey() + ", required=" + this.isRequired() + ")";
     }

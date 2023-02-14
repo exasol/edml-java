@@ -27,11 +27,11 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
 
         private ConvertableMappingErrorBehaviour notNumericBehaviour$value;
 
-        @java.lang.Override
+        @Override
 
         protected abstract B self();
 
-        @java.lang.Override
+        @Override
 
         public abstract C build();
 
@@ -55,9 +55,9 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
             return self();
         }
 
-        @java.lang.Override
+        @Override
 
-        public java.lang.String toString() {
+        public String toString() {
             return "AbstractToNumberMapping.AbstractToNumberMappingBuilder(super=" + super.toString()
                     + ", overflowBehaviour$value=" + this.overflowBehaviour$value + ", notNumericBehaviour$value="
                     + this.notNumericBehaviour$value + ")";
@@ -84,25 +84,25 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
             this.notNumericBehaviour = AbstractToNumberMapping.$default$notNumericBehaviour();
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof AbstractToNumberMapping))
             return false;
         final AbstractToNumberMapping other = (AbstractToNumberMapping) o;
-        if (!other.canEqual((java.lang.Object) this))
+        if (!other.canEqual((Object) this))
             return false;
         if (!super.equals(o))
             return false;
-        final java.lang.Object this$overflowBehaviour = this.getOverflowBehaviour();
-        final java.lang.Object other$overflowBehaviour = other.getOverflowBehaviour();
+        final Object this$overflowBehaviour = this.getOverflowBehaviour();
+        final Object other$overflowBehaviour = other.getOverflowBehaviour();
         if (this$overflowBehaviour == null ? other$overflowBehaviour != null
                 : !this$overflowBehaviour.equals(other$overflowBehaviour))
             return false;
-        final java.lang.Object this$notNumericBehaviour = this.getNotNumericBehaviour();
-        final java.lang.Object other$notNumericBehaviour = other.getNotNumericBehaviour();
+        final Object this$notNumericBehaviour = this.getNotNumericBehaviour();
+        final Object other$notNumericBehaviour = other.getNotNumericBehaviour();
         if (this$notNumericBehaviour == null ? other$notNumericBehaviour != null
                 : !this$notNumericBehaviour.equals(other$notNumericBehaviour))
             return false;
@@ -110,25 +110,25 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    protected boolean canEqual(final java.lang.Object other) {
+    protected boolean canEqual(final Object other) {
         return other instanceof AbstractToNumberMapping;
     }
 
-    @java.lang.Override
+    @Override
 
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
-        final java.lang.Object $overflowBehaviour = this.getOverflowBehaviour();
+        final Object $overflowBehaviour = this.getOverflowBehaviour();
         result = result * PRIME + ($overflowBehaviour == null ? 43 : $overflowBehaviour.hashCode());
-        final java.lang.Object $notNumericBehaviour = this.getNotNumericBehaviour();
+        final Object $notNumericBehaviour = this.getNotNumericBehaviour();
         result = result * PRIME + ($notNumericBehaviour == null ? 43 : $notNumericBehaviour.hashCode());
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "AbstractToNumberMapping(super=" + super.toString() + ", overflowBehaviour="
                 + this.getOverflowBehaviour() + ", notNumericBehaviour=" + this.getNotNumericBehaviour() + ")";
     }

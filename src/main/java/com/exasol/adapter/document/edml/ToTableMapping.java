@@ -73,15 +73,15 @@ public final class ToTableMapping implements MappingDefinition {
         }
 
         public ToTableMapping build() {
-            String description$value = this.description$value;
+            String description = this.description$value;
             if (!this.description$set)
-                description$value = ToTableMapping.$default$description();
-            return new ToTableMapping(this.destinationTable, this.mapping, description$value);
+                description = ToTableMapping.$default$description();
+            return new ToTableMapping(this.destinationTable, this.mapping, description);
         }
 
-        @java.lang.Override
+        @Override
 
-        public java.lang.String toString() {
+        public String toString() {
             return "ToTableMapping.ToTableMappingBuilder(destinationTable=" + this.destinationTable + ", mapping="
                     + this.mapping + ", description$value=" + this.description$value + ")";
         }
@@ -103,47 +103,47 @@ public final class ToTableMapping implements MappingDefinition {
         return this.description;
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof ToTableMapping))
             return false;
         final ToTableMapping other = (ToTableMapping) o;
-        final java.lang.Object this$destinationTable = this.getDestinationTable();
-        final java.lang.Object other$destinationTable = other.getDestinationTable();
+        final Object this$destinationTable = this.getDestinationTable();
+        final Object other$destinationTable = other.getDestinationTable();
         if (this$destinationTable == null ? other$destinationTable != null
                 : !this$destinationTable.equals(other$destinationTable))
             return false;
-        final java.lang.Object this$mapping = this.getMapping();
-        final java.lang.Object other$mapping = other.getMapping();
+        final Object this$mapping = this.getMapping();
+        final Object other$mapping = other.getMapping();
         if (this$mapping == null ? other$mapping != null : !this$mapping.equals(other$mapping))
             return false;
-        final java.lang.Object this$description = this.getDescription();
-        final java.lang.Object other$description = other.getDescription();
+        final Object this$description = this.getDescription();
+        final Object other$description = other.getDescription();
         if (this$description == null ? other$description != null : !this$description.equals(other$description))
             return false;
         return true;
     }
 
-    @java.lang.Override
+    @Override
 
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
-        final java.lang.Object $destinationTable = this.getDestinationTable();
+        final Object $destinationTable = this.getDestinationTable();
         result = result * PRIME + ($destinationTable == null ? 43 : $destinationTable.hashCode());
-        final java.lang.Object $mapping = this.getMapping();
+        final Object $mapping = this.getMapping();
         result = result * PRIME + ($mapping == null ? 43 : $mapping.hashCode());
-        final java.lang.Object $description = this.getDescription();
+        final Object $description = this.getDescription();
         result = result * PRIME + ($description == null ? 43 : $description.hashCode());
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "ToTableMapping(destinationTable=" + this.getDestinationTable() + ", mapping=" + this.getMapping()
                 + ", description=" + this.getDescription() + ")";
     }

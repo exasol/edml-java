@@ -24,11 +24,11 @@ public final class ToDateMapping extends AbstractToColumnMapping {
 
         private ConvertableMappingErrorBehaviour notDateBehavior$value;
 
-        @java.lang.Override
+        @Override
 
         protected abstract B self();
 
-        @java.lang.Override
+        @Override
 
         public abstract ToDateMapping build();
 
@@ -42,9 +42,9 @@ public final class ToDateMapping extends AbstractToColumnMapping {
             return self();
         }
 
-        @java.lang.Override
+        @Override
 
-        public java.lang.String toString() {
+        public String toString() {
             return "ToDateMapping.ToDateMappingBuilder(super=" + super.toString() + ", notDateBehavior$value="
                     + this.notDateBehavior$value + ")";
         }
@@ -56,13 +56,13 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         private ToDateMappingBuilderImpl() {
         }
 
-        @java.lang.Override
+        @Override
 
         protected ToDateMapping.ToDateMappingBuilderImpl self() {
             return this;
         }
 
-        @java.lang.Override
+        @Override
 
         public ToDateMapping build() {
             return new ToDateMapping(this);
@@ -81,20 +81,20 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         return new ToDateMapping.ToDateMappingBuilderImpl();
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof ToDateMapping))
             return false;
         final ToDateMapping other = (ToDateMapping) o;
-        if (!other.canEqual((java.lang.Object) this))
+        if (!other.canEqual((Object) this))
             return false;
         if (!super.equals(o))
             return false;
-        final java.lang.Object this$notDateBehavior = this.getNotDateBehavior();
-        final java.lang.Object other$notDateBehavior = other.getNotDateBehavior();
+        final Object this$notDateBehavior = this.getNotDateBehavior();
+        final Object other$notDateBehavior = other.getNotDateBehavior();
         if (this$notDateBehavior == null ? other$notDateBehavior != null
                 : !this$notDateBehavior.equals(other$notDateBehavior))
             return false;
@@ -102,23 +102,23 @@ public final class ToDateMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    protected boolean canEqual(final java.lang.Object other) {
+    protected boolean canEqual(final Object other) {
         return other instanceof ToDateMapping;
     }
 
-    @java.lang.Override
+    @Override
 
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
-        final java.lang.Object $notDateBehavior = this.getNotDateBehavior();
+        final Object $notDateBehavior = this.getNotDateBehavior();
         result = result * PRIME + ($notDateBehavior == null ? 43 : $notDateBehavior.hashCode());
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "ToDateMapping(super=" + super.toString() + ", notDateBehavior=" + this.getNotDateBehavior() + ")";
     }
 

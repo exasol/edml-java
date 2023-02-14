@@ -37,11 +37,11 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
 
         private boolean useTimestampWithLocalTimezoneType$value;
 
-        @java.lang.Override
+        @Override
 
         protected abstract B self();
 
-        @java.lang.Override
+        @Override
 
         public abstract ToTimestampMapping build();
 
@@ -65,9 +65,9 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
             return self();
         }
 
-        @java.lang.Override
+        @Override
 
-        public java.lang.String toString() {
+        public String toString() {
             return "ToTimestampMapping.ToTimestampMappingBuilder(super=" + super.toString()
                     + ", notTimestampBehavior$value=" + this.notTimestampBehavior$value
                     + ", useTimestampWithLocalTimezoneType$value=" + this.useTimestampWithLocalTimezoneType$value + ")";
@@ -80,13 +80,13 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         private ToTimestampMappingBuilderImpl() {
         }
 
-        @java.lang.Override
+        @Override
 
         protected ToTimestampMapping.ToTimestampMappingBuilderImpl self() {
             return this;
         }
 
-        @java.lang.Override
+        @Override
 
         public ToTimestampMapping build() {
             return new ToTimestampMapping(this);
@@ -109,22 +109,22 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         return new ToTimestampMapping.ToTimestampMappingBuilderImpl();
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof ToTimestampMapping))
             return false;
         final ToTimestampMapping other = (ToTimestampMapping) o;
-        if (!other.canEqual((java.lang.Object) this))
+        if (!other.canEqual((Object) this))
             return false;
         if (!super.equals(o))
             return false;
         if (this.isUseTimestampWithLocalTimezoneType() != other.isUseTimestampWithLocalTimezoneType())
             return false;
-        final java.lang.Object this$notTimestampBehavior = this.getNotTimestampBehavior();
-        final java.lang.Object other$notTimestampBehavior = other.getNotTimestampBehavior();
+        final Object this$notTimestampBehavior = this.getNotTimestampBehavior();
+        final Object other$notTimestampBehavior = other.getNotTimestampBehavior();
         if (this$notTimestampBehavior == null ? other$notTimestampBehavior != null
                 : !this$notTimestampBehavior.equals(other$notTimestampBehavior))
             return false;
@@ -132,24 +132,24 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    protected boolean canEqual(final java.lang.Object other) {
+    protected boolean canEqual(final Object other) {
         return other instanceof ToTimestampMapping;
     }
 
-    @java.lang.Override
+    @Override
 
     public int hashCode() {
         final int PRIME = 59;
         int result = super.hashCode();
         result = result * PRIME + (this.isUseTimestampWithLocalTimezoneType() ? 79 : 97);
-        final java.lang.Object $notTimestampBehavior = this.getNotTimestampBehavior();
+        final Object $notTimestampBehavior = this.getNotTimestampBehavior();
         result = result * PRIME + ($notTimestampBehavior == null ? 43 : $notTimestampBehavior.hashCode());
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "ToTimestampMapping(super=" + super.toString() + ", notTimestampBehavior="
                 + this.getNotTimestampBehavior() + ", useTimestampWithLocalTimezoneType="
                 + this.isUseTimestampWithLocalTimezoneType() + ")";

@@ -33,11 +33,11 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
 
         private int decimalScale$value;
 
-        @java.lang.Override
+        @Override
 
         protected abstract B self();
 
-        @java.lang.Override
+        @Override
 
         public abstract ToDecimalMapping build();
 
@@ -61,9 +61,9 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
             return self();
         }
 
-        @java.lang.Override
+        @Override
 
-        public java.lang.String toString() {
+        public String toString() {
             return "ToDecimalMapping.ToDecimalMappingBuilder(super=" + super.toString() + ", decimalPrecision$value="
                     + this.decimalPrecision$value + ", decimalScale$value=" + this.decimalScale$value + ")";
         }
@@ -75,13 +75,13 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         private ToDecimalMappingBuilderImpl() {
         }
 
-        @java.lang.Override
+        @Override
 
         protected ToDecimalMapping.ToDecimalMappingBuilderImpl self() {
             return this;
         }
 
-        @java.lang.Override
+        @Override
 
         public ToDecimalMapping build() {
             return new ToDecimalMapping(this);
@@ -104,15 +104,15 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         return new ToDecimalMapping.ToDecimalMappingBuilderImpl();
     }
 
-    @java.lang.Override
+    @Override
 
-    public boolean equals(final java.lang.Object o) {
+    public boolean equals(final Object o) {
         if (o == this)
             return true;
         if (!(o instanceof ToDecimalMapping))
             return false;
         final ToDecimalMapping other = (ToDecimalMapping) o;
-        if (!other.canEqual((java.lang.Object) this))
+        if (!other.canEqual((Object) this))
             return false;
         if (!super.equals(o))
             return false;
@@ -124,11 +124,11 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
     }
 
     @Override
-    protected boolean canEqual(final java.lang.Object other) {
+    protected boolean canEqual(final Object other) {
         return other instanceof ToDecimalMapping;
     }
 
-    @java.lang.Override
+    @Override
 
     public int hashCode() {
         final int PRIME = 59;
@@ -138,9 +138,9 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         return result;
     }
 
-    @java.lang.Override
+    @Override
 
-    public java.lang.String toString() {
+    public String toString() {
         return "ToDecimalMapping(super=" + super.toString() + ", decimalPrecision=" + this.getDecimalPrecision()
                 + ", decimalScale=" + this.getDecimalScale() + ")";
     }
