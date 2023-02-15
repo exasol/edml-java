@@ -6,6 +6,10 @@ package com.exasol.adapter.document.edml;
  */
 public class EdmlDefinition {
 
+    private static final String DEFAULT_DESCRIPTION = "";
+    private static final String DEFAULT_ADDITIONAL_CONFIGURATION = "";
+    private static final boolean DEFAULT_ADD_SOURCE_COLUMN = false;
+
     private final String source;
 
     private final String destinationTable;
@@ -15,29 +19,17 @@ public class EdmlDefinition {
     private final MappingDefinition mapping;
     private final String additionalConfiguration;
 
-    private static String $default$description() {
-        return "";
-    }
-
-    private static boolean $default$addSourceReferenceColumn() {
-        return false;
-    }
-
-    private static String $default$additionalConfiguration() {
-        return "";
-    }
-
     EdmlDefinition(final String source, final String destinationTable, final String description,
             final boolean addSourceReferenceColumn, final MappingDefinition mapping,
             final String additionalConfiguration) {
         if (source == null) {
-            throw new java.lang.NullPointerException("source is marked non-null but is null");
+            throw new NullPointerException("source is marked non-null but is null");
         }
         if (destinationTable == null) {
-            throw new java.lang.NullPointerException("destinationTable is marked non-null but is null");
+            throw new NullPointerException("destinationTable is marked non-null but is null");
         }
         if (mapping == null) {
-            throw new java.lang.NullPointerException("mapping is marked non-null but is null");
+            throw new NullPointerException("mapping is marked non-null but is null");
         }
         this.source = source;
         this.destinationTable = destinationTable;
@@ -53,13 +45,13 @@ public class EdmlDefinition {
     public static class EdmlDefinitionBuilder {
         private String source;
         private String destinationTable;
-        private boolean description$set;
-        private String description$value;
-        private boolean addSourceReferenceColumn$set;
-        private boolean addSourceReferenceColumn$value;
+        private boolean descriptionSet;
+        private String descriptionValue;
+        private boolean addSourceReferenceColumnSet;
+        private boolean addSourceReferenceColumnValue;
         private MappingDefinition mapping;
-        private boolean additionalConfiguration$set;
-        private String additionalConfiguration$value;
+        private boolean additionalConfigurationSet;
+        private String additionalConfigurationValue;
 
         EdmlDefinitionBuilder() {
         }
@@ -72,7 +64,7 @@ public class EdmlDefinition {
          */
         public EdmlDefinition.EdmlDefinitionBuilder source(final String source) {
             if (source == null) {
-                throw new java.lang.NullPointerException("source is marked non-null but is null");
+                throw new NullPointerException("source is marked non-null but is null");
             }
             this.source = source;
             return this;
@@ -84,7 +76,7 @@ public class EdmlDefinition {
          */
         public EdmlDefinition.EdmlDefinitionBuilder destinationTable(final String destinationTable) {
             if (destinationTable == null) {
-                throw new java.lang.NullPointerException("destinationTable is marked non-null but is null");
+                throw new NullPointerException("destinationTable is marked non-null but is null");
             }
             this.destinationTable = destinationTable;
             return this;
@@ -95,8 +87,8 @@ public class EdmlDefinition {
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder description(final String description) {
-            this.description$value = description;
-            this.description$set = true;
+            this.descriptionValue = description;
+            this.descriptionSet = true;
             return this;
         }
 
@@ -111,8 +103,8 @@ public class EdmlDefinition {
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder addSourceReferenceColumn(final boolean addSourceReferenceColumn) {
-            this.addSourceReferenceColumn$value = addSourceReferenceColumn;
-            this.addSourceReferenceColumn$set = true;
+            this.addSourceReferenceColumnValue = addSourceReferenceColumn;
+            this.addSourceReferenceColumnSet = true;
             return this;
         }
 
@@ -126,7 +118,7 @@ public class EdmlDefinition {
          */
         public EdmlDefinition.EdmlDefinitionBuilder mapping(final MappingDefinition mapping) {
             if (mapping == null) {
-                throw new java.lang.NullPointerException("mapping is marked non-null but is null");
+                throw new NullPointerException("mapping is marked non-null but is null");
             }
             this.mapping = mapping;
             return this;
@@ -139,8 +131,8 @@ public class EdmlDefinition {
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder additionalConfiguration(final String additionalConfiguration) {
-            this.additionalConfiguration$value = additionalConfiguration;
-            this.additionalConfiguration$set = true;
+            this.additionalConfigurationValue = additionalConfiguration;
+            this.additionalConfigurationSet = true;
             return this;
         }
 
@@ -150,17 +142,17 @@ public class EdmlDefinition {
          * @return a new {@link EdmlDefinition}
          */
         public EdmlDefinition build() {
-            String description = this.description$value;
-            if (!this.description$set) {
-                description = EdmlDefinition.$default$description();
+            String description = this.descriptionValue;
+            if (!this.descriptionSet) {
+                description = DEFAULT_DESCRIPTION;
             }
-            boolean addSourceReferenceColumn = this.addSourceReferenceColumn$value;
-            if (!this.addSourceReferenceColumn$set) {
-                addSourceReferenceColumn = EdmlDefinition.$default$addSourceReferenceColumn();
+            boolean addSourceReferenceColumn = this.addSourceReferenceColumnValue;
+            if (!this.addSourceReferenceColumnSet) {
+                addSourceReferenceColumn = DEFAULT_ADD_SOURCE_COLUMN;
             }
-            String additionalConfiguration = this.additionalConfiguration$value;
-            if (!this.additionalConfiguration$set) {
-                additionalConfiguration = EdmlDefinition.$default$additionalConfiguration();
+            String additionalConfiguration = this.additionalConfigurationValue;
+            if (!this.additionalConfigurationSet) {
+                additionalConfiguration = DEFAULT_ADDITIONAL_CONFIGURATION;
             }
             return new EdmlDefinition(this.source, this.destinationTable, description, addSourceReferenceColumn,
                     this.mapping, additionalConfiguration);
@@ -169,9 +161,9 @@ public class EdmlDefinition {
         @Override
         public String toString() {
             return "EdmlDefinition.EdmlDefinitionBuilder(source=" + this.source + ", destinationTable="
-                    + this.destinationTable + ", description$value=" + this.description$value
-                    + ", addSourceReferenceColumn$value=" + this.addSourceReferenceColumn$value + ", mapping="
-                    + this.mapping + ", additionalConfiguration$value=" + this.additionalConfiguration$value + ")";
+                    + this.destinationTable + ", description$value=" + this.descriptionValue
+                    + ", addSourceReferenceColumn$value=" + this.addSourceReferenceColumnValue + ", mapping="
+                    + this.mapping + ", additionalConfiguration$value=" + this.additionalConfigurationValue + ")";
         }
     }
 
@@ -259,34 +251,22 @@ public class EdmlDefinition {
         if (this.isAddSourceReferenceColumn() != other.isAddSourceReferenceColumn()) {
             return false;
         }
-        final Object this$source = this.getSource();
-        final Object other$source = other.getSource();
-        if (this$source == null ? other$source != null : !this$source.equals(other$source)) {
+        if (this.getSource() == null ? other.getSource() != null : !this.getSource().equals(other.getSource())) {
             return false;
         }
-        final Object this$destinationTable = this.getDestinationTable();
-        final Object other$destinationTable = other.getDestinationTable();
-        if (this$destinationTable == null ? other$destinationTable != null
-                : !this$destinationTable.equals(other$destinationTable)) {
+        if (this.getDestinationTable() == null ? other.getDestinationTable() != null
+                : !this.getDestinationTable().equals(other.getDestinationTable())) {
             return false;
         }
-        final Object this$description = this.getDescription();
-        final Object other$description = other.getDescription();
-        if (this$description == null ? other$description != null : !this$description.equals(other$description)) {
+        if (this.getDescription() == null ? other.getDescription() != null
+                : !this.getDescription().equals(other.getDescription())) {
             return false;
         }
-        final Object this$mapping = this.getMapping();
-        final Object other$mapping = other.getMapping();
-        if (this$mapping == null ? other$mapping != null : !this$mapping.equals(other$mapping)) {
+        if (this.getMapping() == null ? other.getMapping() != null : !this.getMapping().equals(other.getMapping())) {
             return false;
         }
-        final Object this$additionalConfiguration = this.getAdditionalConfiguration();
-        final Object other$additionalConfiguration = other.getAdditionalConfiguration();
-        if (this$additionalConfiguration == null ? other$additionalConfiguration != null
-                : !this$additionalConfiguration.equals(other$additionalConfiguration)) {
-            return false;
-        }
-        return true;
+        return this.getAdditionalConfiguration() == null ? other.getAdditionalConfiguration() != null
+                : !this.getAdditionalConfiguration().equals(other.getAdditionalConfiguration());
     }
 
     private boolean canEqual(final Object other) {
@@ -298,16 +278,12 @@ public class EdmlDefinition {
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.isAddSourceReferenceColumn() ? 79 : 97);
-        final Object $source = this.getSource();
-        result = (result * PRIME) + ($source == null ? 43 : $source.hashCode());
-        final Object $destinationTable = this.getDestinationTable();
-        result = (result * PRIME) + ($destinationTable == null ? 43 : $destinationTable.hashCode());
-        final Object $description = this.getDescription();
-        result = (result * PRIME) + ($description == null ? 43 : $description.hashCode());
-        final Object $mapping = this.getMapping();
-        result = (result * PRIME) + ($mapping == null ? 43 : $mapping.hashCode());
-        final Object $additionalConfiguration = this.getAdditionalConfiguration();
-        result = (result * PRIME) + ($additionalConfiguration == null ? 43 : $additionalConfiguration.hashCode());
+        result = (result * PRIME) + (this.getSource() == null ? 43 : this.getSource().hashCode());
+        result = (result * PRIME) + (this.getDestinationTable() == null ? 43 : this.getDestinationTable().hashCode());
+        result = (result * PRIME) + (this.getDescription() == null ? 43 : this.getDescription().hashCode());
+        result = (result * PRIME) + (this.getMapping() == null ? 43 : this.getMapping().hashCode());
+        result = (result * PRIME)
+                + (this.getAdditionalConfiguration() == null ? 43 : this.getAdditionalConfiguration().hashCode());
         return result;
     }
 

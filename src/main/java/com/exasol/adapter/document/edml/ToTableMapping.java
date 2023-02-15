@@ -10,6 +10,8 @@ package com.exasol.adapter.document.edml;
  * key.
  */
 public final class ToTableMapping implements MappingDefinition {
+    private static final String DEFAULT_DESCRIPTION = "";
+
     private final String destinationTable;
     private final MappingDefinition mapping;
     private final String description;
@@ -19,13 +21,9 @@ public final class ToTableMapping implements MappingDefinition {
         visitor.visit(this);
     }
 
-    private static String $default$description() {
-        return "";
-    }
-
     private ToTableMapping(final String destinationTable, final MappingDefinition mapping, final String description) {
         if (mapping == null) {
-            throw new java.lang.NullPointerException("mapping is marked non-null but is null");
+            throw new NullPointerException("mapping is marked non-null but is null");
         }
         this.destinationTable = destinationTable;
         this.mapping = mapping;
@@ -38,8 +36,8 @@ public final class ToTableMapping implements MappingDefinition {
     public static class ToTableMappingBuilder {
         private String destinationTable;
         private MappingDefinition mapping;
-        private boolean description$set;
-        private String description$value;
+        private boolean descriptionSet;
+        private String descriptionValue;
 
         ToTableMappingBuilder() {
         }
@@ -63,7 +61,7 @@ public final class ToTableMapping implements MappingDefinition {
          */
         public ToTableMapping.ToTableMappingBuilder mapping(final MappingDefinition mapping) {
             if (mapping == null) {
-                throw new java.lang.NullPointerException("mapping is marked non-null but is null");
+                throw new NullPointerException("mapping is marked non-null but is null");
             }
             this.mapping = mapping;
             return this;
@@ -76,8 +74,8 @@ public final class ToTableMapping implements MappingDefinition {
          * @return {@code this}.
          */
         public ToTableMapping.ToTableMappingBuilder description(final String description) {
-            this.description$value = description;
-            this.description$set = true;
+            this.descriptionValue = description;
+            this.descriptionSet = true;
             return this;
         }
 
@@ -87,9 +85,9 @@ public final class ToTableMapping implements MappingDefinition {
          * @return the built {@link ToTableMapping}
          */
         public ToTableMapping build() {
-            String description = this.description$value;
-            if (!this.description$set) {
-                description = ToTableMapping.$default$description();
+            String description = this.descriptionValue;
+            if (!this.descriptionSet) {
+                description = DEFAULT_DESCRIPTION;
             }
             return new ToTableMapping(this.destinationTable, this.mapping, description);
         }
@@ -97,7 +95,7 @@ public final class ToTableMapping implements MappingDefinition {
         @Override
         public String toString() {
             return "ToTableMapping.ToTableMappingBuilder(destinationTable=" + this.destinationTable + ", mapping="
-                    + this.mapping + ", description$value=" + this.description$value + ")";
+                    + this.mapping + ", description$value=" + this.descriptionValue + ")";
         }
     }
 
@@ -148,35 +146,24 @@ public final class ToTableMapping implements MappingDefinition {
             return false;
         }
         final ToTableMapping other = (ToTableMapping) o;
-        final Object this$destinationTable = this.getDestinationTable();
-        final Object other$destinationTable = other.getDestinationTable();
-        if (this$destinationTable == null ? other$destinationTable != null
-                : !this$destinationTable.equals(other$destinationTable)) {
+        if (this.getDestinationTable() == null ? other.getDestinationTable() != null
+                : !this.getDestinationTable().equals(other.getDestinationTable())) {
             return false;
         }
-        final Object this$mapping = this.getMapping();
-        final Object other$mapping = other.getMapping();
-        if (this$mapping == null ? other$mapping != null : !this$mapping.equals(other$mapping)) {
+        if (this.getMapping() == null ? other.getMapping() != null : !this.getMapping().equals(other.getMapping())) {
             return false;
         }
-        final Object this$description = this.getDescription();
-        final Object other$description = other.getDescription();
-        if (this$description == null ? other$description != null : !this$description.equals(other$description)) {
-            return false;
-        }
-        return true;
+        return this.getDescription() == null ? other.getDescription() != null
+                : !this.getDescription().equals(other.getDescription());
     }
 
     @Override
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
-        final Object $destinationTable = this.getDestinationTable();
-        result = (result * PRIME) + ($destinationTable == null ? 43 : $destinationTable.hashCode());
-        final Object $mapping = this.getMapping();
-        result = (result * PRIME) + ($mapping == null ? 43 : $mapping.hashCode());
-        final Object $description = this.getDescription();
-        result = (result * PRIME) + ($description == null ? 43 : $description.hashCode());
+        result = (result * PRIME) + (this.getDestinationTable() == null ? 43 : this.getDestinationTable().hashCode());
+        result = (result * PRIME) + (this.getMapping() == null ? 43 : this.getMapping().hashCode());
+        result = (result * PRIME) + (this.getDescription() == null ? 43 : this.getDescription().hashCode());
         return result;
     }
 

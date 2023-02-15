@@ -6,20 +6,14 @@ package com.exasol.adapter.document.edml;
  * {@code DECIMAL} column.
  */
 public final class ToDecimalMapping extends AbstractToNumberMapping {
+    private static final int DEFAULT_DECIMAL_PRECISION = 18;
+    private static final int DEFAULT_DECIMAL_SCALE = 0;
     private final int decimalPrecision;
     private final int decimalScale;
 
     @Override
     public void accept(final MappingDefinitionVisitor visitor) {
         visitor.visit(this);
-    }
-
-    private static int $default$decimalPrecision() {
-        return 18;
-    }
-
-    private static int $default$decimalScale() {
-        return 0;
     }
 
     /**
@@ -98,12 +92,12 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         if (builder.decimalPrecision$set) {
             this.decimalPrecision = builder.decimalPrecision$value;
         } else {
-            this.decimalPrecision = ToDecimalMapping.$default$decimalPrecision();
+            this.decimalPrecision = DEFAULT_DECIMAL_PRECISION;
         }
         if (builder.decimalScale$set) {
             this.decimalScale = builder.decimalScale$value;
         } else {
-            this.decimalScale = ToDecimalMapping.$default$decimalScale();
+            this.decimalScale = DEFAULT_DECIMAL_SCALE;
         }
     }
 

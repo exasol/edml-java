@@ -71,10 +71,7 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         if (!other.canEqual(this)) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-        return true;
+        return super.equals(o);
     }
 
     @Override
@@ -84,8 +81,7 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
 
     @Override
     public int hashCode() {
-        final int result = super.hashCode();
-        return result;
+        return super.hashCode();
     }
 
     @Override

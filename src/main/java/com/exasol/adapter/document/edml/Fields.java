@@ -79,12 +79,8 @@ public class Fields implements MappingDefinition {
         if (!other.canEqual(this)) {
             return false;
         }
-        final Object this$fields = this.getFieldsMap();
-        final Object other$fields = other.getFieldsMap();
-        if (this$fields == null ? other$fields != null : !this$fields.equals(other$fields)) {
-            return false;
-        }
-        return true;
+        return this.getFieldsMap() == null ? other.getFieldsMap() != null
+                : !this.getFieldsMap().equals(other.getFieldsMap());
     }
 
     private boolean canEqual(final Object other) {
@@ -95,8 +91,7 @@ public class Fields implements MappingDefinition {
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
-        final Object $fields = this.getFieldsMap();
-        result = (result * PRIME) + ($fields == null ? 43 : $fields.hashCode());
+        result = (result * PRIME) + (this.getFieldsMap() == null ? 43 : this.getFieldsMap().hashCode());
         return result;
     }
 

@@ -5,6 +5,8 @@ package com.exasol.adapter.document.edml;
  * Abstract base for EDML mappings that map to an Exasol column.
  */
 public abstract class AbstractToColumnMapping implements MappingDefinition {
+    private static final KeyType DEFAULT_KEY = KeyType.NONE;
+    private static final boolean DEFAULT_REQUIRED = false;
     private final String destinationName;
     private final String description;
     private final KeyType key;
@@ -20,10 +22,10 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
         private String destinationName;
         private String description;
-        private boolean key$set;
-        private KeyType key$value;
-        private boolean required$set;
-        private boolean required$value;
+        private boolean keySet;
+        private KeyType keyValue;
+        private boolean requiredSet;
+        private boolean requiredValue;
 
         /**
          * Gets the {@code this} pointer for fluent programming.
@@ -68,8 +70,8 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
          * @return {@code this}.
          */
         public B key(final KeyType key) {
-            this.key$value = key;
-            this.key$set = true;
+            this.keyValue = key;
+            this.keySet = true;
             return self();
         }
 
@@ -80,25 +82,17 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
          * @return {@code this}.
          */
         public B required(final boolean required) {
-            this.required$value = required;
-            this.required$set = true;
+            this.requiredValue = required;
+            this.requiredSet = true;
             return self();
         }
 
         @Override
         public String toString() {
             return "AbstractToColumnMapping.AbstractToColumnMappingBuilder(destinationName=" + this.destinationName
-                    + ", description=" + this.description + ", key$value=" + this.key$value + ", required$value="
-                    + this.required$value + ")";
+                    + ", description=" + this.description + ", key$value=" + this.keyValue + ", required$value="
+                    + this.requiredValue + ")";
         }
-    }
-
-    private static KeyType $default$key() {
-        return KeyType.NONE;
-    }
-
-    private static boolean $default$required() {
-        return false;
     }
 
     /**
@@ -109,15 +103,15 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
     protected AbstractToColumnMapping(final AbstractToColumnMapping.AbstractToColumnMappingBuilder<?, ?> builder) {
         this.destinationName = builder.destinationName;
         this.description = builder.description;
-        if (builder.key$set) {
-            this.key = builder.key$value;
+        if (builder.keySet) {
+            this.key = builder.keyValue;
         } else {
-            this.key = AbstractToColumnMapping.$default$key();
+            this.key = DEFAULT_KEY;
         }
-        if (builder.required$set) {
-            this.required = builder.required$value;
+        if (builder.requiredSet) {
+            this.required = builder.requiredValue;
         } else {
-            this.required = AbstractToColumnMapping.$default$required();
+            this.required = DEFAULT_REQUIRED;
         }
     }
 
@@ -172,20 +166,20 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         if (this.isRequired() != other.isRequired()) {
             return false;
         }
-        final Object this$destinationName = this.getDestinationName();
-        final Object other$destinationName = other.getDestinationName();
-        if (this$destinationName == null ? other$destinationName != null
-                : !this$destinationName.equals(other$destinationName)) {
+        final Object thisDestinationName = this.getDestinationName();
+        final Object otherDestinationName = other.getDestinationName();
+        if (thisDestinationName == null ? otherDestinationName != null
+                : !thisDestinationName.equals(otherDestinationName)) {
             return false;
         }
-        final Object this$description = this.getDescription();
-        final Object other$description = other.getDescription();
-        if (this$description == null ? other$description != null : !this$description.equals(other$description)) {
+        final Object thisDescription = this.getDescription();
+        final Object otherDescription = other.getDescription();
+        if (thisDescription == null ? otherDescription != null : !thisDescription.equals(otherDescription)) {
             return false;
         }
-        final Object this$key = this.getKey();
-        final Object other$key = other.getKey();
-        if (this$key == null ? other$key != null : !this$key.equals(other$key)) {
+        final Object thisKey = this.getKey();
+        final Object otherKey = other.getKey();
+        if (thisKey == null ? otherKey != null : !thisKey.equals(otherKey)) {
             return false;
         }
         return true;
@@ -200,12 +194,9 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         final int PRIME = 59;
         int result = 1;
         result = (result * PRIME) + (this.isRequired() ? 79 : 97);
-        final Object $destinationName = this.getDestinationName();
-        result = (result * PRIME) + ($destinationName == null ? 43 : $destinationName.hashCode());
-        final Object $description = this.getDescription();
-        result = (result * PRIME) + ($description == null ? 43 : $description.hashCode());
-        final Object $key = this.getKey();
-        result = (result * PRIME) + ($key == null ? 43 : $key.hashCode());
+        result = (result * PRIME) + (this.getDestinationName() == null ? 43 : this.getDestinationName().hashCode());
+        result = (result * PRIME) + (this.getDescription() == null ? 43 : this.getDescription().hashCode());
+        result = (result * PRIME) + (this.getKey() == null ? 43 : this.getKey().hashCode());
         return result;
     }
 
