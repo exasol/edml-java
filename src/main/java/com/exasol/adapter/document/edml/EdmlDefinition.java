@@ -138,19 +138,16 @@ public class EdmlDefinition {
          * @return a new {@link EdmlDefinition}
          */
         public EdmlDefinition build() {
-            final String description = this.description;
-            final boolean addSourceReferenceColumn = this.addSourceReferenceColumn;
-            final String additionalConfiguration = this.additionalConfiguration;
-            return new EdmlDefinition(this.source, this.destinationTable, description, addSourceReferenceColumn,
-                    this.mapping, additionalConfiguration);
+            return new EdmlDefinition(this.source, this.destinationTable, this.description,
+                    this.addSourceReferenceColumn, this.mapping, this.additionalConfiguration);
         }
 
         @Override
         public String toString() {
             return "EdmlDefinition.EdmlDefinitionBuilder(source=" + this.source + ", destinationTable="
                     + this.destinationTable + ", descriptionValue=" + this.description
-                    + ", addSourceReferenceColumnValue=" + this.addSourceReferenceColumn + ", mapping="
-                    + this.mapping + ", additionalConfigurationValue=" + this.additionalConfiguration + ")";
+                    + ", addSourceReferenceColumnValue=" + this.addSourceReferenceColumn + ", mapping=" + this.mapping
+                    + ", additionalConfigurationValue=" + this.additionalConfiguration + ")";
         }
     }
 
