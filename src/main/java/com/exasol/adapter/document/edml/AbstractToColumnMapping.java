@@ -17,7 +17,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
     /**
      * Builder for {@link AbstractToColumnMapping}.
      *
-     * @param <C> built product type
+     * @param <C> type of the result created by this builder
      * @param <B> builder type
      */
     public abstract static class AbstractToColumnMappingBuilder<C extends AbstractToColumnMapping, B extends AbstractToColumnMappingBuilder<C, B>> {
@@ -28,7 +28,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         private boolean required = DEFAULT_REQUIRED;
 
         /**
-         * Gets the {@code this} pointer for fluent programming.
+         * Gets the {@code this} pointer of this builder for fluent programming.
          *
          * @return {@code this} pointer
          */

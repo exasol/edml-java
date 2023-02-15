@@ -42,9 +42,9 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
         }
 
         /**
-         * Define the behaviour to apply in case a value is not a number.
+         * Define the behavior to apply in case a value is not a number.
          *
-         * @param notNumericBehaviour behaviour to apply in case a value is not a number.
+         * @param notNumericBehaviour behavior to apply in case a value is not a number.
          * @return {@code this}.
          */
         public B notNumericBehaviour(final ConvertableMappingErrorBehaviour notNumericBehaviour) {
