@@ -2,7 +2,7 @@ package com.exasol.adapter.document.edml;
 
 /**
  * Behaviour for errors during schema mapping. This enum extends the {@link MappingErrorBehaviour} by the
- * CONVERT_OR_NULL and CONVERT_OR_ABORT option that is only applicable for certain types.
+ * {@code CONVERT_OR_NULL} and {@code CONVERT_OR_ABORT} option that is only applicable for certain types.
  */
 public enum ConvertableMappingErrorBehaviour {
 

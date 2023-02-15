@@ -1,11 +1,10 @@
+
 package com.exasol.adapter.document.edml.serializer;
 
 import static com.exasol.adapter.document.edml.EdmlKeys.*;
 import static com.exasol.adapter.document.edml.serializer.SerializationHelper.addAsJsonObjectIfNotNullOrEmpty;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.util.Map;
 
 import com.exasol.adapter.document.edml.*;
@@ -14,15 +13,14 @@ import com.exasol.errorreporting.ExaError;
 import jakarta.json.JsonObjectBuilder;
 import jakarta.json.JsonWriter;
 import jakarta.json.spi.JsonProvider;
-import lombok.Getter;
 
+//[impl->dsn~edml-serialization~1]
 /**
  * JSON serializer for {@link EdmlDefinition}s.
  * <p>
  * Wondering why we don't use a tool like Jackson or JSON.bind here? Checkout the design.md (dsn~edml-serialization~1)
  * </p>
  */
-//[impl->dsn~edml-serialization~1]
 public class EdmlSerializer {
     private static final String SCHEMA = "https://schemas.exasol.com/edml-1.4.0.json";
     private static final JsonProvider JSON = JsonProvider.provider();
@@ -60,15 +58,16 @@ public class EdmlSerializer {
         addIfNotNull(edmlJson, KEY_SOURCE, edmlDefinition.getSource());
         addIfNotNull(edmlJson, KEY_DESTINATION_TABLE, edmlDefinition.getDestinationTable());
         addIfNotNull(edmlJson, KEY_DESCRIPTION, edmlDefinition.getDescription());
-        addAsJsonObjectIfNotNullOrEmpty(edmlJson, KEY_ADDITIONAL_CONFIGURATION, edmlDefinition.getAdditionalConfiguration());
+        addAsJsonObjectIfNotNullOrEmpty(edmlJson, KEY_ADDITIONAL_CONFIGURATION,
+                edmlDefinition.getAdditionalConfiguration());
         edmlJson.add(KEY_ADD_SOURCE_REFERENCE_COLUMN, edmlDefinition.isAddSourceReferenceColumn());
         edmlJson.add(KEY_MAPPING, serializeMapping(edmlDefinition.getMapping()));
         return toJson(edmlJson);
     }
 
     private String toJson(final JsonObjectBuilder edmlJson) {
-        try (final StringWriter stringWriter = new StringWriter()) {
-            try (final JsonWriter jsonWriter = JSON.createWriter(stringWriter)) {
+        try (StringWriter stringWriter = new StringWriter()) {
+            try (JsonWriter jsonWriter = JSON.createWriter(stringWriter)) {
                 jsonWriter.write(edmlJson.build());
             }
             return stringWriter.toString();
@@ -80,12 +79,11 @@ public class EdmlSerializer {
     }
 
     private static class MappingSerializingVisitor implements MappingDefinitionVisitor {
-        @Getter
         private final JsonObjectBuilder result = JSON.createObjectBuilder();
 
         @Override
         public void visit(final Fields fields) {
-            for (final Map.Entry<String, MappingDefinition> entry : fields.getFields().entrySet()) {
+            for (final Map.Entry<String, MappingDefinition> entry : fields.getFieldsMap().entrySet()) {
                 this.result.add(entry.getKey(), serializeMapping(entry.getValue()));
             }
         }
@@ -174,6 +172,10 @@ public class EdmlSerializer {
 
         private void addIfNotNull(final String key, final String value) {
             EdmlSerializer.addIfNotNull(this.result, key, value);
+        }
+
+        public JsonObjectBuilder getResult() {
+            return this.result;
         }
     }
 }
