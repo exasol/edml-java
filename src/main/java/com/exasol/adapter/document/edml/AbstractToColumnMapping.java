@@ -7,7 +7,7 @@ import java.util.Objects;
  * Abstract base for EDML mappings that map to an Exasol column.
  */
 public abstract class AbstractToColumnMapping implements MappingDefinition {
-    private static final KeyType DEFAULT_KEY = KeyType.NONE;
+    private static final KeyType DEFAULT_KEY_TYPE = KeyType.NONE;
     private static final boolean DEFAULT_REQUIRED = false;
     private final String destinationName;
     private final String description;
@@ -24,28 +24,27 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
         private String destinationName;
         private String description;
-        private boolean keySet;
-        private KeyType keyValue;
+        private KeyType keyType = DEFAULT_KEY_TYPE;
         private boolean requiredSet;
         private boolean requiredValue;
 
         /**
          * Gets the {@code this} pointer for fluent programming.
-         * 
+         *
          * @return {@code this} pointer
          */
         protected abstract B self();
 
         /**
          * Build the product.
-         * 
+         *
          * @return the built product
          */
         public abstract C build();
 
         /**
          * Set the destination name.
-         * 
+         *
          * @param destinationName destination name
          * @return {@code this}.
          */
@@ -56,7 +55,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
         /**
          * Set the description.
-         * 
+         *
          * @param description description
          * @return {@code this}.
          */
@@ -67,19 +66,18 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
         /**
          * Set the key type.
-         * 
-         * @param key key type
+         *
+         * @param keyType key type
          * @return {@code this}.
          */
-        public B key(final KeyType key) {
-            this.keyValue = key;
-            this.keySet = true;
+        public B key(final KeyType keyType) {
+            this.keyType = keyType;
             return self();
         }
 
         /**
          * Set the required flag.
-         * 
+         *
          * @param required required
          * @return {@code this}.
          */
@@ -92,24 +90,20 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         @Override
         public String toString() {
             return "AbstractToColumnMapping.AbstractToColumnMappingBuilder(destinationName=" + this.destinationName
-                    + ", description=" + this.description + ", keyValue=" + this.keyValue + ", requiredValue="
+                    + ", description=" + this.description + ", keyValue=" + this.keyType + ", requiredValue="
                     + this.requiredValue + ")";
         }
     }
 
     /**
      * Create a new {@link AbstractToColumnMapping}.
-     * 
+     *
      * @param builder the builder
      */
     protected AbstractToColumnMapping(final AbstractToColumnMapping.AbstractToColumnMappingBuilder<?, ?> builder) {
         this.destinationName = builder.destinationName;
         this.description = builder.description;
-        if (builder.keySet) {
-            this.key = builder.keyValue;
-        } else {
-            this.key = DEFAULT_KEY;
-        }
+        this.key = builder.keyType;
         if (builder.requiredSet) {
             this.required = builder.requiredValue;
         } else {
@@ -119,7 +113,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
     /**
      * Get the destination name.
-     * 
+     *
      * @return destination name
      */
     public String getDestinationName() {
@@ -128,7 +122,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
     /**
      * Get the description.
-     * 
+     *
      * @return description
      */
     public String getDescription() {
@@ -137,7 +131,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
     /**
      * Get the key type.
-     * 
+     *
      * @return key type
      */
     public KeyType getKey() {
@@ -146,7 +140,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
     /**
      * Check if this is a required field.
-     * 
+     *
      * @return {@code true} if this is a required field
      */
     public boolean isRequired() {
@@ -155,7 +149,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
 
     @Override
     public int hashCode() {
-        return Objects.hash(destinationName, description, key, required);
+        return Objects.hash(this.destinationName, this.description, this.key, this.required);
     }
 
     @Override
@@ -170,8 +164,9 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
             return false;
         }
         final AbstractToColumnMapping other = (AbstractToColumnMapping) obj;
-        return Objects.equals(destinationName, other.destinationName) && Objects.equals(description, other.description)
-                && key == other.key && required == other.required;
+        return Objects.equals(this.destinationName, other.destinationName)
+                && Objects.equals(this.description, other.description) && (this.key == other.key)
+                && (this.required == other.required);
     }
 
     @Override
