@@ -3,6 +3,8 @@ package com.exasol.adapter.document.edml;
 
 import static com.exasol.adapter.document.edml.MappingErrorBehaviour.ABORT;
 
+import java.util.Objects;
+
 /**
  * Java representation of the EDML {@code toJsonMapping}. Maps the selected document property and all its descendants to
  * a JSON string. You can also use this mapping directly for a whole document.
@@ -91,41 +93,26 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(overflowBehaviour);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ToJsonMapping)) {
+        if (!super.equals(obj)) {
             return false;
         }
-        final ToJsonMapping other = (ToJsonMapping) o;
-        if (!other.canEqual(this)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-        final Object this$overflowBehaviour = this.getOverflowBehaviour();
-        final Object other$overflowBehaviour = other.getOverflowBehaviour();
-        if (this$overflowBehaviour == null ? other$overflowBehaviour != null
-                : !this$overflowBehaviour.equals(other$overflowBehaviour)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    protected boolean canEqual(final Object other) {
-        return other instanceof ToJsonMapping;
-    }
-
-    @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = super.hashCode();
-        final Object $overflowBehaviour = this.getOverflowBehaviour();
-        result = (result * PRIME) + ($overflowBehaviour == null ? 43 : $overflowBehaviour.hashCode());
-        return result;
+        ToJsonMapping other = (ToJsonMapping) obj;
+        return overflowBehaviour == other.overflowBehaviour;
     }
 
     @Override

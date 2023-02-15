@@ -1,6 +1,8 @@
 
 package com.exasol.adapter.document.edml;
 
+import java.util.Objects;
+
 /**
  * Java representation of the EDML {@code toDecimalMapping}. Maps the selected document property to an Exasol
  * {@code DECIMAL} column.
@@ -112,41 +114,26 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(decimalPrecision, decimalScale);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ToDecimalMapping)) {
+        if (!super.equals(obj)) {
             return false;
         }
-        final ToDecimalMapping other = (ToDecimalMapping) o;
-        if (!other.canEqual(this)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-        if (this.getDecimalPrecision() != other.getDecimalPrecision()) {
-            return false;
-        }
-        if (this.getDecimalScale() != other.getDecimalScale()) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    protected boolean canEqual(final Object other) {
-        return other instanceof ToDecimalMapping;
-    }
-
-    @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = super.hashCode();
-        result = (result * PRIME) + this.getDecimalPrecision();
-        result = (result * PRIME) + this.getDecimalScale();
-        return result;
+        ToDecimalMapping other = (ToDecimalMapping) obj;
+        return decimalPrecision == other.decimalPrecision && decimalScale == other.decimalScale;
     }
 
     @Override

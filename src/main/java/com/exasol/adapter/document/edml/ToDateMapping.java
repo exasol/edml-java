@@ -1,6 +1,8 @@
 
 package com.exasol.adapter.document.edml;
 
+import java.util.Objects;
+
 /**
  * Java representation of the EDML {@code toDateMapping}. Maps the selected document property to an Exasol {@code DATE}
  * column.
@@ -88,41 +90,26 @@ public final class ToDateMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(notDateBehavior);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ToDateMapping)) {
+        if (!super.equals(obj)) {
             return false;
         }
-        final ToDateMapping other = (ToDateMapping) o;
-        if (!other.canEqual(this)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-        final Object this$notDateBehavior = this.getNotDateBehavior();
-        final Object other$notDateBehavior = other.getNotDateBehavior();
-        if (this$notDateBehavior == null ? other$notDateBehavior != null
-                : !this$notDateBehavior.equals(other$notDateBehavior)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    protected boolean canEqual(final Object other) {
-        return other instanceof ToDateMapping;
-    }
-
-    @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = super.hashCode();
-        final Object $notDateBehavior = this.getNotDateBehavior();
-        result = (result * PRIME) + ($notDateBehavior == null ? 43 : $notDateBehavior.hashCode());
-        return result;
+        ToDateMapping other = (ToDateMapping) obj;
+        return notDateBehavior == other.notDateBehavior;
     }
 
     @Override

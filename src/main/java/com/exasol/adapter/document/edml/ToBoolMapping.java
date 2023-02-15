@@ -1,6 +1,8 @@
 
 package com.exasol.adapter.document.edml;
 
+import java.util.Objects;
+
 /**
  * Java representation of the EDML {@code toBoolMapping}. Maps the selected document property to an Exasol
  * {@code BOOLEAN}. column.
@@ -89,41 +91,26 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(notBooleanBehavior);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ToBoolMapping)) {
+        if (!super.equals(obj)) {
             return false;
         }
-        final ToBoolMapping other = (ToBoolMapping) o;
-        if (!other.canEqual(this)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-        final Object this$notBooleanBehavior = this.getNotBooleanBehavior();
-        final Object other$notBooleanBehavior = other.getNotBooleanBehavior();
-        if (this$notBooleanBehavior == null ? other$notBooleanBehavior != null
-                : !this$notBooleanBehavior.equals(other$notBooleanBehavior)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    protected boolean canEqual(final Object other) {
-        return other instanceof ToBoolMapping;
-    }
-
-    @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = super.hashCode();
-        final Object $notBooleanBehavior = this.getNotBooleanBehavior();
-        result = (result * PRIME) + ($notBooleanBehavior == null ? 43 : $notBooleanBehavior.hashCode());
-        return result;
+        ToBoolMapping other = (ToBoolMapping) obj;
+        return notBooleanBehavior == other.notBooleanBehavior;
     }
 
     @Override

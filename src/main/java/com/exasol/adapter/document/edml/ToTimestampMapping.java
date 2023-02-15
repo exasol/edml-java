@@ -1,6 +1,8 @@
 
 package com.exasol.adapter.document.edml;
 
+import java.util.Objects;
+
 /**
  * Java representation of the EDML {@code toTimestampMapping}. Maps the selected document property to an Exasol
  * {@code TIMESTAMP} or {@code TIMESTAMP WITH LOCAL TIMEZONE} column.
@@ -116,18 +118,27 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    protected boolean canEqual(final Object other) {
-        return other instanceof ToTimestampMapping;
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(notTimestampBehavior, useTimestampWithLocalTimezoneType);
+        return result;
     }
 
     @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = super.hashCode();
-        result = (result * PRIME) + (this.isUseTimestampWithLocalTimezoneType() ? 79 : 97);
-        final Object $notTimestampBehavior = this.getNotTimestampBehavior();
-        result = (result * PRIME) + ($notTimestampBehavior == null ? 43 : $notTimestampBehavior.hashCode());
-        return result;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ToTimestampMapping other = (ToTimestampMapping) obj;
+        return notTimestampBehavior == other.notTimestampBehavior
+                && useTimestampWithLocalTimezoneType == other.useTimestampWithLocalTimezoneType;
     }
 
     @Override

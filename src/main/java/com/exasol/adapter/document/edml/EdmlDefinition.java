@@ -1,6 +1,8 @@
 
 package com.exasol.adapter.document.edml;
 
+import java.util.Objects;
+
 /**
  * Java representation of an EDML definition file.
  */
@@ -237,54 +239,27 @@ public class EdmlDefinition {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof EdmlDefinition)) {
-            return false;
-        }
-        final EdmlDefinition other = (EdmlDefinition) o;
-        if (!other.canEqual(this)) {
-            return false;
-        }
-        if (this.isAddSourceReferenceColumn() != other.isAddSourceReferenceColumn()) {
-            return false;
-        }
-        if (this.getSource() == null ? other.getSource() != null : !this.getSource().equals(other.getSource())) {
-            return false;
-        }
-        if (this.getDestinationTable() == null ? other.getDestinationTable() != null
-                : !this.getDestinationTable().equals(other.getDestinationTable())) {
-            return false;
-        }
-        if (this.getDescription() == null ? other.getDescription() != null
-                : !this.getDescription().equals(other.getDescription())) {
-            return false;
-        }
-        if (this.getMapping() == null ? other.getMapping() != null : !this.getMapping().equals(other.getMapping())) {
-            return false;
-        }
-        return this.getAdditionalConfiguration() == null ? other.getAdditionalConfiguration() != null
-                : !this.getAdditionalConfiguration().equals(other.getAdditionalConfiguration());
-    }
-
-    private boolean canEqual(final Object other) {
-        return other instanceof EdmlDefinition;
+    public int hashCode() {
+        return Objects.hash(source, destinationTable, description, addSourceReferenceColumn, mapping,
+                additionalConfiguration);
     }
 
     @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        result = (result * PRIME) + (this.isAddSourceReferenceColumn() ? 79 : 97);
-        result = (result * PRIME) + (this.getSource() == null ? 43 : this.getSource().hashCode());
-        result = (result * PRIME) + (this.getDestinationTable() == null ? 43 : this.getDestinationTable().hashCode());
-        result = (result * PRIME) + (this.getDescription() == null ? 43 : this.getDescription().hashCode());
-        result = (result * PRIME) + (this.getMapping() == null ? 43 : this.getMapping().hashCode());
-        result = (result * PRIME)
-                + (this.getAdditionalConfiguration() == null ? 43 : this.getAdditionalConfiguration().hashCode());
-        return result;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        EdmlDefinition other = (EdmlDefinition) obj;
+        return Objects.equals(source, other.source) && Objects.equals(destinationTable, other.destinationTable)
+                && Objects.equals(description, other.description)
+                && addSourceReferenceColumn == other.addSourceReferenceColumn && Objects.equals(mapping, other.mapping)
+                && Objects.equals(additionalConfiguration, other.additionalConfiguration);
     }
 
     @Override

@@ -4,6 +4,8 @@ package com.exasol.adapter.document.edml;
 import static com.exasol.adapter.document.edml.ConvertableMappingErrorBehaviour.CONVERT_OR_ABORT;
 import static com.exasol.adapter.document.edml.TruncateableMappingErrorBehaviour.TRUNCATE;
 
+import java.util.Objects;
+
 /**
  * Java representation of the EDML {@code toVarcharMapping}. Maps the selected document property to an Exasol
  * {@code VARCHAR}, column.
@@ -115,49 +117,26 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(nonStringBehaviour, overflowBehaviour);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof ToVarcharMapping)) {
+        if (!super.equals(obj)) {
             return false;
         }
-        final ToVarcharMapping other = (ToVarcharMapping) o;
-        if (!other.canEqual(this)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-        final Object this$nonStringBehaviour = this.getNonStringBehaviour();
-        final Object other$nonStringBehaviour = other.getNonStringBehaviour();
-        if (this$nonStringBehaviour == null ? other$nonStringBehaviour != null
-                : !this$nonStringBehaviour.equals(other$nonStringBehaviour)) {
-            return false;
-        }
-        final Object this$overflowBehaviour = this.getOverflowBehaviour();
-        final Object other$overflowBehaviour = other.getOverflowBehaviour();
-        if (this$overflowBehaviour == null ? other$overflowBehaviour != null
-                : !this$overflowBehaviour.equals(other$overflowBehaviour)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    protected boolean canEqual(final Object other) {
-        return other instanceof ToVarcharMapping;
-    }
-
-    @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = super.hashCode();
-        final Object $nonStringBehaviour = this.getNonStringBehaviour();
-        result = (result * PRIME) + ($nonStringBehaviour == null ? 43 : $nonStringBehaviour.hashCode());
-        final Object $overflowBehaviour = this.getOverflowBehaviour();
-        result = (result * PRIME) + ($overflowBehaviour == null ? 43 : $overflowBehaviour.hashCode());
-        return result;
+        ToVarcharMapping other = (ToVarcharMapping) obj;
+        return nonStringBehaviour == other.nonStringBehaviour && overflowBehaviour == other.overflowBehaviour;
     }
 
     @Override

@@ -1,6 +1,8 @@
 
 package com.exasol.adapter.document.edml;
 
+import java.util.Objects;
+
 /**
  * Abstract base for EDML mappings that map to a numeric Exasol column.
  */
@@ -88,50 +90,26 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(overflowBehaviour, notNumericBehaviour);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof AbstractToNumberMapping)) {
+        if (!super.equals(obj)) {
             return false;
         }
-        final AbstractToNumberMapping other = (AbstractToNumberMapping) o;
-        if (!other.canEqual(this)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-        final Object this$overflowBehaviour = this.getOverflowBehaviour();
-        final Object other$overflowBehaviour = other.getOverflowBehaviour();
-        if (this$overflowBehaviour == null ? other$overflowBehaviour != null
-                : !this$overflowBehaviour.equals(other$overflowBehaviour)) {
-            return false;
-        }
-        final Object this$notNumericBehaviour = this.getNotNumericBehaviour();
-        final Object other$notNumericBehaviour = other.getNotNumericBehaviour();
-        if (this$notNumericBehaviour == null ? other$notNumericBehaviour != null
-                : !this$notNumericBehaviour.equals(other$notNumericBehaviour)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    protected boolean canEqual(final Object other) {
-        return other instanceof AbstractToNumberMapping;
-    }
-
-    @Override
-
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = super.hashCode();
-        final Object $overflowBehaviour = this.getOverflowBehaviour();
-        result = (result * PRIME) + ($overflowBehaviour == null ? 43 : $overflowBehaviour.hashCode());
-        final Object $notNumericBehaviour = this.getNotNumericBehaviour();
-        result = (result * PRIME) + ($notNumericBehaviour == null ? 43 : $notNumericBehaviour.hashCode());
-        return result;
+        AbstractToNumberMapping other = (AbstractToNumberMapping) obj;
+        return overflowBehaviour == other.overflowBehaviour && notNumericBehaviour == other.notNumericBehaviour;
     }
 
     @Override

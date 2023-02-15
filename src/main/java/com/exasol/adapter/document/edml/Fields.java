@@ -1,8 +1,7 @@
 
 package com.exasol.adapter.document.edml;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Java representation of the {@code fields} object in the EDML. This definition defines the expected nested properties
@@ -68,31 +67,23 @@ public class Fields implements MappingDefinition {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof Fields)) {
-            return false;
-        }
-        final Fields other = (Fields) o;
-        if (!other.canEqual(this)) {
-            return false;
-        }
-        return this.getFieldsMap() == null ? other.getFieldsMap() != null
-                : !this.getFieldsMap().equals(other.getFieldsMap());
-    }
-
-    private boolean canEqual(final Object other) {
-        return other instanceof Fields;
+    public int hashCode() {
+        return Objects.hash(fieldsMap);
     }
 
     @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        result = (result * PRIME) + (this.getFieldsMap() == null ? 43 : this.getFieldsMap().hashCode());
-        return result;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Fields other = (Fields) obj;
+        return Objects.equals(fieldsMap, other.fieldsMap);
     }
 
     @Override

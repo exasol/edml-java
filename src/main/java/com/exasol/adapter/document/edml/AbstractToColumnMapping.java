@@ -1,6 +1,8 @@
 
 package com.exasol.adapter.document.edml;
 
+import java.util.Objects;
+
 /**
  * Abstract base for EDML mappings that map to an Exasol column.
  */
@@ -152,49 +154,24 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof AbstractToColumnMapping)) {
-            return false;
-        }
-        final AbstractToColumnMapping other = (AbstractToColumnMapping) o;
-        if (!other.canEqual(this)) {
-            return false;
-        }
-        if (this.isRequired() != other.isRequired()) {
-            return false;
-        }
-        final Object thisDestinationName = this.getDestinationName();
-        final Object otherDestinationName = other.getDestinationName();
-        if (thisDestinationName == null ? otherDestinationName != null
-                : !thisDestinationName.equals(otherDestinationName)) {
-            return false;
-        }
-        final Object thisDescription = this.getDescription();
-        final Object otherDescription = other.getDescription();
-        if (thisDescription == null ? otherDescription != null : !thisDescription.equals(otherDescription)) {
-            return false;
-        }
-        final Object thisKey = this.getKey();
-        final Object otherKey = other.getKey();
-        return thisKey == null ? otherKey != null : !thisKey.equals(otherKey);
-    }
-
-    boolean canEqual(final Object other) {
-        return other instanceof AbstractToColumnMapping;
+    public int hashCode() {
+        return Objects.hash(destinationName, description, key, required);
     }
 
     @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        result = (result * PRIME) + (this.isRequired() ? 79 : 97);
-        result = (result * PRIME) + (this.getDestinationName() == null ? 43 : this.getDestinationName().hashCode());
-        result = (result * PRIME) + (this.getDescription() == null ? 43 : this.getDescription().hashCode());
-        result = (result * PRIME) + (this.getKey() == null ? 43 : this.getKey().hashCode());
-        return result;
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AbstractToColumnMapping other = (AbstractToColumnMapping) obj;
+        return Objects.equals(destinationName, other.destinationName) && Objects.equals(description, other.description)
+                && key == other.key && required == other.required;
     }
 
     @Override

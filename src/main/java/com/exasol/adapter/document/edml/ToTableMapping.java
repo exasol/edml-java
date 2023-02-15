@@ -1,6 +1,8 @@
 
 package com.exasol.adapter.document.edml;
 
+import java.util.Objects;
+
 /**
  * Java representation of the EDML {@code toTableMapping}. This mapping is used for normalizing documents to table
  * structures. It creates a new table in the resulting virtual schema named: {@code <NAME_OF_PARENT>_<GIVEN_NAME>}.
@@ -138,33 +140,24 @@ public final class ToTableMapping implements MappingDefinition {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof ToTableMapping)) {
-            return false;
-        }
-        final ToTableMapping other = (ToTableMapping) o;
-        if (this.getDestinationTable() == null ? other.getDestinationTable() != null
-                : !this.getDestinationTable().equals(other.getDestinationTable())) {
-            return false;
-        }
-        if (this.getMapping() == null ? other.getMapping() != null : !this.getMapping().equals(other.getMapping())) {
-            return false;
-        }
-        return this.getDescription() == null ? other.getDescription() != null
-                : !this.getDescription().equals(other.getDescription());
+    public int hashCode() {
+        return Objects.hash(destinationTable, mapping, description);
     }
 
     @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        result = (result * PRIME) + (this.getDestinationTable() == null ? 43 : this.getDestinationTable().hashCode());
-        result = (result * PRIME) + (this.getMapping() == null ? 43 : this.getMapping().hashCode());
-        result = (result * PRIME) + (this.getDescription() == null ? 43 : this.getDescription().hashCode());
-        return result;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ToTableMapping other = (ToTableMapping) obj;
+        return Objects.equals(destinationTable, other.destinationTable) && Objects.equals(mapping, other.mapping)
+                && Objects.equals(description, other.description);
     }
 
     @Override

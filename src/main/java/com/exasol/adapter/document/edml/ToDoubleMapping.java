@@ -69,15 +69,10 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
             return false;
         }
         final ToDoubleMapping other = (ToDoubleMapping) o;
-        if (!other.canEqual(this)) {
+        if (!(other instanceof ToDoubleMapping)) {
             return false;
         }
         return super.equals(o);
-    }
-
-    @Override
-    protected boolean canEqual(final Object other) {
-        return other instanceof ToDoubleMapping;
     }
 
     @Override

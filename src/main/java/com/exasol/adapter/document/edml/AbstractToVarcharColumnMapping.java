@@ -1,6 +1,8 @@
 
 package com.exasol.adapter.document.edml;
 
+import java.util.Objects;
+
 /**
  * Abstract base for EDML mappings that map to an Exasol {@code VARCHAR} column.
  */
@@ -57,34 +59,26 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(varcharColumnSize);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof AbstractToVarcharColumnMapping)) {
+        if (!super.equals(obj)) {
             return false;
         }
-        final AbstractToVarcharColumnMapping other = (AbstractToVarcharColumnMapping) o;
-        if (!other.canEqual(this)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-        return this.getVarcharColumnSize() == other.getVarcharColumnSize();
-    }
-
-    @Override
-    protected boolean canEqual(final Object other) {
-        return other instanceof AbstractToVarcharColumnMapping;
-    }
-
-    @Override
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = super.hashCode();
-        result = (result * PRIME) + this.getVarcharColumnSize();
-        return result;
+        AbstractToVarcharColumnMapping other = (AbstractToVarcharColumnMapping) obj;
+        return varcharColumnSize == other.varcharColumnSize;
     }
 
     @Override
