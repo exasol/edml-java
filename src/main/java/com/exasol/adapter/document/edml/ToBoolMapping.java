@@ -83,6 +83,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
      * 
      * @return a new builder for {@link ToBoolMapping}
      */
+    @SuppressWarnings("java:S1452") // Generic wildcard is required here
     public static ToBoolMapping.ToBoolMappingBuilder<?> builder() {
         return new ToBoolMapping.ToBoolMappingBuilderImpl();
     }

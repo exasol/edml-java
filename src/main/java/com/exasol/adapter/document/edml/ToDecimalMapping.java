@@ -106,6 +106,7 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
      * 
      * @return a new builder for {@link ToDecimalMapping}
      */
+    @SuppressWarnings("java:S1452") // Generic wildcard is required here
     public static ToDecimalMapping.ToDecimalMappingBuilder<?> builder() {
         return new ToDecimalMapping.ToDecimalMappingBuilderImpl();
     }

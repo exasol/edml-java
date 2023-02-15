@@ -82,6 +82,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
      * 
      * @return a new builder for {@link ToDateMapping}
      */
+    @SuppressWarnings("java:S1452") // Generic wildcard is required here
     public static ToDateMapping.ToDateMappingBuilder<?> builder() {
         return new ToDateMapping.ToDateMappingBuilderImpl();
     }

@@ -110,35 +110,9 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
      * 
      * @return a new builder for {@link ToTimestampMapping}
      */
+    @SuppressWarnings("java:S1452") // Generic wildcard is required here
     public static ToTimestampMapping.ToTimestampMappingBuilder<?> builder() {
         return new ToTimestampMapping.ToTimestampMappingBuilderImpl();
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof ToTimestampMapping)) {
-            return false;
-        }
-        final ToTimestampMapping other = (ToTimestampMapping) o;
-        if (!other.canEqual(this)) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-        if (this.isUseTimestampWithLocalTimezoneType() != other.isUseTimestampWithLocalTimezoneType()) {
-            return false;
-        }
-        final Object this$notTimestampBehavior = this.getNotTimestampBehavior();
-        final Object other$notTimestampBehavior = other.getNotTimestampBehavior();
-        if (this$notTimestampBehavior == null ? other$notTimestampBehavior != null
-                : !this$notTimestampBehavior.equals(other$notTimestampBehavior)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

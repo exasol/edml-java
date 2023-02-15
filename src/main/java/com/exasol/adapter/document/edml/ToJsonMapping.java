@@ -85,6 +85,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
      * 
      * @return a new builder for {@link ToJsonMapping}
      */
+    @SuppressWarnings("java:S1452") // Generic wildcard is required here
     public static ToJsonMapping.ToJsonMappingBuilder<?> builder() {
         return new ToJsonMapping.ToJsonMappingBuilderImpl();
     }

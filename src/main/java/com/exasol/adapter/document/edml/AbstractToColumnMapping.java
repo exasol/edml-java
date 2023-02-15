@@ -179,10 +179,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         }
         final Object thisKey = this.getKey();
         final Object otherKey = other.getKey();
-        if (thisKey == null ? otherKey != null : !thisKey.equals(otherKey)) {
-            return false;
-        }
-        return true;
+        return thisKey == null ? otherKey != null : !thisKey.equals(otherKey);
     }
 
     boolean canEqual(final Object other) {

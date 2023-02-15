@@ -55,6 +55,7 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
      * 
      * @return a new builder for {@link ToDoubleMapping}
      */
+    @SuppressWarnings("java:S1452") // Generic wildcard is required here
     public static ToDoubleMapping.ToDoubleMappingBuilder<?> builder() {
         return new ToDoubleMapping.ToDoubleMappingBuilderImpl();
     }

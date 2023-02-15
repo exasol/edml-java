@@ -109,6 +109,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
      * 
      * @return a new builder for {@link ToVarcharMapping}
      */
+    @SuppressWarnings("java:S1452") // Generic wildcard is required here
     public static ToVarcharMapping.ToVarcharMappingBuilder<?> builder() {
         return new ToVarcharMapping.ToVarcharMappingBuilderImpl();
     }
