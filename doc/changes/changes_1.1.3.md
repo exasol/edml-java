@@ -1,6 +1,6 @@
-# EDML Java 1.1.3, released 2023-02-14
+# EDML Java 1.1.3, released 2023-02-15
 
-Code name:
+Code name: Reduce Dependencies
 
 ## Summary
 
