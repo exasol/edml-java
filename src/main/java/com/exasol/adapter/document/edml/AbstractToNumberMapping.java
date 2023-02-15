@@ -18,9 +18,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
     public abstract static class AbstractToNumberMappingBuilder<C extends AbstractToNumberMapping, B extends AbstractToNumberMappingBuilder<C, B>>
             extends AbstractToColumnMappingBuilder<C, B> {
 
-        private boolean overflowBehaviourSet;
-
-        private MappingErrorBehaviour overflowBehaviourValue;
+        private MappingErrorBehaviour overflowBehaviourValue = DEFAULT_OVERFLOW_BEHAVIOUR;
 
         private boolean notNumericBehaviourSet;
 
@@ -34,19 +32,18 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
 
         /**
          * Define the behaviour to apply in case a value exceeds the size of the {@code VARCHAR} column.
-         * 
+         *
          * @param overflowBehaviour behaviour to apply in case a value exceeds the size of the {@code VARCHAR} column.
          * @return {@code this}.
          */
         public B overflowBehaviour(final MappingErrorBehaviour overflowBehaviour) {
             this.overflowBehaviourValue = overflowBehaviour;
-            this.overflowBehaviourSet = true;
             return self();
         }
 
         /**
          * Define the behaviour to apply in case a value is not a number.
-         * 
+         *
          * @param notNumericBehaviour behaviour to apply in case a value is not a number.
          * @return {@code this}.
          */
@@ -66,16 +63,12 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
 
     /**
      * Create a new {@link AbstractToNumberMapping}.
-     * 
+     *
      * @param builder the builder
      */
     protected AbstractToNumberMapping(final AbstractToNumberMapping.AbstractToNumberMappingBuilder<?, ?> builder) {
         super(builder);
-        if (builder.overflowBehaviourSet) {
-            this.overflowBehaviour = builder.overflowBehaviourValue;
-        } else {
-            this.overflowBehaviour = DEFAULT_OVERFLOW_BEHAVIOUR;
-        }
+        this.overflowBehaviour = builder.overflowBehaviourValue;
         if (builder.notNumericBehaviourSet) {
             this.notNumericBehaviour = builder.notNumericBehaviourValue;
         } else {
@@ -87,7 +80,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(overflowBehaviour, notNumericBehaviour);
+        result = (prime * result) + Objects.hash(this.overflowBehaviour, this.notNumericBehaviour);
         return result;
     }
 
@@ -103,7 +96,8 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
             return false;
         }
         final AbstractToNumberMapping other = (AbstractToNumberMapping) obj;
-        return overflowBehaviour == other.overflowBehaviour && notNumericBehaviour == other.notNumericBehaviour;
+        return (this.overflowBehaviour == other.overflowBehaviour)
+                && (this.notNumericBehaviour == other.notNumericBehaviour);
     }
 
     @Override
@@ -114,7 +108,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
 
     /**
      * Get the behaviour to apply in case a value exceeds the size of the {@code VARCHAR} column.
-     * 
+     *
      * @return behaviour to apply in case a value exceeds the size of the {@code VARCHAR} column.
      */
     public MappingErrorBehaviour getOverflowBehaviour() {
@@ -123,7 +117,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
 
     /**
      * Get the behaviour to apply in case a value is not a number.
-     * 
+     *
      * @return behaviour to apply in case a value is not a number
      */
     public ConvertableMappingErrorBehaviour getNotNumericBehaviour() {

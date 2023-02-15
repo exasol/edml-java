@@ -17,8 +17,7 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
     public abstract static class AbstractToVarcharColumnMappingBuilder<C extends AbstractToVarcharColumnMapping, B extends AbstractToVarcharColumnMappingBuilder<C, B>>
             extends AbstractToColumnMappingBuilder<C, B> {
 
-        private boolean varcharColumnSizeSet;
-        private int varcharColumnSizeValue;
+        private int varcharColumnSizeValue = DEFAULT_VARCHAR_COLUMN_SIZE;
 
         @Override
         protected abstract B self();
@@ -32,7 +31,6 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
          */
         public B varcharColumnSize(final int varcharColumnSize) {
             this.varcharColumnSizeValue = varcharColumnSize;
-            this.varcharColumnSizeSet = true;
             return self();
         }
 
@@ -45,29 +43,25 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
 
     /**
      * Create a new {@link AbstractToVarcharColumnMapping}.
-     * 
+     *
      * @param builder the builder
      */
     protected AbstractToVarcharColumnMapping(
             final AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<?, ?> builder) {
         super(builder);
-        if (builder.varcharColumnSizeSet) {
-            this.varcharColumnSize = builder.varcharColumnSizeValue;
-        } else {
-            this.varcharColumnSize = DEFAULT_VARCHAR_COLUMN_SIZE;
-        }
+        this.varcharColumnSize = builder.varcharColumnSizeValue;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(varcharColumnSize);
+        result = (prime * result) + Objects.hash(this.varcharColumnSize);
         return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -77,8 +71,8 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
         if (getClass() != obj.getClass()) {
             return false;
         }
-        AbstractToVarcharColumnMapping other = (AbstractToVarcharColumnMapping) obj;
-        return varcharColumnSize == other.varcharColumnSize;
+        final AbstractToVarcharColumnMapping other = (AbstractToVarcharColumnMapping) obj;
+        return this.varcharColumnSize == other.varcharColumnSize;
     }
 
     @Override
@@ -89,7 +83,7 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
 
     /**
      * Size of the varchar column.
-     * 
+     *
      * @return size of the varchar column
      */
     public int getVarcharColumnSize() {

@@ -22,8 +22,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
     public abstract static class ToDateMappingBuilder<B extends ToDateMapping.ToDateMappingBuilder<B>>
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToDateMapping, B> {
 
-        private boolean notDateBehaviorSet;
-        private ConvertableMappingErrorBehaviour notDateBehaviorValue;
+        private ConvertableMappingErrorBehaviour notDateBehavior = DEFAULT_NOT_DATE_BEHAVIOUR;
 
         @Override
         protected abstract B self();
@@ -33,20 +32,19 @@ public final class ToDateMapping extends AbstractToColumnMapping {
 
         /**
          * Define the behaviour to apply in case a value is not a date.
-         * 
+         *
          * @param notDateBehavior behaviour to apply in case a value is not a date
          * @return {@code this}.
          */
         public B notDateBehavior(final ConvertableMappingErrorBehaviour notDateBehavior) {
-            this.notDateBehaviorValue = notDateBehavior;
-            this.notDateBehaviorSet = true;
+            this.notDateBehavior = notDateBehavior;
             return self();
         }
 
         @Override
         public String toString() {
             return "ToDateMapping.ToDateMappingBuilder(super=" + super.toString() + ", notDateBehaviorValue="
-                    + this.notDateBehaviorValue + ")";
+                    + this.notDateBehavior + ")";
         }
     }
 
@@ -69,16 +67,12 @@ public final class ToDateMapping extends AbstractToColumnMapping {
 
     private ToDateMapping(final ToDateMapping.ToDateMappingBuilder<?> builder) {
         super(builder);
-        if (builder.notDateBehaviorSet) {
-            this.notDateBehavior = builder.notDateBehaviorValue;
-        } else {
-            this.notDateBehavior = DEFAULT_NOT_DATE_BEHAVIOUR;
-        }
+        this.notDateBehavior = builder.notDateBehavior;
     }
 
     /**
      * Create a new builder for {@link ToDateMapping}.
-     * 
+     *
      * @return a new builder for {@link ToDateMapping}
      */
     @SuppressWarnings("java:S1452") // Generic wildcard is required here
@@ -90,7 +84,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(notDateBehavior);
+        result = (prime * result) + Objects.hash(this.notDateBehavior);
         return result;
     }
 
@@ -106,7 +100,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
             return false;
         }
         final ToDateMapping other = (ToDateMapping) obj;
-        return notDateBehavior == other.notDateBehavior;
+        return this.notDateBehavior == other.notDateBehavior;
     }
 
     @Override
@@ -116,7 +110,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
 
     /**
      * Get the behaviour to apply in case a value is not a date.
-     * 
+     *
      * @return behaviour to apply in case a value is not a date
      */
     public ConvertableMappingErrorBehaviour getNotDateBehavior() {

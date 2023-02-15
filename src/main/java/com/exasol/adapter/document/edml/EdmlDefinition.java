@@ -47,20 +47,17 @@ public class EdmlDefinition {
     public static class EdmlDefinitionBuilder {
         private String source;
         private String destinationTable;
-        private boolean descriptionSet;
-        private String descriptionValue;
-        private boolean addSourceReferenceColumnSet;
-        private boolean addSourceReferenceColumnValue;
+        private String description = DEFAULT_DESCRIPTION;
+        private boolean addSourceReferenceColumn = DEFAULT_ADD_SOURCE_COLUMN;
         private MappingDefinition mapping;
-        private boolean additionalConfigurationSet;
-        private String additionalConfigurationValue;
+        private String additionalConfiguration = DEFAULT_ADDITIONAL_CONFIGURATION;
 
         EdmlDefinitionBuilder() {
         }
 
         /**
          * Set the source reference, i.e. the table name or resource identifier.
-         * 
+         *
          * @param source source reference
          * @return {@code this}.
          */
@@ -89,8 +86,7 @@ public class EdmlDefinition {
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder description(final String description) {
-            this.descriptionValue = description;
-            this.descriptionSet = true;
+            this.description = description;
             return this;
         }
 
@@ -100,13 +96,12 @@ public class EdmlDefinition {
          * <p>
          * This feature is mainly useful if multiple sources are used (not supported by all dialects). In that case you
          * can filter on the source name.
-         * 
+         *
          * @param addSourceReferenceColumn {@code true} if a source reference column should be added
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder addSourceReferenceColumn(final boolean addSourceReferenceColumn) {
-            this.addSourceReferenceColumnValue = addSourceReferenceColumn;
-            this.addSourceReferenceColumnSet = true;
+            this.addSourceReferenceColumn = addSourceReferenceColumn;
             return this;
         }
 
@@ -114,7 +109,7 @@ public class EdmlDefinition {
          * Defines the mapping for the document's properties. Typically you want to define {@code fields} here to define
          * mappings for this document's properties. But you can also use {@code toJsonMapping} mapping here. In that
          * case the whole document is mapped to a JSON string.
-         * 
+         *
          * @param mapping mapping
          * @return {@code this}.
          */
@@ -128,34 +123,24 @@ public class EdmlDefinition {
 
         /**
          * Set the optional additional configuration options.
-         * 
+         *
          * @param additionalConfiguration additional configuration
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder additionalConfiguration(final String additionalConfiguration) {
-            this.additionalConfigurationValue = additionalConfiguration;
-            this.additionalConfigurationSet = true;
+            this.additionalConfiguration = additionalConfiguration;
             return this;
         }
 
         /**
          * Build a new {@link EdmlDefinition}.
-         * 
+         *
          * @return a new {@link EdmlDefinition}
          */
         public EdmlDefinition build() {
-            String description = this.descriptionValue;
-            if (!this.descriptionSet) {
-                description = DEFAULT_DESCRIPTION;
-            }
-            boolean addSourceReferenceColumn = this.addSourceReferenceColumnValue;
-            if (!this.addSourceReferenceColumnSet) {
-                addSourceReferenceColumn = DEFAULT_ADD_SOURCE_COLUMN;
-            }
-            String additionalConfiguration = this.additionalConfigurationValue;
-            if (!this.additionalConfigurationSet) {
-                additionalConfiguration = DEFAULT_ADDITIONAL_CONFIGURATION;
-            }
+            final String description = this.description;
+            final boolean addSourceReferenceColumn = this.addSourceReferenceColumn;
+            final String additionalConfiguration = this.additionalConfiguration;
             return new EdmlDefinition(this.source, this.destinationTable, description, addSourceReferenceColumn,
                     this.mapping, additionalConfiguration);
         }
@@ -163,15 +148,15 @@ public class EdmlDefinition {
         @Override
         public String toString() {
             return "EdmlDefinition.EdmlDefinitionBuilder(source=" + this.source + ", destinationTable="
-                    + this.destinationTable + ", descriptionValue=" + this.descriptionValue
-                    + ", addSourceReferenceColumnValue=" + this.addSourceReferenceColumnValue + ", mapping="
-                    + this.mapping + ", additionalConfigurationValue=" + this.additionalConfigurationValue + ")";
+                    + this.destinationTable + ", descriptionValue=" + this.description
+                    + ", addSourceReferenceColumnValue=" + this.addSourceReferenceColumn + ", mapping="
+                    + this.mapping + ", additionalConfigurationValue=" + this.additionalConfiguration + ")";
         }
     }
 
     /**
      * Create a new builder for {@link EdmlDefinition}.
-     * 
+     *
      * @return a new builder for {@link EdmlDefinition}
      */
     public static EdmlDefinition.EdmlDefinitionBuilder builder() {
@@ -180,7 +165,7 @@ public class EdmlDefinition {
 
     /**
      * Get the source reference, i.e. the table name or resource identifier.
-     * 
+     *
      * @return the source reference
      */
     public String getSource() {
@@ -189,7 +174,7 @@ public class EdmlDefinition {
 
     /**
      * Get the name of the destination table in Exasol Virtual Schema.
-     * 
+     *
      * @return destination table
      */
     public String getDestinationTable() {
@@ -198,7 +183,7 @@ public class EdmlDefinition {
 
     /**
      * Get the description.
-     * 
+     *
      * @return description
      */
     public String getDescription() {
@@ -211,7 +196,7 @@ public class EdmlDefinition {
      * <p>
      * This feature is mainly useful if multiple sources are used (not supported by all dialects). In that case you can
      * filter on the source name.
-     * 
+     *
      * @return {@code true} if a source reference should be added.
      */
     public boolean isAddSourceReferenceColumn() {
@@ -222,7 +207,7 @@ public class EdmlDefinition {
      * Get the mapping for the document's properties. Typically you want to define {@code fields} here to define
      * mappings for this document's properties. But you can also use {@code toJsonMapping} mapping here. In that case
      * the whole document is mapped to a JSON string.
-     * 
+     *
      * @return the mapping
      */
     public MappingDefinition getMapping() {
@@ -231,7 +216,7 @@ public class EdmlDefinition {
 
     /**
      * Get the optional additional configuration options.
-     * 
+     *
      * @return additional configuration
      */
     public String getAdditionalConfiguration() {
@@ -240,8 +225,8 @@ public class EdmlDefinition {
 
     @Override
     public int hashCode() {
-        return Objects.hash(source, destinationTable, description, addSourceReferenceColumn, mapping,
-                additionalConfiguration);
+        return Objects.hash(this.source, this.destinationTable, this.description, this.addSourceReferenceColumn,
+                this.mapping, this.additionalConfiguration);
     }
 
     @Override
@@ -256,10 +241,12 @@ public class EdmlDefinition {
             return false;
         }
         final EdmlDefinition other = (EdmlDefinition) obj;
-        return Objects.equals(source, other.source) && Objects.equals(destinationTable, other.destinationTable)
-                && Objects.equals(description, other.description)
-                && addSourceReferenceColumn == other.addSourceReferenceColumn && Objects.equals(mapping, other.mapping)
-                && Objects.equals(additionalConfiguration, other.additionalConfiguration);
+        return Objects.equals(this.source, other.source)
+                && Objects.equals(this.destinationTable, other.destinationTable)
+                && Objects.equals(this.description, other.description)
+                && (this.addSourceReferenceColumn == other.addSourceReferenceColumn)
+                && Objects.equals(this.mapping, other.mapping)
+                && Objects.equals(this.additionalConfiguration, other.additionalConfiguration);
     }
 
     @Override

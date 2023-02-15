@@ -27,10 +27,8 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
     public abstract static class ToVarcharMappingBuilder<B extends ToVarcharMapping.ToVarcharMappingBuilder<B>>
             extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<ToVarcharMapping, B> {
 
-        private boolean nonStringBehaviourSet;
-        private ConvertableMappingErrorBehaviour nonStringBehaviourValue;
-        private boolean overflowBehaviourSet;
-        private TruncateableMappingErrorBehaviour overflowBehaviourValue;
+        private ConvertableMappingErrorBehaviour nonStringBehaviour = DEFAULT_NON_STRING_BEHAVIOUR;
+        private TruncateableMappingErrorBehaviour overflowBehaviour = DEFAULT_OVERFLOW_BEHAVIOUR;
 
         @Override
         protected abstract B self();
@@ -40,32 +38,30 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
 
         /**
          * Define the behaviour to apply in case a value is not a varchar.
-         * 
+         *
          * @param nonStringBehaviour behaviour to apply in case a value is not a varchar
          * @return {@code this}.
          */
         public B nonStringBehaviour(final ConvertableMappingErrorBehaviour nonStringBehaviour) {
-            this.nonStringBehaviourValue = nonStringBehaviour;
-            this.nonStringBehaviourSet = true;
+            this.nonStringBehaviour = nonStringBehaviour;
             return self();
         }
 
         /**
          * Set the behaviour to apply in case a value exceeds the size of the VARCHAR column.
-         * 
+         *
          * @param overflowBehaviour the overflow behaviour
          * @return {@code this}.
          */
         public B overflowBehaviour(final TruncateableMappingErrorBehaviour overflowBehaviour) {
-            this.overflowBehaviourValue = overflowBehaviour;
-            this.overflowBehaviourSet = true;
+            this.overflowBehaviour = overflowBehaviour;
             return self();
         }
 
         @Override
         public String toString() {
             return "ToVarcharMapping.ToVarcharMappingBuilder(super=" + super.toString() + ", nonStringBehaviourValue="
-                    + this.nonStringBehaviourValue + ", overflowBehaviourValue=" + this.overflowBehaviourValue + ")";
+                    + this.nonStringBehaviour + ", overflowBehaviourValue=" + this.overflowBehaviour + ")";
         }
     }
 
@@ -88,21 +84,13 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
 
     private ToVarcharMapping(final ToVarcharMapping.ToVarcharMappingBuilder<?> builder) {
         super(builder);
-        if (builder.nonStringBehaviourSet) {
-            this.nonStringBehaviour = builder.nonStringBehaviourValue;
-        } else {
-            this.nonStringBehaviour = DEFAULT_NON_STRING_BEHAVIOUR;
-        }
-        if (builder.overflowBehaviourSet) {
-            this.overflowBehaviour = builder.overflowBehaviourValue;
-        } else {
-            this.overflowBehaviour = DEFAULT_OVERFLOW_BEHAVIOUR;
-        }
+        this.nonStringBehaviour = builder.nonStringBehaviour;
+        this.overflowBehaviour = builder.overflowBehaviour;
     }
 
     /**
      * Create a new builder for {@link ToVarcharMapping}.
-     * 
+     *
      * @return a new builder for {@link ToVarcharMapping}
      */
     @SuppressWarnings("java:S1452") // Generic wildcard is required here
@@ -114,7 +102,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(nonStringBehaviour, overflowBehaviour);
+        result = (prime * result) + Objects.hash(this.nonStringBehaviour, this.overflowBehaviour);
         return result;
     }
 
@@ -130,7 +118,8 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
             return false;
         }
         final ToVarcharMapping other = (ToVarcharMapping) obj;
-        return nonStringBehaviour == other.nonStringBehaviour && overflowBehaviour == other.overflowBehaviour;
+        return (this.nonStringBehaviour == other.nonStringBehaviour)
+                && (this.overflowBehaviour == other.overflowBehaviour);
     }
 
     @Override
@@ -141,7 +130,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
 
     /**
      * Get the behaviour to apply in case a value is not a varchar.
-     * 
+     *
      * @return behaviour to apply in case a value is not a varchar
      */
     public ConvertableMappingErrorBehaviour getNonStringBehaviour() {
@@ -150,7 +139,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
 
     /**
      * Get the behaviour to apply in case a value exceeds the size of the VARCHAR column.
-     * 
+     *
      * @return behaviour in case of overflow
      */
     public TruncateableMappingErrorBehaviour getOverflowBehaviour() {

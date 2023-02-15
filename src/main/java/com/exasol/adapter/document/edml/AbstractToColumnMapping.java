@@ -25,8 +25,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         private String destinationName;
         private String description;
         private KeyType keyType = DEFAULT_KEY_TYPE;
-        private boolean requiredSet;
-        private boolean requiredValue;
+        private boolean required = DEFAULT_REQUIRED;
 
         /**
          * Gets the {@code this} pointer for fluent programming.
@@ -82,8 +81,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
          * @return {@code this}.
          */
         public B required(final boolean required) {
-            this.requiredValue = required;
-            this.requiredSet = true;
+            this.required = required;
             return self();
         }
 
@@ -91,7 +89,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         public String toString() {
             return "AbstractToColumnMapping.AbstractToColumnMappingBuilder(destinationName=" + this.destinationName
                     + ", description=" + this.description + ", keyValue=" + this.keyType + ", requiredValue="
-                    + this.requiredValue + ")";
+                    + this.required + ")";
         }
     }
 
@@ -104,11 +102,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         this.destinationName = builder.destinationName;
         this.description = builder.description;
         this.key = builder.keyType;
-        if (builder.requiredSet) {
-            this.required = builder.requiredValue;
-        } else {
-            this.required = DEFAULT_REQUIRED;
-        }
+        this.required = builder.required;
     }
 
     /**

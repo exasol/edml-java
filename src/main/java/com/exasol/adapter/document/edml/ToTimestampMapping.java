@@ -26,10 +26,8 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     public abstract static class ToTimestampMappingBuilder<B extends ToTimestampMapping.ToTimestampMappingBuilder<B>>
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToTimestampMapping, B> {
 
-        private boolean notTimestampBehaviorSet;
-        private ConvertableMappingErrorBehaviour notTimestampBehaviorValue;
-        private boolean useTimestampWithLocalTimezoneTypeSet;
-        private boolean useTimestampWithLocalTimezoneTypeValue;
+        private ConvertableMappingErrorBehaviour notTimestampBehavior = DEFAULT_NOT_TIMESTAMP_BEHAVIOUR;
+        private boolean useTimestampWithLocalTimezoneType = DEFAULT_USE_TIMESTAMP_WITH_LOCAL_TIMEZONE_TYPE;
 
         @Override
         protected abstract B self();
@@ -39,35 +37,33 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
 
         /**
          * Define the behaviour to apply in case a value is not a timestamp.
-         * 
+         *
          * @param notTimestampBehavior behaviour to apply in case a value is not a timestamp
          * @return {@code this}.
          */
         public B notTimestampBehavior(final ConvertableMappingErrorBehaviour notTimestampBehavior) {
-            this.notTimestampBehaviorValue = notTimestampBehavior;
-            this.notTimestampBehaviorSet = true;
+            this.notTimestampBehavior = notTimestampBehavior;
             return self();
         }
 
         /**
          * Define which timestamp datatype to use. If set to {@code true} the adapter will use a
          * {@code TIMESTAMP WITH LOCAL TIMEZONE} Exasol column instead of a {@code TIMEZONE} column.
-         * 
+         *
          * @param useTimestampWithLocalTimezoneType {@code true} if data type {@code TIMESTAMP WITH LOCAL TIMEZONE}
          *                                          should be used instead of {@code TIMESTAMP}
          * @return {@code this}.
          */
         public B useTimestampWithLocalTimezoneType(final boolean useTimestampWithLocalTimezoneType) {
-            this.useTimestampWithLocalTimezoneTypeValue = useTimestampWithLocalTimezoneType;
-            this.useTimestampWithLocalTimezoneTypeSet = true;
+            this.useTimestampWithLocalTimezoneType = useTimestampWithLocalTimezoneType;
             return self();
         }
 
         @Override
         public String toString() {
             return "ToTimestampMapping.ToTimestampMappingBuilder(super=" + super.toString()
-                    + ", notTimestampBehaviorValue=" + this.notTimestampBehaviorValue
-                    + ", useTimestampWithLocalTimezoneTypeValue=" + this.useTimestampWithLocalTimezoneTypeValue + ")";
+                    + ", notTimestampBehaviorValue=" + this.notTimestampBehavior
+                    + ", useTimestampWithLocalTimezoneTypeValue=" + this.useTimestampWithLocalTimezoneType + ")";
         }
     }
 
@@ -90,21 +86,13 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
 
     private ToTimestampMapping(final ToTimestampMapping.ToTimestampMappingBuilder<?> builder) {
         super(builder);
-        if (builder.notTimestampBehaviorSet) {
-            this.notTimestampBehavior = builder.notTimestampBehaviorValue;
-        } else {
-            this.notTimestampBehavior = ToTimestampMapping.DEFAULT_NOT_TIMESTAMP_BEHAVIOUR;
-        }
-        if (builder.useTimestampWithLocalTimezoneTypeSet) {
-            this.useTimestampWithLocalTimezoneType = builder.useTimestampWithLocalTimezoneTypeValue;
-        } else {
-            this.useTimestampWithLocalTimezoneType = DEFAULT_USE_TIMESTAMP_WITH_LOCAL_TIMEZONE_TYPE;
-        }
+        this.notTimestampBehavior = builder.notTimestampBehavior;
+        this.useTimestampWithLocalTimezoneType = builder.useTimestampWithLocalTimezoneType;
     }
 
     /**
      * Create a new builder for {@link ToTimestampMapping}.
-     * 
+     *
      * @return a new builder for {@link ToTimestampMapping}
      */
     @SuppressWarnings("java:S1452") // Generic wildcard is required here
@@ -116,7 +104,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(notTimestampBehavior, useTimestampWithLocalTimezoneType);
+        result = (prime * result) + Objects.hash(this.notTimestampBehavior, this.useTimestampWithLocalTimezoneType);
         return result;
     }
 
@@ -132,8 +120,8 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
             return false;
         }
         final ToTimestampMapping other = (ToTimestampMapping) obj;
-        return notTimestampBehavior == other.notTimestampBehavior
-                && useTimestampWithLocalTimezoneType == other.useTimestampWithLocalTimezoneType;
+        return (this.notTimestampBehavior == other.notTimestampBehavior)
+                && (this.useTimestampWithLocalTimezoneType == other.useTimestampWithLocalTimezoneType);
     }
 
     @Override
@@ -145,7 +133,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
 
     /**
      * Get the behaviour to apply in case a value is not a timestamp.
-     * 
+     *
      * @return behaviour to apply in case a value is not a timestamp
      */
     public ConvertableMappingErrorBehaviour getNotTimestampBehavior() {
@@ -155,7 +143,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     /**
      * If set to {@code true} the adapter will use a {@code TIMESTAMP WITH LOCAL TIMEZONE} Exasol column instead of a
      * {@code TIMEZONE} column.
-     * 
+     *
      * @return {@code true} if {@code TIMESTAMP WITH LOCAL TIMEZONE} is used
      */
     public boolean isUseTimestampWithLocalTimezoneType() {

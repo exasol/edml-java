@@ -24,9 +24,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
     public abstract static class ToJsonMappingBuilder<B extends ToJsonMapping.ToJsonMappingBuilder<B>>
             extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<ToJsonMapping, B> {
 
-        private boolean overflowBehaviourSet;
-
-        private MappingErrorBehaviour overflowBehaviourValue;
+        private MappingErrorBehaviour overflowBehaviour = DEFAULT_OVERFLOW_BEHAVIOUR;
 
         @Override
         protected abstract B self();
@@ -36,20 +34,19 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
 
         /**
          * Set the behaviour to apply in case a value exceeds the size of the Exasol column.
-         * 
+         *
          * @param overflowBehaviour the overflow behaviour
          * @return {@code this}.
          */
         public B overflowBehaviour(final MappingErrorBehaviour overflowBehaviour) {
-            this.overflowBehaviourValue = overflowBehaviour;
-            this.overflowBehaviourSet = true;
+            this.overflowBehaviour = overflowBehaviour;
             return self();
         }
 
         @Override
         public String toString() {
             return "ToJsonMapping.ToJsonMappingBuilder(super=" + super.toString() + ", overflowBehaviourValue="
-                    + this.overflowBehaviourValue + ")";
+                    + this.overflowBehaviour + ")";
         }
     }
 
@@ -72,16 +69,12 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
 
     private ToJsonMapping(final ToJsonMapping.ToJsonMappingBuilder<?> builder) {
         super(builder);
-        if (builder.overflowBehaviourSet) {
-            this.overflowBehaviour = builder.overflowBehaviourValue;
-        } else {
-            this.overflowBehaviour = DEFAULT_OVERFLOW_BEHAVIOUR;
-        }
+        this.overflowBehaviour = builder.overflowBehaviour;
     }
 
     /**
      * Create a new builder for {@link ToJsonMapping}.
-     * 
+     *
      * @return a new builder for {@link ToJsonMapping}
      */
     @SuppressWarnings("java:S1452") // Generic wildcard is required here
@@ -93,7 +86,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(overflowBehaviour);
+        result = (prime * result) + Objects.hash(this.overflowBehaviour);
         return result;
     }
 
@@ -109,7 +102,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
             return false;
         }
         final ToJsonMapping other = (ToJsonMapping) obj;
-        return overflowBehaviour == other.overflowBehaviour;
+        return this.overflowBehaviour == other.overflowBehaviour;
     }
 
     @Override
@@ -119,7 +112,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
 
     /**
      * Get the behaviour to apply in case a value exceeds the size of the Exasol column.
-     * 
+     *
      * @return the overflow behaviour
      */
     public MappingErrorBehaviour getOverflowBehaviour() {

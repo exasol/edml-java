@@ -22,9 +22,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
     public abstract static class ToBoolMappingBuilder<B extends ToBoolMapping.ToBoolMappingBuilder<B>>
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToBoolMapping, B> {
 
-        private boolean notBooleanBehaviorSet;
-
-        private ConvertableMappingErrorBehaviour notBooleanBehaviorValue;
+        private ConvertableMappingErrorBehaviour notBooleanBehavior = DEFAULT_NOT_BOOLEAN_BEHAVIOUR;
 
         @Override
         protected abstract B self();
@@ -34,20 +32,19 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
 
         /**
          * Define the behaviour to apply in case a value is not a boolean.
-         * 
+         *
          * @param notBooleanBehavior the behaviour to apply in case a value is not a boolean
          * @return {@code this}.
          */
         public B notBooleanBehavior(final ConvertableMappingErrorBehaviour notBooleanBehavior) {
-            this.notBooleanBehaviorValue = notBooleanBehavior;
-            this.notBooleanBehaviorSet = true;
+            this.notBooleanBehavior = notBooleanBehavior;
             return self();
         }
 
         @Override
         public String toString() {
             return "ToBoolMapping.ToBoolMappingBuilder(super=" + super.toString() + ", notBooleanBehaviorValue="
-                    + this.notBooleanBehaviorValue + ")";
+                    + this.notBooleanBehavior + ")";
         }
     }
 
@@ -70,16 +67,12 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
 
     private ToBoolMapping(final ToBoolMapping.ToBoolMappingBuilder<?> builder) {
         super(builder);
-        if (builder.notBooleanBehaviorSet) {
-            this.notBooleanBehavior = builder.notBooleanBehaviorValue;
-        } else {
-            this.notBooleanBehavior = DEFAULT_NOT_BOOLEAN_BEHAVIOUR;
-        }
+        this.notBooleanBehavior = builder.notBooleanBehavior;
     }
 
     /**
      * Create a new builder for {@link ToBoolMapping}.
-     * 
+     *
      * @return a new builder for {@link ToBoolMapping}
      */
     @SuppressWarnings("java:S1452") // Generic wildcard is required here
@@ -91,7 +84,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(notBooleanBehavior);
+        result = (prime * result) + Objects.hash(this.notBooleanBehavior);
         return result;
     }
 
@@ -107,7 +100,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
             return false;
         }
         final ToBoolMapping other = (ToBoolMapping) obj;
-        return notBooleanBehavior == other.notBooleanBehavior;
+        return this.notBooleanBehavior == other.notBooleanBehavior;
     }
 
     @Override
@@ -117,7 +110,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
 
     /**
      * Get the behaviour to apply in case a value is not a boolean.
-     * 
+     *
      * @return behaviour to apply in case a value is not a boolean
      */
     public ConvertableMappingErrorBehaviour getNotBooleanBehavior() {

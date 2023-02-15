@@ -38,8 +38,7 @@ public final class ToTableMapping implements MappingDefinition {
     public static class ToTableMappingBuilder {
         private String destinationTable;
         private MappingDefinition mapping;
-        private boolean descriptionSet;
-        private String descriptionValue;
+        private String descriptionValue = DEFAULT_DESCRIPTION;
 
         ToTableMappingBuilder() {
         }
@@ -57,7 +56,7 @@ public final class ToTableMapping implements MappingDefinition {
          * Defines the mapping for the columns of the new table. If the document list contains non-objects (like
          * strings) here, you can directly use {@code toVarcharMapping} here. Otherwise, if the list contains objects,
          * you can define mappings for the nested properties using {@code fields}.
-         * 
+         *
          * @param mapping mapping
          * @return {@code this}.
          */
@@ -71,26 +70,22 @@ public final class ToTableMapping implements MappingDefinition {
 
         /**
          * Set the optional description. Using this property you can provide documentation.
-         * 
+         *
          * @param description description
          * @return {@code this}.
          */
         public ToTableMapping.ToTableMappingBuilder description(final String description) {
             this.descriptionValue = description;
-            this.descriptionSet = true;
             return this;
         }
 
         /**
          * Build a new {@link ToTableMapping}.
-         * 
+         *
          * @return the built {@link ToTableMapping}
          */
         public ToTableMapping build() {
-            String description = this.descriptionValue;
-            if (!this.descriptionSet) {
-                description = DEFAULT_DESCRIPTION;
-            }
+            final String description = this.descriptionValue;
             return new ToTableMapping(this.destinationTable, this.mapping, description);
         }
 
@@ -103,7 +98,7 @@ public final class ToTableMapping implements MappingDefinition {
 
     /**
      * Create a new builder for {@link ToTableMapping}.
-     * 
+     *
      * @return a new builder for {@link ToTableMapping}
      */
     public static ToTableMapping.ToTableMappingBuilder builder() {
@@ -112,7 +107,7 @@ public final class ToTableMapping implements MappingDefinition {
 
     /**
      * Get the destination table.
-     * 
+     *
      * @return destination table
      */
     public String getDestinationTable() {
@@ -123,7 +118,7 @@ public final class ToTableMapping implements MappingDefinition {
      * Get the mapping for the columns of the new table. If the document list contains non-objects (like strings) here,
      * you can directly use {@code toVarcharMapping} here. Otherwise, if the list contains objects, you can define
      * mappings for the nested properties using {@code fields}.
-     * 
+     *
      * @return mapping
      */
     public MappingDefinition getMapping() {
@@ -132,7 +127,7 @@ public final class ToTableMapping implements MappingDefinition {
 
     /**
      * Get the optional description. Using this property you can provide documentation.
-     * 
+     *
      * @return description
      */
     public String getDescription() {
@@ -141,7 +136,7 @@ public final class ToTableMapping implements MappingDefinition {
 
     @Override
     public int hashCode() {
-        return Objects.hash(destinationTable, mapping, description);
+        return Objects.hash(this.destinationTable, this.mapping, this.description);
     }
 
     @Override
@@ -156,8 +151,8 @@ public final class ToTableMapping implements MappingDefinition {
             return false;
         }
         final ToTableMapping other = (ToTableMapping) obj;
-        return Objects.equals(destinationTable, other.destinationTable) && Objects.equals(mapping, other.mapping)
-                && Objects.equals(description, other.description);
+        return Objects.equals(this.destinationTable, other.destinationTable)
+                && Objects.equals(this.mapping, other.mapping) && Objects.equals(this.description, other.description);
     }
 
     @Override
