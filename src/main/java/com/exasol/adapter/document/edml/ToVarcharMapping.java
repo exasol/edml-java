@@ -11,6 +11,8 @@ import java.util.Objects;
  * {@code VARCHAR}, column.
  */
 public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
+    private static final TruncateableMappingErrorBehaviour DEFAULT_OVERFLOW_BEHAVIOUR = TRUNCATE;
+    private static final ConvertableMappingErrorBehaviour DEFAULT_NON_STRING_BEHAVIOUR = CONVERT_OR_ABORT;
     private final ConvertableMappingErrorBehaviour nonStringBehaviour;
     private final TruncateableMappingErrorBehaviour overflowBehaviour;
 
@@ -19,24 +21,16 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         visitor.visit(this);
     }
 
-    private static ConvertableMappingErrorBehaviour $default$nonStringBehaviour() {
-        return CONVERT_OR_ABORT;
-    }
-
-    private static TruncateableMappingErrorBehaviour $default$overflowBehaviour() {
-        return TRUNCATE;
-    }
-
     /**
      * Builder for {@link ToVarcharMapping}.
      */
     public abstract static class ToVarcharMappingBuilder<B extends ToVarcharMapping.ToVarcharMappingBuilder<B>>
             extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<ToVarcharMapping, B> {
 
-        private boolean nonStringBehaviour$set;
-        private ConvertableMappingErrorBehaviour nonStringBehaviour$value;
-        private boolean overflowBehaviour$set;
-        private TruncateableMappingErrorBehaviour overflowBehaviour$value;
+        private boolean nonStringBehaviourSet;
+        private ConvertableMappingErrorBehaviour nonStringBehaviourValue;
+        private boolean overflowBehaviourSet;
+        private TruncateableMappingErrorBehaviour overflowBehaviourValue;
 
         @Override
         protected abstract B self();
@@ -51,8 +45,8 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
          * @return {@code this}.
          */
         public B nonStringBehaviour(final ConvertableMappingErrorBehaviour nonStringBehaviour) {
-            this.nonStringBehaviour$value = nonStringBehaviour;
-            this.nonStringBehaviour$set = true;
+            this.nonStringBehaviourValue = nonStringBehaviour;
+            this.nonStringBehaviourSet = true;
             return self();
         }
 
@@ -63,15 +57,15 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
          * @return {@code this}.
          */
         public B overflowBehaviour(final TruncateableMappingErrorBehaviour overflowBehaviour) {
-            this.overflowBehaviour$value = overflowBehaviour;
-            this.overflowBehaviour$set = true;
+            this.overflowBehaviourValue = overflowBehaviour;
+            this.overflowBehaviourSet = true;
             return self();
         }
 
         @Override
         public String toString() {
-            return "ToVarcharMapping.ToVarcharMappingBuilder(super=" + super.toString() + ", nonStringBehaviour$value="
-                    + this.nonStringBehaviour$value + ", overflowBehaviour$value=" + this.overflowBehaviour$value + ")";
+            return "ToVarcharMapping.ToVarcharMappingBuilder(super=" + super.toString() + ", nonStringBehaviourValue="
+                    + this.nonStringBehaviourValue + ", overflowBehaviourValue=" + this.overflowBehaviourValue + ")";
         }
     }
 
@@ -94,15 +88,15 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
 
     private ToVarcharMapping(final ToVarcharMapping.ToVarcharMappingBuilder<?> builder) {
         super(builder);
-        if (builder.nonStringBehaviour$set) {
-            this.nonStringBehaviour = builder.nonStringBehaviour$value;
+        if (builder.nonStringBehaviourSet) {
+            this.nonStringBehaviour = builder.nonStringBehaviourValue;
         } else {
-            this.nonStringBehaviour = ToVarcharMapping.$default$nonStringBehaviour();
+            this.nonStringBehaviour = DEFAULT_NON_STRING_BEHAVIOUR;
         }
-        if (builder.overflowBehaviour$set) {
-            this.overflowBehaviour = builder.overflowBehaviour$value;
+        if (builder.overflowBehaviourSet) {
+            this.overflowBehaviour = builder.overflowBehaviourValue;
         } else {
-            this.overflowBehaviour = ToVarcharMapping.$default$overflowBehaviour();
+            this.overflowBehaviour = DEFAULT_OVERFLOW_BEHAVIOUR;
         }
     }
 
@@ -125,7 +119,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -135,7 +129,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ToVarcharMapping other = (ToVarcharMapping) obj;
+        final ToVarcharMapping other = (ToVarcharMapping) obj;
         return nonStringBehaviour == other.nonStringBehaviour && overflowBehaviour == other.overflowBehaviour;
     }
 

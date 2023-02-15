@@ -163,9 +163,9 @@ public class EdmlDefinition {
         @Override
         public String toString() {
             return "EdmlDefinition.EdmlDefinitionBuilder(source=" + this.source + ", destinationTable="
-                    + this.destinationTable + ", description$value=" + this.descriptionValue
-                    + ", addSourceReferenceColumn$value=" + this.addSourceReferenceColumnValue + ", mapping="
-                    + this.mapping + ", additionalConfiguration$value=" + this.additionalConfigurationValue + ")";
+                    + this.destinationTable + ", descriptionValue=" + this.descriptionValue
+                    + ", addSourceReferenceColumnValue=" + this.addSourceReferenceColumnValue + ", mapping="
+                    + this.mapping + ", additionalConfigurationValue=" + this.additionalConfigurationValue + ")";
         }
     }
 
@@ -245,7 +245,7 @@ public class EdmlDefinition {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -255,7 +255,7 @@ public class EdmlDefinition {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        EdmlDefinition other = (EdmlDefinition) obj;
+        final EdmlDefinition other = (EdmlDefinition) obj;
         return Objects.equals(source, other.source) && Objects.equals(destinationTable, other.destinationTable)
                 && Objects.equals(description, other.description)
                 && addSourceReferenceColumn == other.addSourceReferenceColumn && Objects.equals(mapping, other.mapping)

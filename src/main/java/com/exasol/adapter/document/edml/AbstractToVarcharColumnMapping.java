@@ -39,7 +39,7 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
         @Override
         public String toString() {
             return "AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder(super=" + super.toString()
-                    + ", varcharColumnSize$value=" + this.varcharColumnSizeValue + ")";
+                    + ", varcharColumnSizeValue=" + this.varcharColumnSizeValue + ")";
         }
     }
 

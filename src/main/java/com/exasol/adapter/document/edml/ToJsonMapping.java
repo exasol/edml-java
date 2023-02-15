@@ -10,15 +10,12 @@ import java.util.Objects;
  * a JSON string. You can also use this mapping directly for a whole document.
  */
 public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
+    private static final MappingErrorBehaviour DEFAULT_OVERFLOW_BEHAVIOUR = ABORT;
     private final MappingErrorBehaviour overflowBehaviour;
 
     @Override
     public void accept(final MappingDefinitionVisitor visitor) {
         visitor.visit(this);
-    }
-
-    private static MappingErrorBehaviour $default$overflowBehaviour() {
-        return ABORT;
     }
 
     /**
@@ -27,9 +24,9 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
     public abstract static class ToJsonMappingBuilder<B extends ToJsonMapping.ToJsonMappingBuilder<B>>
             extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<ToJsonMapping, B> {
 
-        private boolean overflowBehaviour$set;
+        private boolean overflowBehaviourSet;
 
-        private MappingErrorBehaviour overflowBehaviour$value;
+        private MappingErrorBehaviour overflowBehaviourValue;
 
         @Override
         protected abstract B self();
@@ -44,15 +41,15 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
          * @return {@code this}.
          */
         public B overflowBehaviour(final MappingErrorBehaviour overflowBehaviour) {
-            this.overflowBehaviour$value = overflowBehaviour;
-            this.overflowBehaviour$set = true;
+            this.overflowBehaviourValue = overflowBehaviour;
+            this.overflowBehaviourSet = true;
             return self();
         }
 
         @Override
         public String toString() {
-            return "ToJsonMapping.ToJsonMappingBuilder(super=" + super.toString() + ", overflowBehaviour$value="
-                    + this.overflowBehaviour$value + ")";
+            return "ToJsonMapping.ToJsonMappingBuilder(super=" + super.toString() + ", overflowBehaviourValue="
+                    + this.overflowBehaviourValue + ")";
         }
     }
 
@@ -75,10 +72,10 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
 
     private ToJsonMapping(final ToJsonMapping.ToJsonMappingBuilder<?> builder) {
         super(builder);
-        if (builder.overflowBehaviour$set) {
-            this.overflowBehaviour = builder.overflowBehaviour$value;
+        if (builder.overflowBehaviourSet) {
+            this.overflowBehaviour = builder.overflowBehaviourValue;
         } else {
-            this.overflowBehaviour = ToJsonMapping.$default$overflowBehaviour();
+            this.overflowBehaviour = DEFAULT_OVERFLOW_BEHAVIOUR;
         }
     }
 
@@ -101,7 +98,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -111,7 +108,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ToJsonMapping other = (ToJsonMapping) obj;
+        final ToJsonMapping other = (ToJsonMapping) obj;
         return overflowBehaviour == other.overflowBehaviour;
     }
 

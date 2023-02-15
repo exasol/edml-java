@@ -8,15 +8,12 @@ import java.util.Objects;
  * column.
  */
 public final class ToDateMapping extends AbstractToColumnMapping {
+    private static final ConvertableMappingErrorBehaviour DEFAULT_NOT_DATE_BEHAVIOUR = ConvertableMappingErrorBehaviour.ABORT;
     private final ConvertableMappingErrorBehaviour notDateBehavior;
 
     @Override
     public void accept(final MappingDefinitionVisitor visitor) {
         visitor.visit(this);
-    }
-
-    private static ConvertableMappingErrorBehaviour $default$notDateBehavior() {
-        return ConvertableMappingErrorBehaviour.ABORT;
     }
 
     /**
@@ -25,8 +22,8 @@ public final class ToDateMapping extends AbstractToColumnMapping {
     public abstract static class ToDateMappingBuilder<B extends ToDateMapping.ToDateMappingBuilder<B>>
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToDateMapping, B> {
 
-        private boolean notDateBehavior$set;
-        private ConvertableMappingErrorBehaviour notDateBehavior$value;
+        private boolean notDateBehaviorSet;
+        private ConvertableMappingErrorBehaviour notDateBehaviorValue;
 
         @Override
         protected abstract B self();
@@ -41,15 +38,15 @@ public final class ToDateMapping extends AbstractToColumnMapping {
          * @return {@code this}.
          */
         public B notDateBehavior(final ConvertableMappingErrorBehaviour notDateBehavior) {
-            this.notDateBehavior$value = notDateBehavior;
-            this.notDateBehavior$set = true;
+            this.notDateBehaviorValue = notDateBehavior;
+            this.notDateBehaviorSet = true;
             return self();
         }
 
         @Override
         public String toString() {
-            return "ToDateMapping.ToDateMappingBuilder(super=" + super.toString() + ", notDateBehavior$value="
-                    + this.notDateBehavior$value + ")";
+            return "ToDateMapping.ToDateMappingBuilder(super=" + super.toString() + ", notDateBehaviorValue="
+                    + this.notDateBehaviorValue + ")";
         }
     }
 
@@ -72,10 +69,10 @@ public final class ToDateMapping extends AbstractToColumnMapping {
 
     private ToDateMapping(final ToDateMapping.ToDateMappingBuilder<?> builder) {
         super(builder);
-        if (builder.notDateBehavior$set) {
-            this.notDateBehavior = builder.notDateBehavior$value;
+        if (builder.notDateBehaviorSet) {
+            this.notDateBehavior = builder.notDateBehaviorValue;
         } else {
-            this.notDateBehavior = ToDateMapping.$default$notDateBehavior();
+            this.notDateBehavior = DEFAULT_NOT_DATE_BEHAVIOUR;
         }
     }
 
@@ -98,7 +95,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -108,7 +105,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ToDateMapping other = (ToDateMapping) obj;
+        final ToDateMapping other = (ToDateMapping) obj;
         return notDateBehavior == other.notDateBehavior;
     }
 

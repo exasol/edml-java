@@ -7,6 +7,8 @@ import java.util.Objects;
  * Abstract base for EDML mappings that map to a numeric Exasol column.
  */
 public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
+    private static final ConvertableMappingErrorBehaviour DEFAULT_NON_NUMERIC_BEHAVIOUR = ConvertableMappingErrorBehaviour.ABORT;
+    private static final MappingErrorBehaviour DEFAULT_OVERFLOW_BEHAVIOUR = MappingErrorBehaviour.ABORT;
     private final MappingErrorBehaviour overflowBehaviour;
     private final ConvertableMappingErrorBehaviour notNumericBehaviour;
 
@@ -16,13 +18,13 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
     public abstract static class AbstractToNumberMappingBuilder<C extends AbstractToNumberMapping, B extends AbstractToNumberMappingBuilder<C, B>>
             extends AbstractToColumnMappingBuilder<C, B> {
 
-        private boolean overflowBehaviour$set;
+        private boolean overflowBehaviourSet;
 
-        private MappingErrorBehaviour overflowBehaviour$value;
+        private MappingErrorBehaviour overflowBehaviourValue;
 
-        private boolean notNumericBehaviour$set;
+        private boolean notNumericBehaviourSet;
 
-        private ConvertableMappingErrorBehaviour notNumericBehaviour$value;
+        private ConvertableMappingErrorBehaviour notNumericBehaviourValue;
 
         @Override
         protected abstract B self();
@@ -37,8 +39,8 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
          * @return {@code this}.
          */
         public B overflowBehaviour(final MappingErrorBehaviour overflowBehaviour) {
-            this.overflowBehaviour$value = overflowBehaviour;
-            this.overflowBehaviour$set = true;
+            this.overflowBehaviourValue = overflowBehaviour;
+            this.overflowBehaviourSet = true;
             return self();
         }
 
@@ -49,25 +51,17 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
          * @return {@code this}.
          */
         public B notNumericBehaviour(final ConvertableMappingErrorBehaviour notNumericBehaviour) {
-            this.notNumericBehaviour$value = notNumericBehaviour;
-            this.notNumericBehaviour$set = true;
+            this.notNumericBehaviourValue = notNumericBehaviour;
+            this.notNumericBehaviourSet = true;
             return self();
         }
 
         @Override
         public String toString() {
             return "AbstractToNumberMapping.AbstractToNumberMappingBuilder(super=" + super.toString()
-                    + ", overflowBehaviour$value=" + this.overflowBehaviour$value + ", notNumericBehaviour$value="
-                    + this.notNumericBehaviour$value + ")";
+                    + ", overflowBehaviourValue=" + this.overflowBehaviourValue + ", notNumericBehaviourValue="
+                    + this.notNumericBehaviourValue + ")";
         }
-    }
-
-    private static MappingErrorBehaviour $default$overflowBehaviour() {
-        return MappingErrorBehaviour.ABORT;
-    }
-
-    private static ConvertableMappingErrorBehaviour $default$notNumericBehaviour() {
-        return ConvertableMappingErrorBehaviour.ABORT;
     }
 
     /**
@@ -77,15 +71,15 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
      */
     protected AbstractToNumberMapping(final AbstractToNumberMapping.AbstractToNumberMappingBuilder<?, ?> builder) {
         super(builder);
-        if (builder.overflowBehaviour$set) {
-            this.overflowBehaviour = builder.overflowBehaviour$value;
+        if (builder.overflowBehaviourSet) {
+            this.overflowBehaviour = builder.overflowBehaviourValue;
         } else {
-            this.overflowBehaviour = AbstractToNumberMapping.$default$overflowBehaviour();
+            this.overflowBehaviour = DEFAULT_OVERFLOW_BEHAVIOUR;
         }
-        if (builder.notNumericBehaviour$set) {
-            this.notNumericBehaviour = builder.notNumericBehaviour$value;
+        if (builder.notNumericBehaviourSet) {
+            this.notNumericBehaviour = builder.notNumericBehaviourValue;
         } else {
-            this.notNumericBehaviour = AbstractToNumberMapping.$default$notNumericBehaviour();
+            this.notNumericBehaviour = DEFAULT_NON_NUMERIC_BEHAVIOUR;
         }
     }
 
@@ -98,7 +92,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -108,7 +102,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        AbstractToNumberMapping other = (AbstractToNumberMapping) obj;
+        final AbstractToNumberMapping other = (AbstractToNumberMapping) obj;
         return overflowBehaviour == other.overflowBehaviour && notNumericBehaviour == other.notNumericBehaviour;
     }
 

@@ -8,15 +8,12 @@ import java.util.Objects;
  * {@code BOOLEAN}. column.
  */
 public final class ToBoolMapping extends AbstractToColumnMapping {
+    private static final ConvertableMappingErrorBehaviour DEFAULT_NOT_BOOLEAN_BEHAVIOUR = ConvertableMappingErrorBehaviour.ABORT;
     private final ConvertableMappingErrorBehaviour notBooleanBehavior;
 
     @Override
     public void accept(final MappingDefinitionVisitor visitor) {
         visitor.visit(this);
-    }
-
-    private static ConvertableMappingErrorBehaviour $default$notBooleanBehavior() {
-        return ConvertableMappingErrorBehaviour.ABORT;
     }
 
     /**
@@ -25,9 +22,9 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
     public static abstract class ToBoolMappingBuilder<B extends ToBoolMapping.ToBoolMappingBuilder<B>>
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToBoolMapping, B> {
 
-        private boolean notBooleanBehavior$set;
+        private boolean notBooleanBehaviorSet;
 
-        private ConvertableMappingErrorBehaviour notBooleanBehavior$value;
+        private ConvertableMappingErrorBehaviour notBooleanBehaviorValue;
 
         @Override
         protected abstract B self();
@@ -42,15 +39,15 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
          * @return {@code this}.
          */
         public B notBooleanBehavior(final ConvertableMappingErrorBehaviour notBooleanBehavior) {
-            this.notBooleanBehavior$value = notBooleanBehavior;
-            this.notBooleanBehavior$set = true;
+            this.notBooleanBehaviorValue = notBooleanBehavior;
+            this.notBooleanBehaviorSet = true;
             return self();
         }
 
         @Override
         public String toString() {
-            return "ToBoolMapping.ToBoolMappingBuilder(super=" + super.toString() + ", notBooleanBehavior$value="
-                    + this.notBooleanBehavior$value + ")";
+            return "ToBoolMapping.ToBoolMappingBuilder(super=" + super.toString() + ", notBooleanBehaviorValue="
+                    + this.notBooleanBehaviorValue + ")";
         }
     }
 
@@ -73,10 +70,10 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
 
     private ToBoolMapping(final ToBoolMapping.ToBoolMappingBuilder<?> builder) {
         super(builder);
-        if (builder.notBooleanBehavior$set) {
-            this.notBooleanBehavior = builder.notBooleanBehavior$value;
+        if (builder.notBooleanBehaviorSet) {
+            this.notBooleanBehavior = builder.notBooleanBehaviorValue;
         } else {
-            this.notBooleanBehavior = ToBoolMapping.$default$notBooleanBehavior();
+            this.notBooleanBehavior = DEFAULT_NOT_BOOLEAN_BEHAVIOUR;
         }
     }
 
@@ -99,7 +96,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -109,7 +106,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ToBoolMapping other = (ToBoolMapping) obj;
+        final ToBoolMapping other = (ToBoolMapping) obj;
         return notBooleanBehavior == other.notBooleanBehavior;
     }
 

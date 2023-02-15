@@ -92,7 +92,7 @@ public abstract class AbstractToColumnMapping implements MappingDefinition {
         @Override
         public String toString() {
             return "AbstractToColumnMapping.AbstractToColumnMappingBuilder(destinationName=" + this.destinationName
-                    + ", description=" + this.description + ", key$value=" + this.keyValue + ", required$value="
+                    + ", description=" + this.description + ", keyValue=" + this.keyValue + ", requiredValue="
                     + this.requiredValue + ")";
         }
     }

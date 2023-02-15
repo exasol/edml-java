@@ -8,6 +8,9 @@ import java.util.Objects;
  * {@code TIMESTAMP} or {@code TIMESTAMP WITH LOCAL TIMEZONE} column.
  */
 public final class ToTimestampMapping extends AbstractToColumnMapping {
+    private static final boolean DEFAULT_USE_TIMESTAMP_WITH_LOCAL_TIMEZONE_TYPE = true;
+    private static final ConvertableMappingErrorBehaviour DEFAULT_NOT_TIMESTAMP_BEHAVIOUR = ConvertableMappingErrorBehaviour.ABORT;
+
     private final ConvertableMappingErrorBehaviour notTimestampBehavior;
 
     private final boolean useTimestampWithLocalTimezoneType;
@@ -17,24 +20,16 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         visitor.visit(this);
     }
 
-    private static ConvertableMappingErrorBehaviour $default$notTimestampBehavior() {
-        return ConvertableMappingErrorBehaviour.ABORT;
-    }
-
-    private static boolean $default$useTimestampWithLocalTimezoneType() {
-        return true;
-    }
-
     /**
      * Builder for {@link ToTimestampMapping}.
      */
     public abstract static class ToTimestampMappingBuilder<B extends ToTimestampMapping.ToTimestampMappingBuilder<B>>
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToTimestampMapping, B> {
 
-        private boolean notTimestampBehavior$set;
-        private ConvertableMappingErrorBehaviour notTimestampBehavior$value;
-        private boolean useTimestampWithLocalTimezoneType$set;
-        private boolean useTimestampWithLocalTimezoneType$value;
+        private boolean notTimestampBehaviorSet;
+        private ConvertableMappingErrorBehaviour notTimestampBehaviorValue;
+        private boolean useTimestampWithLocalTimezoneTypeSet;
+        private boolean useTimestampWithLocalTimezoneTypeValue;
 
         @Override
         protected abstract B self();
@@ -49,8 +44,8 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
          * @return {@code this}.
          */
         public B notTimestampBehavior(final ConvertableMappingErrorBehaviour notTimestampBehavior) {
-            this.notTimestampBehavior$value = notTimestampBehavior;
-            this.notTimestampBehavior$set = true;
+            this.notTimestampBehaviorValue = notTimestampBehavior;
+            this.notTimestampBehaviorSet = true;
             return self();
         }
 
@@ -63,16 +58,16 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
          * @return {@code this}.
          */
         public B useTimestampWithLocalTimezoneType(final boolean useTimestampWithLocalTimezoneType) {
-            this.useTimestampWithLocalTimezoneType$value = useTimestampWithLocalTimezoneType;
-            this.useTimestampWithLocalTimezoneType$set = true;
+            this.useTimestampWithLocalTimezoneTypeValue = useTimestampWithLocalTimezoneType;
+            this.useTimestampWithLocalTimezoneTypeSet = true;
             return self();
         }
 
         @Override
         public String toString() {
             return "ToTimestampMapping.ToTimestampMappingBuilder(super=" + super.toString()
-                    + ", notTimestampBehavior$value=" + this.notTimestampBehavior$value
-                    + ", useTimestampWithLocalTimezoneType$value=" + this.useTimestampWithLocalTimezoneType$value + ")";
+                    + ", notTimestampBehaviorValue=" + this.notTimestampBehaviorValue
+                    + ", useTimestampWithLocalTimezoneTypeValue=" + this.useTimestampWithLocalTimezoneTypeValue + ")";
         }
     }
 
@@ -95,15 +90,15 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
 
     private ToTimestampMapping(final ToTimestampMapping.ToTimestampMappingBuilder<?> builder) {
         super(builder);
-        if (builder.notTimestampBehavior$set) {
-            this.notTimestampBehavior = builder.notTimestampBehavior$value;
+        if (builder.notTimestampBehaviorSet) {
+            this.notTimestampBehavior = builder.notTimestampBehaviorValue;
         } else {
-            this.notTimestampBehavior = ToTimestampMapping.$default$notTimestampBehavior();
+            this.notTimestampBehavior = ToTimestampMapping.DEFAULT_NOT_TIMESTAMP_BEHAVIOUR;
         }
-        if (builder.useTimestampWithLocalTimezoneType$set) {
-            this.useTimestampWithLocalTimezoneType = builder.useTimestampWithLocalTimezoneType$value;
+        if (builder.useTimestampWithLocalTimezoneTypeSet) {
+            this.useTimestampWithLocalTimezoneType = builder.useTimestampWithLocalTimezoneTypeValue;
         } else {
-            this.useTimestampWithLocalTimezoneType = ToTimestampMapping.$default$useTimestampWithLocalTimezoneType();
+            this.useTimestampWithLocalTimezoneType = DEFAULT_USE_TIMESTAMP_WITH_LOCAL_TIMEZONE_TYPE;
         }
     }
 
@@ -126,7 +121,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -136,7 +131,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ToTimestampMapping other = (ToTimestampMapping) obj;
+        final ToTimestampMapping other = (ToTimestampMapping) obj;
         return notTimestampBehavior == other.notTimestampBehavior
                 && useTimestampWithLocalTimezoneType == other.useTimestampWithLocalTimezoneType;
     }

@@ -97,7 +97,7 @@ public final class ToTableMapping implements MappingDefinition {
         @Override
         public String toString() {
             return "ToTableMapping.ToTableMappingBuilder(destinationTable=" + this.destinationTable + ", mapping="
-                    + this.mapping + ", description$value=" + this.descriptionValue + ")";
+                    + this.mapping + ", descriptionValue=" + this.descriptionValue + ")";
         }
     }
 
@@ -145,7 +145,7 @@ public final class ToTableMapping implements MappingDefinition {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -155,7 +155,7 @@ public final class ToTableMapping implements MappingDefinition {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ToTableMapping other = (ToTableMapping) obj;
+        final ToTableMapping other = (ToTableMapping) obj;
         return Objects.equals(destinationTable, other.destinationTable) && Objects.equals(mapping, other.mapping)
                 && Objects.equals(description, other.description);
     }
