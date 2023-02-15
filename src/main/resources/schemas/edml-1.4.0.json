@@ -11,7 +11,7 @@
     "fields": {
       "type": "object",
       "title": "",
-      "description": "This definition defines the expected nested properties of the current property. For each of the nested properties you can again define a mapping. You only need to define the properties you want to map. \n\n**Properties**:\n\nPROPERTY_NAME: mappingDefinition\n\nIt must be specified a least one column.",
+      "description": "This definition defines the expected nested properties of the current property. For each of the nested properties you can again define a mapping. You only need to define the properties you want to map. \n\n**Properties**:\n\nPROPERTY_NAME: mappingDefinition\n\nIt must be specified at least one column.",
       "minProperties": 1,
       "additionalProperties": {
         "$ref": "#/definitions/mappingDefinition"
@@ -83,7 +83,7 @@
         },
         "toJsonMapping": {
           "title": "toJSON mapping definition",
-          "description": "Maps the selected document property and all its descendants to a JSON string. You can alos use this mapping directly for a whole document.",
+          "description": "Maps the selected document property and all its descendants to a JSON string. You can also use this mapping directly for a whole document.",
           "properties": {
             "varcharColumnSize": {
               "$ref": "#/definitions/varcharColumnSize"
@@ -186,7 +186,7 @@
         },
         "toBoolMapping": {
           "title": "toBool mapping definition",
-          "description": "Maps the selected document property to an Exasol `BOOL` column.",
+          "description": "Maps the selected document property to an Exasol `BOOLEAN` column.",
           "properties": {
             "notBooleanBehavior": {
               "$ref": "#/definitions/convertableMappingErrorBehaviour"
