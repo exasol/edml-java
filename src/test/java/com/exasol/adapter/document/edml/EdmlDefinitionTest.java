@@ -26,7 +26,7 @@ class EdmlDefinitionTest {
         final EdmlDefinition edmlDefinition = EdmlDefinition.builder().source("test").destinationTable("myTable")
                 .mapping(Fields.builder().mapField("id", ToVarcharMapping.builder().build()).build()).build();
         final Fields fields = (Fields) edmlDefinition.getMapping();
-        final ToVarcharMapping idField = (ToVarcharMapping) fields.getFields().get("id");
+        final ToVarcharMapping idField = (ToVarcharMapping) fields.getFieldsMap().get("id");
         assertAll(//
                 () -> assertThat(edmlDefinition.getSource(), equalTo("test")),
                 () -> assertThat(edmlDefinition.getDestinationTable(), equalTo("myTable")),

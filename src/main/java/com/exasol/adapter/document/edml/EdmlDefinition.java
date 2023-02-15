@@ -47,8 +47,10 @@ public class EdmlDefinition {
         this.additionalConfiguration = additionalConfiguration;
     }
 
+    /**
+     * A builder for {@link EdmlDefinition}.
+     */
     public static class EdmlDefinitionBuilder {
-
         private String source;
         private String destinationTable;
         private boolean description$set;
@@ -63,7 +65,9 @@ public class EdmlDefinition {
         }
 
         /**
-         * @param source source
+         * Set the source reference, i.e. the table name or resource identifier.
+         * 
+         * @param source source reference
          * @return {@code this}.
          */
         public EdmlDefinition.EdmlDefinitionBuilder source(final String source) {
@@ -97,6 +101,12 @@ public class EdmlDefinition {
         }
 
         /**
+         * Define if a source reference column should be added. If set to {@code true}, this adapter adds the source
+         * reference as a column named {@code SOURCE_REFERENCE} to the Exasol table.
+         * <p>
+         * This feature is mainly useful if multiple sources are used (not supported by all dialects). In that case you
+         * can filter on the source name.
+         * 
          * @param addSourceReferenceColumn {@code true} if a source reference column should be added
          * @return {@code this}.
          */
@@ -107,6 +117,10 @@ public class EdmlDefinition {
         }
 
         /**
+         * Defines the mapping for the document's properties. Typically you want to define {@code fields} here to define
+         * mappings for this document's properties. But you can also use {@code toJsonMapping} mapping here. In that
+         * case the whole document is mapped to a JSON string.
+         * 
          * @param mapping mapping
          * @return {@code this}.
          */
@@ -119,6 +133,8 @@ public class EdmlDefinition {
         }
 
         /**
+         * Set the optional additional configuration options.
+         * 
          * @param additionalConfiguration additional configuration
          * @return {@code this}.
          */
@@ -128,6 +144,11 @@ public class EdmlDefinition {
             return this;
         }
 
+        /**
+         * Build a new {@link EdmlDefinition}.
+         * 
+         * @return a new {@link EdmlDefinition}
+         */
         public EdmlDefinition build() {
             String description = this.description$value;
             if (!this.description$set) {
@@ -154,30 +175,71 @@ public class EdmlDefinition {
         }
     }
 
+    /**
+     * Create a new builder for {@link EdmlDefinition}.
+     * 
+     * @return a new builder for {@link EdmlDefinition}
+     */
     public static EdmlDefinition.EdmlDefinitionBuilder builder() {
         return new EdmlDefinition.EdmlDefinitionBuilder();
     }
 
+    /**
+     * Get the source reference, i.e. the table name or resource identifier.
+     * 
+     * @return the source reference
+     */
     public String getSource() {
         return this.source;
     }
 
+    /**
+     * Get the name of the destination table in Exasol Virtual Schema.
+     * 
+     * @return destination table
+     */
     public String getDestinationTable() {
         return this.destinationTable;
     }
 
+    /**
+     * Get the description.
+     * 
+     * @return description
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Check if a source reference column should be added. If set to {@code true}, this adapter adds the source
+     * reference as a column named {@code SOURCE_REFERENCE} to the Exasol table.
+     * <p>
+     * This feature is mainly useful if multiple sources are used (not supported by all dialects). In that case you can
+     * filter on the source name.
+     * 
+     * @return {@code true} if a source reference should be added.
+     */
     public boolean isAddSourceReferenceColumn() {
         return this.addSourceReferenceColumn;
     }
 
+    /**
+     * Get the mapping for the document's properties. Typically you want to define {@code fields} here to define
+     * mappings for this document's properties. But you can also use {@code toJsonMapping} mapping here. In that case
+     * the whole document is mapped to a JSON string.
+     * 
+     * @return the mapping
+     */
     public MappingDefinition getMapping() {
         return this.mapping;
     }
 
+    /**
+     * Get the optional additional configuration options.
+     * 
+     * @return additional configuration
+     */
     public String getAdditionalConfiguration() {
         return this.additionalConfiguration;
     }
@@ -227,7 +289,7 @@ public class EdmlDefinition {
         return true;
     }
 
-    protected boolean canEqual(final Object other) {
+    private boolean canEqual(final Object other) {
         return other instanceof EdmlDefinition;
     }
 

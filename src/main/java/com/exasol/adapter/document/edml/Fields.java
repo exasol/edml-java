@@ -2,17 +2,18 @@
 package com.exasol.adapter.document.edml;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
- * Java representation of the {@code fields} object in the EDML.
+ * Java representation of the {@code fields} object in the EDML. This definition defines the expected nested properties
+ * of the current property. For each of the nested properties you can again define a mapping. You only need to define
+ * the properties you want to map.
  */
 public class Fields implements MappingDefinition {
-    // name is given by EDML
-    @SuppressWarnings("java:S1700")
-    private final LinkedHashMap<String, MappingDefinition> fields;
+    private final LinkedHashMap<String, MappingDefinition> fieldsMap;
 
     /**
-     * Create a builder for {@link Fields}.
+     * Create a new builder for {@link Fields}.
      *
      * @return {@link FieldsBuilder}
      */
@@ -53,12 +54,17 @@ public class Fields implements MappingDefinition {
         }
     }
 
-    public Fields(final LinkedHashMap<String, MappingDefinition> fields) {
-        this.fields = fields;
+    private Fields(final LinkedHashMap<String, MappingDefinition> fields) {
+        this.fieldsMap = fields;
     }
 
-    public LinkedHashMap<String, MappingDefinition> getFields() {
-        return this.fields;
+    /**
+     * Get the fields.
+     * 
+     * @return fields
+     */
+    public Map<String, MappingDefinition> getFieldsMap() {
+        return this.fieldsMap;
     }
 
     @Override
@@ -73,15 +79,15 @@ public class Fields implements MappingDefinition {
         if (!other.canEqual(this)) {
             return false;
         }
-        final Object this$fields = this.getFields();
-        final Object other$fields = other.getFields();
+        final Object this$fields = this.getFieldsMap();
+        final Object other$fields = other.getFieldsMap();
         if (this$fields == null ? other$fields != null : !this$fields.equals(other$fields)) {
             return false;
         }
         return true;
     }
 
-    protected boolean canEqual(final Object other) {
+    private boolean canEqual(final Object other) {
         return other instanceof Fields;
     }
 
@@ -89,13 +95,13 @@ public class Fields implements MappingDefinition {
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
-        final Object $fields = this.getFields();
+        final Object $fields = this.getFieldsMap();
         result = (result * PRIME) + ($fields == null ? 43 : $fields.hashCode());
         return result;
     }
 
     @Override
     public String toString() {
-        return "Fields(fields=" + this.getFields() + ")";
+        return "Fields(fields=" + this.getFieldsMap() + ")";
     }
 }

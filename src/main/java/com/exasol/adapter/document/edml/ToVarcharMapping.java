@@ -5,9 +5,9 @@ import static com.exasol.adapter.document.edml.ConvertableMappingErrorBehaviour.
 import static com.exasol.adapter.document.edml.TruncateableMappingErrorBehaviour.TRUNCATE;
 
 /**
- * Java representation of the EDML {@code toVarcharMapping}.
+ * Java representation of the EDML {@code toVarcharMapping}. Maps the selected document property to an Exasol
+ * {@code VARCHAR}, column.
  */
-
 public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
     private final ConvertableMappingErrorBehaviour nonStringBehaviour;
     private final TruncateableMappingErrorBehaviour overflowBehaviour;
@@ -25,7 +25,10 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         return TRUNCATE;
     }
 
-    public static abstract class ToVarcharMappingBuilder<B extends ToVarcharMapping.ToVarcharMappingBuilder<B>>
+    /**
+     * Builder for {@link ToVarcharMapping}.
+     */
+    public abstract static class ToVarcharMappingBuilder<B extends ToVarcharMapping.ToVarcharMappingBuilder<B>>
             extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<ToVarcharMapping, B> {
 
         private boolean nonStringBehaviour$set;
@@ -40,7 +43,9 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         public abstract ToVarcharMapping build();
 
         /**
-         * @param nonStringBehaviour the non-string behaviour
+         * Define the behaviour to apply in case a value is not a varchar.
+         * 
+         * @param nonStringBehaviour behaviour to apply in case a value is not a varchar
          * @return {@code this}.
          */
         public B nonStringBehaviour(final ConvertableMappingErrorBehaviour nonStringBehaviour) {
@@ -50,6 +55,8 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         }
 
         /**
+         * Set the behaviour to apply in case a value exceeds the size of the VARCHAR column.
+         * 
          * @param overflowBehaviour the overflow behaviour
          * @return {@code this}.
          */
@@ -83,20 +90,25 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         }
     }
 
-    protected ToVarcharMapping(final ToVarcharMapping.ToVarcharMappingBuilder<?> b) {
-        super(b);
-        if (b.nonStringBehaviour$set) {
-            this.nonStringBehaviour = b.nonStringBehaviour$value;
+    private ToVarcharMapping(final ToVarcharMapping.ToVarcharMappingBuilder<?> builder) {
+        super(builder);
+        if (builder.nonStringBehaviour$set) {
+            this.nonStringBehaviour = builder.nonStringBehaviour$value;
         } else {
             this.nonStringBehaviour = ToVarcharMapping.$default$nonStringBehaviour();
         }
-        if (b.overflowBehaviour$set) {
-            this.overflowBehaviour = b.overflowBehaviour$value;
+        if (builder.overflowBehaviour$set) {
+            this.overflowBehaviour = builder.overflowBehaviour$value;
         } else {
             this.overflowBehaviour = ToVarcharMapping.$default$overflowBehaviour();
         }
     }
 
+    /**
+     * Create a new builder for {@link ToVarcharMapping}.
+     * 
+     * @return a new builder for {@link ToVarcharMapping}
+     */
     public static ToVarcharMapping.ToVarcharMappingBuilder<?> builder() {
         return new ToVarcharMapping.ToVarcharMappingBuilderImpl();
     }
@@ -153,10 +165,20 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
                 + ", overflowBehaviour=" + this.getOverflowBehaviour() + ")";
     }
 
+    /**
+     * Get the behaviour to apply in case a value is not a varchar.
+     * 
+     * @return behaviour to apply in case a value is not a varchar
+     */
     public ConvertableMappingErrorBehaviour getNonStringBehaviour() {
         return this.nonStringBehaviour;
     }
 
+    /**
+     * Get the behaviour to apply in case a value exceeds the size of the VARCHAR column.
+     * 
+     * @return behaviour in case of overflow
+     */
     public TruncateableMappingErrorBehaviour getOverflowBehaviour() {
         return this.overflowBehaviour;
     }

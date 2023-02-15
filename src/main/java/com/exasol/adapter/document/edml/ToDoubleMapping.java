@@ -2,7 +2,8 @@
 package com.exasol.adapter.document.edml;
 
 /**
- * Java representation of the EDML {@code toDoubleMapping}.
+ * Java representation of the EDML {@code toDoubleMapping}. Maps the selected document property to an Exasol
+ * {@code DOUBLE PRECISION} column.
  */
 public final class ToDoubleMapping extends AbstractToNumberMapping {
 
@@ -11,7 +12,10 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         visitor.visit(this);
     }
 
-    public static abstract class ToDoubleMappingBuilder<B extends ToDoubleMapping.ToDoubleMappingBuilder<B>>
+    /**
+     * Builder for {@link ToDoubleMapping}.
+     */
+    public abstract static class ToDoubleMappingBuilder<B extends ToDoubleMapping.ToDoubleMappingBuilder<B>>
             extends AbstractToNumberMapping.AbstractToNumberMappingBuilder<ToDoubleMapping, B> {
         @Override
         protected abstract B self();
@@ -42,10 +46,15 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         }
     }
 
-    protected ToDoubleMapping(final ToDoubleMapping.ToDoubleMappingBuilder<?> b) {
-        super(b);
+    private ToDoubleMapping(final ToDoubleMapping.ToDoubleMappingBuilder<?> builder) {
+        super(builder);
     }
 
+    /**
+     * Create a new builder for {@link ToDoubleMapping}.
+     * 
+     * @return a new builder for {@link ToDoubleMapping}
+     */
     public static ToDoubleMapping.ToDoubleMappingBuilder<?> builder() {
         return new ToDoubleMapping.ToDoubleMappingBuilderImpl();
     }

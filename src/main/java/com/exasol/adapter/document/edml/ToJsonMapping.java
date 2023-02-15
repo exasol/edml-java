@@ -4,9 +4,9 @@ package com.exasol.adapter.document.edml;
 import static com.exasol.adapter.document.edml.MappingErrorBehaviour.ABORT;
 
 /**
- * Java representation of the EDML {@code toJsonMapping}.
+ * Java representation of the EDML {@code toJsonMapping}. Maps the selected document property and all its descendants to
+ * a JSON string. You can also use this mapping directly for a whole document.
  */
-
 public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
     private final MappingErrorBehaviour overflowBehaviour;
 
@@ -19,7 +19,10 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
         return ABORT;
     }
 
-    public static abstract class ToJsonMappingBuilder<B extends ToJsonMapping.ToJsonMappingBuilder<B>>
+    /**
+     * Builder for {@link ToJsonMapping}.
+     */
+    public abstract static class ToJsonMappingBuilder<B extends ToJsonMapping.ToJsonMappingBuilder<B>>
             extends AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<ToJsonMapping, B> {
 
         private boolean overflowBehaviour$set;
@@ -33,6 +36,8 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
         public abstract ToJsonMapping build();
 
         /**
+         * Set the behaviour to apply in case a value exceeds the size of the Exasol column.
+         * 
          * @param overflowBehaviour the overflow behaviour
          * @return {@code this}.
          */
@@ -66,15 +71,20 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
         }
     }
 
-    protected ToJsonMapping(final ToJsonMapping.ToJsonMappingBuilder<?> b) {
-        super(b);
-        if (b.overflowBehaviour$set) {
-            this.overflowBehaviour = b.overflowBehaviour$value;
+    private ToJsonMapping(final ToJsonMapping.ToJsonMappingBuilder<?> builder) {
+        super(builder);
+        if (builder.overflowBehaviour$set) {
+            this.overflowBehaviour = builder.overflowBehaviour$value;
         } else {
             this.overflowBehaviour = ToJsonMapping.$default$overflowBehaviour();
         }
     }
 
+    /**
+     * Create a new builder for {@link ToJsonMapping}.
+     * 
+     * @return a new builder for {@link ToJsonMapping}
+     */
     public static ToJsonMapping.ToJsonMappingBuilder<?> builder() {
         return new ToJsonMapping.ToJsonMappingBuilderImpl();
     }
@@ -122,6 +132,11 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
         return "ToJsonMapping(super=" + super.toString() + ", overflowBehaviour=" + this.getOverflowBehaviour() + ")";
     }
 
+    /**
+     * Get the behaviour to apply in case a value exceeds the size of the Exasol column.
+     * 
+     * @return the overflow behaviour
+     */
     public MappingErrorBehaviour getOverflowBehaviour() {
         return this.overflowBehaviour;
     }

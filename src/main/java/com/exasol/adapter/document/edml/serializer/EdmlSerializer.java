@@ -83,7 +83,7 @@ public class EdmlSerializer {
 
         @Override
         public void visit(final Fields fields) {
-            for (final Map.Entry<String, MappingDefinition> entry : fields.getFields().entrySet()) {
+            for (final Map.Entry<String, MappingDefinition> entry : fields.getFieldsMap().entrySet()) {
                 this.result.add(entry.getKey(), serializeMapping(entry.getValue()));
             }
         }

@@ -2,9 +2,9 @@
 package com.exasol.adapter.document.edml;
 
 /**
- * Java representation of the EDML {@code toBoolMapping}.
+ * Java representation of the EDML {@code toBoolMapping}. Maps the selected document property to an Exasol
+ * {@code BOOLEAN}. column.
  */
-
 public final class ToBoolMapping extends AbstractToColumnMapping {
     private final ConvertableMappingErrorBehaviour notBooleanBehavior;
 
@@ -17,6 +17,9 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         return ConvertableMappingErrorBehaviour.ABORT;
     }
 
+    /**
+     * Builder for {@link ToBoolMapping}.
+     */
     public static abstract class ToBoolMappingBuilder<B extends ToBoolMapping.ToBoolMappingBuilder<B>>
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToBoolMapping, B> {
 
@@ -31,7 +34,9 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         public abstract ToBoolMapping build();
 
         /**
-         * @param notBooleanBehavior the behaviour in case the value is not a boolean
+         * Define the behaviour to apply in case a value is not a boolean.
+         * 
+         * @param notBooleanBehavior the behaviour to apply in case a value is not a boolean
          * @return {@code this}.
          */
         public B notBooleanBehavior(final ConvertableMappingErrorBehaviour notBooleanBehavior) {
@@ -64,15 +69,20 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         }
     }
 
-    protected ToBoolMapping(final ToBoolMapping.ToBoolMappingBuilder<?> b) {
-        super(b);
-        if (b.notBooleanBehavior$set) {
-            this.notBooleanBehavior = b.notBooleanBehavior$value;
+    private ToBoolMapping(final ToBoolMapping.ToBoolMappingBuilder<?> builder) {
+        super(builder);
+        if (builder.notBooleanBehavior$set) {
+            this.notBooleanBehavior = builder.notBooleanBehavior$value;
         } else {
             this.notBooleanBehavior = ToBoolMapping.$default$notBooleanBehavior();
         }
     }
 
+    /**
+     * Create a new builder for {@link ToBoolMapping}.
+     * 
+     * @return a new builder for {@link ToBoolMapping}
+     */
     public static ToBoolMapping.ToBoolMappingBuilder<?> builder() {
         return new ToBoolMapping.ToBoolMappingBuilderImpl();
     }
@@ -120,6 +130,11 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         return "ToBoolMapping(super=" + super.toString() + ", notBooleanBehavior=" + this.getNotBooleanBehavior() + ")";
     }
 
+    /**
+     * Get the behaviour to apply in case a value is not a boolean.
+     * 
+     * @return behaviour to apply in case a value is not a boolean
+     */
     public ConvertableMappingErrorBehaviour getNotBooleanBehavior() {
         return this.notBooleanBehavior;
     }

@@ -2,9 +2,9 @@
 package com.exasol.adapter.document.edml;
 
 /**
- * Java representation of the EDML {@code toDecimalMapping}.
+ * Java representation of the EDML {@code toDecimalMapping}. Maps the selected document property to an Exasol
+ * {@code DECIMAL} column.
  */
-
 public final class ToDecimalMapping extends AbstractToNumberMapping {
     private final int decimalPrecision;
     private final int decimalScale;
@@ -22,6 +22,9 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         return 0;
     }
 
+    /**
+     * Builder for {@link ToDecimalMapping}.
+     */
     public abstract static class ToDecimalMappingBuilder<B extends ToDecimalMapping.ToDecimalMappingBuilder<B>>
             extends AbstractToNumberMapping.AbstractToNumberMappingBuilder<ToDecimalMapping, B> {
 
@@ -37,6 +40,11 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         public abstract ToDecimalMapping build();
 
         /**
+         * Set the precision of the Exasol {@code DECIMAL} type. Default: 18
+         * <p>
+         * See the <a href="https://docs.exasol.com/sql_references/data_types/datatypedetails.htm">documentation about
+         * data types</a> for details.
+         * 
          * @param decimalPrecision precision
          * @return {@code this}.
          */
@@ -47,6 +55,11 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         }
 
         /**
+         * Set the scale of the Exasol {@code DECIMAL} type. Default: 0
+         * <p>
+         * See the <a href="https://docs.exasol.com/sql_references/data_types/datatypedetails.htm">documentation about
+         * data types</a> for details.
+         * 
          * @param decimalScale scale
          * @return {@code this}.
          */
@@ -80,20 +93,25 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         }
     }
 
-    protected ToDecimalMapping(final ToDecimalMapping.ToDecimalMappingBuilder<?> b) {
-        super(b);
-        if (b.decimalPrecision$set) {
-            this.decimalPrecision = b.decimalPrecision$value;
+    private ToDecimalMapping(final ToDecimalMapping.ToDecimalMappingBuilder<?> builder) {
+        super(builder);
+        if (builder.decimalPrecision$set) {
+            this.decimalPrecision = builder.decimalPrecision$value;
         } else {
             this.decimalPrecision = ToDecimalMapping.$default$decimalPrecision();
         }
-        if (b.decimalScale$set) {
-            this.decimalScale = b.decimalScale$value;
+        if (builder.decimalScale$set) {
+            this.decimalScale = builder.decimalScale$value;
         } else {
             this.decimalScale = ToDecimalMapping.$default$decimalScale();
         }
     }
 
+    /**
+     * Create a new builder for {@link ToDecimalMapping}.
+     * 
+     * @return a new builder for {@link ToDecimalMapping}
+     */
     public static ToDecimalMapping.ToDecimalMappingBuilder<?> builder() {
         return new ToDecimalMapping.ToDecimalMappingBuilderImpl();
     }
@@ -142,10 +160,26 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
                 + ", decimalScale=" + this.getDecimalScale() + ")";
     }
 
+    /**
+     * Get the precision of the Exasol {@code DECIMAL} type. Default: 18
+     * <p>
+     * See the <a href="https://docs.exasol.com/sql_references/data_types/datatypedetails.htm">documentation about data
+     * types</a> for details.
+     * 
+     * @return the precision
+     */
     public int getDecimalPrecision() {
         return this.decimalPrecision;
     }
 
+    /**
+     * Get the scale of the Exasol {@code DECIMAL} type. Default: 0
+     * <p>
+     * See the <a href="https://docs.exasol.com/sql_references/data_types/datatypedetails.htm">documentation about data
+     * types</a> for details.
+     * 
+     * @return decimal scale
+     */
     public int getDecimalScale() {
         return this.decimalScale;
     }

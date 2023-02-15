@@ -2,9 +2,9 @@
 package com.exasol.adapter.document.edml;
 
 /**
- * Java representation of the EDML {@code toDateMapping}.
+ * Java representation of the EDML {@code toDateMapping}. Maps the selected document property to an Exasol {@code DATE}
+ * column.
  */
-
 public final class ToDateMapping extends AbstractToColumnMapping {
     private final ConvertableMappingErrorBehaviour notDateBehavior;
 
@@ -17,7 +17,10 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         return ConvertableMappingErrorBehaviour.ABORT;
     }
 
-    public static abstract class ToDateMappingBuilder<B extends ToDateMapping.ToDateMappingBuilder<B>>
+    /**
+     * Builder for {@link ToDateMapping}.
+     */
+    public abstract static class ToDateMappingBuilder<B extends ToDateMapping.ToDateMappingBuilder<B>>
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToDateMapping, B> {
 
         private boolean notDateBehavior$set;
@@ -30,7 +33,9 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         public abstract ToDateMapping build();
 
         /**
-         * @param notDateBehavior the behaviour in case the value is not a date
+         * Define the behaviour to apply in case a value is not a date.
+         * 
+         * @param notDateBehavior behaviour to apply in case a value is not a date
          * @return {@code this}.
          */
         public B notDateBehavior(final ConvertableMappingErrorBehaviour notDateBehavior) {
@@ -63,15 +68,20 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         }
     }
 
-    protected ToDateMapping(final ToDateMapping.ToDateMappingBuilder<?> b) {
-        super(b);
-        if (b.notDateBehavior$set) {
-            this.notDateBehavior = b.notDateBehavior$value;
+    private ToDateMapping(final ToDateMapping.ToDateMappingBuilder<?> builder) {
+        super(builder);
+        if (builder.notDateBehavior$set) {
+            this.notDateBehavior = builder.notDateBehavior$value;
         } else {
             this.notDateBehavior = ToDateMapping.$default$notDateBehavior();
         }
     }
 
+    /**
+     * Create a new builder for {@link ToDateMapping}.
+     * 
+     * @return a new builder for {@link ToDateMapping}
+     */
     public static ToDateMapping.ToDateMappingBuilder<?> builder() {
         return new ToDateMapping.ToDateMappingBuilderImpl();
     }
@@ -119,6 +129,11 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         return "ToDateMapping(super=" + super.toString() + ", notDateBehavior=" + this.getNotDateBehavior() + ")";
     }
 
+    /**
+     * Get the behaviour to apply in case a value is not a date.
+     * 
+     * @return behaviour to apply in case a value is not a date
+     */
     public ConvertableMappingErrorBehaviour getNotDateBehavior() {
         return this.notDateBehavior;
     }

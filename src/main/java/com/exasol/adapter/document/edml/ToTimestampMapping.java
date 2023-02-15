@@ -2,16 +2,12 @@
 package com.exasol.adapter.document.edml;
 
 /**
- * Java representation of the EDML {@code toTimestampMapping}.
+ * Java representation of the EDML {@code toTimestampMapping}. Maps the selected document property to an Exasol
+ * {@code TIMESTAMP} or {@code TIMESTAMP WITH LOCAL TIMEZONE} column.
  */
-
 public final class ToTimestampMapping extends AbstractToColumnMapping {
     private final ConvertableMappingErrorBehaviour notTimestampBehavior;
 
-    /**
-     * If set to {@code true} this adapter will use a {@code TIMESTAMP WITH LOCAL TIMEZONE} Exasol column instead of a
-     * {@code TIMEZONE} column.
-     */
     private final boolean useTimestampWithLocalTimezoneType;
 
     @Override
@@ -27,7 +23,10 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         return true;
     }
 
-    public static abstract class ToTimestampMappingBuilder<B extends ToTimestampMapping.ToTimestampMappingBuilder<B>>
+    /**
+     * Builder for {@link ToTimestampMapping}.
+     */
+    public abstract static class ToTimestampMappingBuilder<B extends ToTimestampMapping.ToTimestampMappingBuilder<B>>
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToTimestampMapping, B> {
 
         private boolean notTimestampBehavior$set;
@@ -42,7 +41,9 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         public abstract ToTimestampMapping build();
 
         /**
-         * @param notTimestampBehavior the not-timestamp behaviour
+         * Define the behaviour to apply in case a value is not a timestamp.
+         * 
+         * @param notTimestampBehavior behaviour to apply in case a value is not a timestamp
          * @return {@code this}.
          */
         public B notTimestampBehavior(final ConvertableMappingErrorBehaviour notTimestampBehavior) {
@@ -52,6 +53,9 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         }
 
         /**
+         * Define which timestamp datatype to use. If set to {@code true} the adapter will use a
+         * {@code TIMESTAMP WITH LOCAL TIMEZONE} Exasol column instead of a {@code TIMEZONE} column.
+         * 
          * @param useTimestampWithLocalTimezoneType {@code true} if data type {@code TIMESTAMP WITH LOCAL TIMEZONE}
          *                                          should be used instead of {@code TIMESTAMP}
          * @return {@code this}.
@@ -87,20 +91,25 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
         }
     }
 
-    protected ToTimestampMapping(final ToTimestampMapping.ToTimestampMappingBuilder<?> b) {
-        super(b);
-        if (b.notTimestampBehavior$set) {
-            this.notTimestampBehavior = b.notTimestampBehavior$value;
+    private ToTimestampMapping(final ToTimestampMapping.ToTimestampMappingBuilder<?> builder) {
+        super(builder);
+        if (builder.notTimestampBehavior$set) {
+            this.notTimestampBehavior = builder.notTimestampBehavior$value;
         } else {
             this.notTimestampBehavior = ToTimestampMapping.$default$notTimestampBehavior();
         }
-        if (b.useTimestampWithLocalTimezoneType$set) {
-            this.useTimestampWithLocalTimezoneType = b.useTimestampWithLocalTimezoneType$value;
+        if (builder.useTimestampWithLocalTimezoneType$set) {
+            this.useTimestampWithLocalTimezoneType = builder.useTimestampWithLocalTimezoneType$value;
         } else {
             this.useTimestampWithLocalTimezoneType = ToTimestampMapping.$default$useTimestampWithLocalTimezoneType();
         }
     }
 
+    /**
+     * Create a new builder for {@link ToTimestampMapping}.
+     * 
+     * @return a new builder for {@link ToTimestampMapping}
+     */
     public static ToTimestampMapping.ToTimestampMappingBuilder<?> builder() {
         return new ToTimestampMapping.ToTimestampMappingBuilderImpl();
     }
@@ -154,12 +163,17 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
                 + this.isUseTimestampWithLocalTimezoneType() + ")";
     }
 
+    /**
+     * Get the behaviour to apply in case a value is not a timestamp.
+     * 
+     * @return behaviour to apply in case a value is not a timestamp
+     */
     public ConvertableMappingErrorBehaviour getNotTimestampBehavior() {
         return this.notTimestampBehavior;
     }
 
     /**
-     * If set to {@code true} this adapter will use a {@code TIMESTAMP WITH LOCAL TIMEZONE} Exasol column instead of a
+     * If set to {@code true} the adapter will use a {@code TIMESTAMP WITH LOCAL TIMEZONE} Exasol column instead of a
      * {@code TIMEZONE} column.
      * 
      * @return {@code true} if {@code TIMESTAMP WITH LOCAL TIMEZONE} is used

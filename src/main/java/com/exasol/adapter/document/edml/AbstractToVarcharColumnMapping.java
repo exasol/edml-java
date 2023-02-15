@@ -49,11 +49,16 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
         return 254;
     }
 
+    /**
+     * Create a new {@link AbstractToVarcharColumnMapping}.
+     * 
+     * @param builder the builder
+     */
     protected AbstractToVarcharColumnMapping(
-            final AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<?, ?> b) {
-        super(b);
-        if (b.varcharColumnSize$set) {
-            this.varcharColumnSize = b.varcharColumnSize$value;
+            final AbstractToVarcharColumnMapping.AbstractToVarcharColumnMappingBuilder<?, ?> builder) {
+        super(builder);
+        if (builder.varcharColumnSize$set) {
+            this.varcharColumnSize = builder.varcharColumnSize$value;
         } else {
             this.varcharColumnSize = AbstractToVarcharColumnMapping.$default$varcharColumnSize();
         }
@@ -99,6 +104,11 @@ public abstract class AbstractToVarcharColumnMapping extends AbstractToColumnMap
                 + this.getVarcharColumnSize() + ")";
     }
 
+    /**
+     * Size of the varchar column.
+     * 
+     * @return size of the varchar column
+     */
     public int getVarcharColumnSize() {
         return this.varcharColumnSize;
     }

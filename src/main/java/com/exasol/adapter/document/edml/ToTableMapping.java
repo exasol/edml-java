@@ -2,9 +2,13 @@
 package com.exasol.adapter.document.edml;
 
 /**
- * Java representation of the EDML {@code toTableMapping}.
+ * Java representation of the EDML {@code toTableMapping}. This mapping is used for normalizing documents to table
+ * structures. It creates a new table in the resulting virtual schema named: {@code <NAME_OF_PARENT>_<GIVEN_NAME>}.
+ * <p>
+ * You can define the columns of this table using the mapping property. If the parent table defines a key using one or
+ * more {@code toVarcharMappings} for a key or secondary index in the document database, this will be used as foreign
+ * key.
  */
-
 public final class ToTableMapping implements MappingDefinition {
     private final String destinationTable;
     private final MappingDefinition mapping;
@@ -19,7 +23,7 @@ public final class ToTableMapping implements MappingDefinition {
         return "";
     }
 
-    ToTableMapping(final String destinationTable, final MappingDefinition mapping, final String description) {
+    private ToTableMapping(final String destinationTable, final MappingDefinition mapping, final String description) {
         if (mapping == null) {
             throw new java.lang.NullPointerException("mapping is marked non-null but is null");
         }
@@ -28,8 +32,10 @@ public final class ToTableMapping implements MappingDefinition {
         this.description = description;
     }
 
+    /**
+     * Builder for {@link ToTableMapping}.
+     */
     public static class ToTableMappingBuilder {
-
         private String destinationTable;
         private MappingDefinition mapping;
         private boolean description$set;
@@ -48,6 +54,10 @@ public final class ToTableMapping implements MappingDefinition {
         }
 
         /**
+         * Defines the mapping for the columns of the new table. If the document list contains non-objects (like
+         * strings) here, you can directly use {@code toVarcharMapping} here. Otherwise, if the list contains objects,
+         * you can define mappings for the nested properties using {@code fields}.
+         * 
          * @param mapping mapping
          * @return {@code this}.
          */
@@ -60,6 +70,8 @@ public final class ToTableMapping implements MappingDefinition {
         }
 
         /**
+         * Set the optional description. Using this property you can provide documentation.
+         * 
          * @param description description
          * @return {@code this}.
          */
@@ -69,6 +81,11 @@ public final class ToTableMapping implements MappingDefinition {
             return this;
         }
 
+        /**
+         * Build a new {@link ToTableMapping}.
+         * 
+         * @return the built {@link ToTableMapping}
+         */
         public ToTableMapping build() {
             String description = this.description$value;
             if (!this.description$set) {
@@ -84,18 +101,40 @@ public final class ToTableMapping implements MappingDefinition {
         }
     }
 
+    /**
+     * Create a new builder for {@link ToTableMapping}.
+     * 
+     * @return a new builder for {@link ToTableMapping}
+     */
     public static ToTableMapping.ToTableMappingBuilder builder() {
         return new ToTableMapping.ToTableMappingBuilder();
     }
 
+    /**
+     * Get the destination table.
+     * 
+     * @return destination table
+     */
     public String getDestinationTable() {
         return this.destinationTable;
     }
 
+    /**
+     * Get the mapping for the columns of the new table. If the document list contains non-objects (like strings) here,
+     * you can directly use {@code toVarcharMapping} here. Otherwise, if the list contains objects, you can define
+     * mappings for the nested properties using {@code fields}.
+     * 
+     * @return mapping
+     */
     public MappingDefinition getMapping() {
         return this.mapping;
     }
 
+    /**
+     * Get the optional description. Using this property you can provide documentation.
+     * 
+     * @return description
+     */
     public String getDescription() {
         return this.description;
     }
