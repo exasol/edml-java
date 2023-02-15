@@ -19,7 +19,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
     /**
      * Builder for {@link ToBoolMapping}.
      */
-    public static abstract class ToBoolMappingBuilder<B extends ToBoolMapping.ToBoolMappingBuilder<B>>
+    public abstract static class ToBoolMappingBuilder<B extends ToBoolMapping.ToBoolMappingBuilder<B>>
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToBoolMapping, B> {
 
         private boolean notBooleanBehaviorSet;
