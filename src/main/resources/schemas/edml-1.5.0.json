@@ -309,8 +309,7 @@
   "required": [
     "$schema",
     "source",
-    "destinationTable",
-    "mapping"
+    "destinationTable"
   ],
   "properties": {
     "$schema": {
