@@ -51,8 +51,8 @@ class MappingDeserializer {
                         deserializer -> deserializer));
         final MappingDefinitionDeserializer deserializer = deserializersByName.get(mappingKey.toLowerCase());
         if (deserializer == null) {
-            final List<? extends Class<?>> possibleKeywords = deserializers.stream()
-                    .map(MappingDefinitionDeserializer::ofClass).collect(Collectors.toList());
+            final List<Class<?>> possibleKeywords = deserializers.stream().map(MappingDefinitionDeserializer::ofClass)
+                    .collect(Collectors.toList());
             throw new IllegalStateException(ExaError.messageBuilder("E-EDML-103").message(
                     "Invalid EDML definition {{mapping}}. The mapping object only allows the following properties {{allowed}}.",
                     mappingKey, possibleKeywords).toString());
