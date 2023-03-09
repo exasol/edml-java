@@ -25,6 +25,12 @@ class EdmlDeserializerTest {
         assertSerializeDeserializeLoop(expected);
     }
 
+    @Test
+    void testDeserializationWithoutMapping() {
+        final EdmlDefinition expected = EdmlDefinition.builder().source("test").destinationTable("test").build();
+        assertSerializeDeserializeLoop(expected);
+    }
+
     private void assertSerializeDeserializeLoop(final EdmlDefinition expected) {
         final EdmlDefinition deserialized = new EdmlDeserializer()
                 .deserialize(new EdmlSerializer().serialize(expected));
@@ -93,12 +99,12 @@ class EdmlDeserializerTest {
 
     @Test
     void testHelperJsonObjectToString() {
-        var jsonInput = "{\"additionalConfiguration\":{\"csv-headers\":true}}";
-        var jsonReader = Json.createReader(new StringReader(jsonInput));
-        var jsonObject = jsonReader.readObject();
-        var additionalConfigurationObject = jsonObject.getJsonObject("additionalConfiguration");
-        var desiredOutput = "{\"csv-headers\":true}";
-        var producedOutput = jsonObjectToString(additionalConfigurationObject);
+        final var jsonInput = "{\"additionalConfiguration\":{\"csv-headers\":true}}";
+        final var jsonReader = Json.createReader(new StringReader(jsonInput));
+        final var jsonObject = jsonReader.readObject();
+        final var additionalConfigurationObject = jsonObject.getJsonObject("additionalConfiguration");
+        final var desiredOutput = "{\"csv-headers\":true}";
+        final var producedOutput = jsonObjectToString(additionalConfigurationObject);
         assertThat(desiredOutput, equalTo(producedOutput));
     }
 }
