@@ -93,6 +93,19 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
+    void testInvalidEmptyMapping() throws IOException {
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {}", "}" //
+        ), equalTo(
+                "F-EDML-53: Syntax validation error: [7,15][/mapping] The object must have at least 1 property(ies), but actual number is 0."));
+    }
+
+    @Test
     void testInvalidNoDestName() throws IOException {
         testInvalidContent(List.of("{", //
                 "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
