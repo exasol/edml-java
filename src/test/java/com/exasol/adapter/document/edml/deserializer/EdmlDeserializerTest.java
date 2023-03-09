@@ -1,10 +1,13 @@
 package com.exasol.adapter.document.edml.deserializer;
 
 import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.jsonObjectToString;
+import static java.util.stream.Collectors.joining;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.StringReader;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +26,24 @@ class EdmlDeserializerTest {
                         .mapField("object", ToJsonMapping.builder().build()).build())
                 .build();
         assertSerializeDeserializeLoop(expected);
+    }
+
+    @Test
+    void testDeserializationFailsForEmptyMapping() {
+        final String serialized = List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {}", //
+                "}" //
+        ).stream().collect(joining("\n")).replace('\'', '"');
+        final EdmlDeserializer deserializer = new EdmlDeserializer();
+        final ExasolDocumentMappingLanguageException exception = assertThrows(
+                ExasolDocumentMappingLanguageException.class, () -> deserializer.deserialize(serialized));
+        assertThat(exception.getMessage(), equalTo(
+                "F-EDML-53: Syntax validation error: [7,15][/mapping] The object must have at least 1 property(ies), but actual number is 0."));
     }
 
     @Test
