@@ -3,9 +3,7 @@ package com.exasol.adapter.document.edml.deserializer;
 import static com.exasol.adapter.document.edml.EdmlKeys.*;
 import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.exasol.adapter.document.edml.*;
@@ -51,7 +49,8 @@ class MappingDeserializer {
                         deserializer -> deserializer));
         final MappingDefinitionDeserializer deserializer = deserializersByName.get(mappingKey.toLowerCase());
         if (deserializer == null) {
-            final List<Class<?>> possibleKeywords = deserializers.stream().map(MappingDefinitionDeserializer::ofClass)
+            final List<Class<?>> possibleKeywords = deserializers.stream() //
+                    .map(MappingDefinitionDeserializer::ofClass) //
                     .collect(Collectors.toList());
             throw new IllegalStateException(ExaError.messageBuilder("E-EDML-103").message(
                     "Invalid EDML definition {{mapping}}. The mapping object only allows the following properties {{allowed}}.",
