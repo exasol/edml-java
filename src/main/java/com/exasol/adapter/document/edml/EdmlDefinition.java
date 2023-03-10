@@ -30,9 +30,6 @@ public class EdmlDefinition {
         if (destinationTable == null) {
             throw new NullPointerException("destinationTable is marked non-null but is null");
         }
-        if (mapping == null) {
-            throw new NullPointerException("mapping is marked non-null but is null");
-        }
         this.source = source;
         this.destinationTable = destinationTable;
         this.description = description;
@@ -109,7 +106,9 @@ public class EdmlDefinition {
          * Defines the mapping for the document's properties. Typically you want to define {@code fields} here to define
          * mappings for this document's properties. But you can also use {@code toJsonMapping} mapping here. In that
          * case the whole document is mapped to a JSON string.
-         *
+         * <p>
+         * Omit the {@code mapping} to enable auto-inference.
+         * 
          * @param mapping mapping
          * @return {@code this}.
          */
@@ -204,6 +203,8 @@ public class EdmlDefinition {
      * Get the mapping for the document's properties. Typically you want to define {@code fields} here to define
      * mappings for this document's properties. But you can also use {@code toJsonMapping} mapping here. In that case
      * the whole document is mapped to a JSON string.
+     * <p>
+     * You can omit the {@code mapping} element to enable auto-inference.
      *
      * @return the mapping
      */

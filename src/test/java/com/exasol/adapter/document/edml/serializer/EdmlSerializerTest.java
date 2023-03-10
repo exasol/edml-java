@@ -9,10 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import com.exasol.adapter.document.edml.EdmlDefinition;
-import com.exasol.adapter.document.edml.Fields;
-import com.exasol.adapter.document.edml.ToTableMapping;
-import com.exasol.adapter.document.edml.ToVarcharMapping;
+import com.exasol.adapter.document.edml.*;
 
 import jakarta.json.JsonObjectBuilder;
 import jakarta.json.spi.JsonProvider;
@@ -24,7 +21,15 @@ class EdmlSerializerTest {
         final EdmlDefinition edmlDefinition = EdmlDefinition.builder().source("test").destinationTable("test")
                 .mapping(Fields.builder().mapField("test", ToVarcharMapping.builder().build()).build()).build();
         final String serialized = new EdmlSerializer().serialize(edmlDefinition);
-        final String expected = "{\"$schema\":\"https://schemas.exasol.com/edml-1.4.0.json\",\"source\":\"test\",\"destinationTable\":\"test\",\"description\":\"\",\"addSourceReferenceColumn\":false,\"mapping\":{\"fields\":{\"test\":{\"toVarcharMapping\":{\"key\":\"none\",\"required\":false,\"varcharColumnSize\":254,\"nonStringBehaviour\":\"CONVERT_OR_ABORT\",\"overflowBehaviour\":\"TRUNCATE\"}}}}}";
+        final String expected = "{\"$schema\":\"https://schemas.exasol.com/edml-1.5.0.json\",\"source\":\"test\",\"destinationTable\":\"test\",\"description\":\"\",\"addSourceReferenceColumn\":false,\"mapping\":{\"fields\":{\"test\":{\"toVarcharMapping\":{\"key\":\"none\",\"required\":false,\"varcharColumnSize\":254,\"nonStringBehaviour\":\"CONVERT_OR_ABORT\",\"overflowBehaviour\":\"TRUNCATE\"}}}}}";
+        assertThat(serialized, equalTo(expected));
+    }
+
+    @Test
+    void testSerializationWithoutMapping() {
+        final EdmlDefinition edmlDefinition = EdmlDefinition.builder().source("test").destinationTable("test").build();
+        final String serialized = new EdmlSerializer().serialize(edmlDefinition);
+        final String expected = "{\"$schema\":\"https://schemas.exasol.com/edml-1.5.0.json\",\"source\":\"test\",\"destinationTable\":\"test\",\"description\":\"\",\"addSourceReferenceColumn\":false}";
         assertThat(serialized, equalTo(expected));
     }
 
@@ -38,32 +43,31 @@ class EdmlSerializerTest {
                         .build())
                 .build();
         final String serialized = new EdmlSerializer().serialize(edmlDefinition);
-        final String expected = "{\"$schema\":\"https://schemas.exasol.com/edml-1.4.0.json\",\"source\":\"test\",\"destinationTable\":\"test\",\"description\":\"\",\"addSourceReferenceColumn\":false,\"mapping\":{\"fields\":{\"test\":{\"toTableMapping\":{\"mapping\":{\"fields\":{\"id\":{\"toVarcharMapping\":{\"key\":\"none\",\"required\":false,\"varcharColumnSize\":254,\"nonStringBehaviour\":\"CONVERT_OR_ABORT\",\"overflowBehaviour\":\"TRUNCATE\"}}}},\"description\":\"\"}}}}}";
+        final String expected = "{\"$schema\":\"https://schemas.exasol.com/edml-1.5.0.json\",\"source\":\"test\",\"destinationTable\":\"test\",\"description\":\"\",\"addSourceReferenceColumn\":false,\"mapping\":{\"fields\":{\"test\":{\"toTableMapping\":{\"mapping\":{\"fields\":{\"id\":{\"toVarcharMapping\":{\"key\":\"none\",\"required\":false,\"varcharColumnSize\":254,\"nonStringBehaviour\":\"CONVERT_OR_ABORT\",\"overflowBehaviour\":\"TRUNCATE\"}}}},\"description\":\"\"}}}}}";
         assertThat(serialized, equalTo(expected));
     }
 
     @ParameterizedTest
     @CsvSource(value = { "null, FALSE", "'', FALSE", "testtest, TRUE" }, nullValues = { "null" })
-    void testAddIfNotNullOrEmptyMethodNull(String value, boolean testResult) {
-        JsonProvider JSON = JsonProvider.provider();
-        String key = "test";
+    void testAddIfNotNullOrEmptyMethodNull(final String value, final boolean testResult) {
+        final JsonProvider JSON = JsonProvider.provider();
+        final String key = "test";
 
         final JsonObjectBuilder mappingBuilder = JSON.createObjectBuilder();
         addIfNotNullOrEmpty(mappingBuilder, key, value);
-        var result = mappingBuilder.build();
+        final var result = mappingBuilder.build();
         assertThat(result.containsKey(key), equalTo(testResult));
     }
 
     @ParameterizedTest
     @CsvSource(value = { "null, FALSE", "'', FALSE", "{    \"csv-headers\": true  }, TRUE" }, nullValues = { "null" })
-    void testAddJsonObjectIfNotNullOrEmptyMethodNull(String value, boolean testResult) {
-        JsonProvider JSON = JsonProvider.provider();
-        String key = "test";
+    void testAddJsonObjectIfNotNullOrEmptyMethodNull(final String value, final boolean testResult) {
+        final JsonProvider JSON = JsonProvider.provider();
+        final String key = "test";
 
         final JsonObjectBuilder mappingBuilder = JSON.createObjectBuilder();
         addAsJsonObjectIfNotNullOrEmpty(mappingBuilder, key, value);
-        var result = mappingBuilder.build();
+        final var result = mappingBuilder.build();
         assertThat(result.containsKey(key), equalTo(testResult));
     }
-
 }

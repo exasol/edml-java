@@ -1,10 +1,13 @@
 package com.exasol.adapter.document.edml.deserializer;
 
 import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.jsonObjectToString;
+import static java.util.stream.Collectors.joining;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.StringReader;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +25,30 @@ class EdmlDeserializerTest {
                         .mapField("number", ToDecimalMapping.builder().build())
                         .mapField("object", ToJsonMapping.builder().build()).build())
                 .build();
+        assertSerializeDeserializeLoop(expected);
+    }
+
+    @Test
+    void testDeserializationFailsForEmptyMapping() {
+        final String serialized = List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {}", //
+                "}" //
+        ).stream().collect(joining("\n")).replace('\'', '"');
+        final EdmlDeserializer deserializer = new EdmlDeserializer();
+        final ExasolDocumentMappingLanguageException exception = assertThrows(
+                ExasolDocumentMappingLanguageException.class, () -> deserializer.deserialize(serialized));
+        assertThat(exception.getMessage(), equalTo(
+                "F-EDML-53: Syntax validation error: [7,15][/mapping] The object must have at least 1 property(ies), but actual number is 0."));
+    }
+
+    @Test
+    void testDeserializationWithoutMapping() {
+        final EdmlDefinition expected = EdmlDefinition.builder().source("test").destinationTable("test").build();
         assertSerializeDeserializeLoop(expected);
     }
 
@@ -93,12 +120,12 @@ class EdmlDeserializerTest {
 
     @Test
     void testHelperJsonObjectToString() {
-        var jsonInput = "{\"additionalConfiguration\":{\"csv-headers\":true}}";
-        var jsonReader = Json.createReader(new StringReader(jsonInput));
-        var jsonObject = jsonReader.readObject();
-        var additionalConfigurationObject = jsonObject.getJsonObject("additionalConfiguration");
-        var desiredOutput = "{\"csv-headers\":true}";
-        var producedOutput = jsonObjectToString(additionalConfigurationObject);
+        final var jsonInput = "{\"additionalConfiguration\":{\"csv-headers\":true}}";
+        final var jsonReader = Json.createReader(new StringReader(jsonInput));
+        final var jsonObject = jsonReader.readObject();
+        final var additionalConfigurationObject = jsonObject.getJsonObject("additionalConfiguration");
+        final var desiredOutput = "{\"csv-headers\":true}";
+        final var producedOutput = jsonObjectToString(additionalConfigurationObject);
         assertThat(desiredOutput, equalTo(producedOutput));
     }
 }

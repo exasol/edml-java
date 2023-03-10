@@ -22,15 +22,21 @@ class EdmlSchemaValidatorTest {
     private static final Logger LOGGER = Logger.getLogger(EdmlSchemaValidatorTest.class.getSimpleName());
 
     private void runValidationWithResource(final String resource) throws IOException {
-        final String schema = new String(
+        final String jsonContent = new String(
                 Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(resource)).readAllBytes(),
                 StandardCharsets.UTF_8);
-        runValidation(schema);
+        runValidation(jsonContent);
     }
 
-    private void runValidation(final String schema) {
+    private void runValidation(final List<String> lines) {
+        runValidation(lines.stream() //
+                .map(s -> s.replace('\'', '"')) //
+                .collect(joining("\n")));
+    }
+
+    private void runValidation(final String jsonContent) {
         try {
-            new EdmlSchemaValidator().validate(schema);
+            new EdmlSchemaValidator().validate(jsonContent);
         } catch (final IllegalArgumentException exception) {
             LOGGER.info(exception.getMessage());
             throw exception;
@@ -62,6 +68,18 @@ class EdmlSchemaValidatorTest {
         runValidationWithResource(WHOLE_TABLE_TO_TABLE_MAPPING);
     }
 
+    @Test
+    void testValidNoMapping() throws IOException {
+        runValidation(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true", //
+                "}" //
+        ));
+    }
+
     private void testInvalidContent(final List<String> invalidMappingLines, final Matcher<String> messageMatcher) {
         testInvalidContent(invalidMappingLines.stream() //
                 .map(s -> s.replace('\'', '"')) //
@@ -72,6 +90,19 @@ class EdmlSchemaValidatorTest {
         final ExasolDocumentMappingLanguageException exception = assertThrows(
                 ExasolDocumentMappingLanguageException.class, () -> runValidation(invalidMapping));
         assertThat(exception.getMessage(), messageMatcher);
+    }
+
+    @Test
+    void testInvalidEmptyMapping() throws IOException {
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {}", "}" //
+        ), equalTo(
+                "F-EDML-53: Syntax validation error: [7,15][/mapping] The object must have at least 1 property(ies), but actual number is 0."));
     }
 
     @Test
@@ -264,20 +295,6 @@ class EdmlSchemaValidatorTest {
 
         ), equalTo("F-EDML-53: Syntax validation error: [15,19][/mapping/fields/isbn/toVarcharMapping/key] "
                 + "The value must be one of ['local', 'global', 'none'].".replace('\'', '"')));
-    }
-
-    @Test
-    void testInvalidNoMapping() throws IOException {
-        testInvalidContent(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
-                "  'source': 'MY_BOOKS',", //
-                "  'destinationTable': 'BOOKS',", //
-                "  'description': 'Maps MY_BOOKS to BOOKS',", //
-                "  'addSourceReferenceColumn': true", //
-                "}" //
-
-        ), equalTo(
-                "F-EDML-53: Syntax validation error: [7,1][] The object must have a property whose name is \"mapping\"."));
     }
 
     @Test

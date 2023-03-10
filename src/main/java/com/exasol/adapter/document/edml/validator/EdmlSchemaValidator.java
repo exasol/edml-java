@@ -16,13 +16,9 @@ import jakarta.json.stream.JsonParser;
 
 /**
  * Validator for mapping definitions using a JSON-schema validator.
- * <p>
- * The validator in this packages requires the use of the {@code io.json} API instead of the project-wide {@code javax}
- * API.
- * </p>
  */
 public class EdmlSchemaValidator {
-    private static final String MAPPING_LANGUAGE_SCHEMA = "schemas/edml-1.4.0.json";
+    private static final String MAPPING_LANGUAGE_SCHEMA = "schemas/edml-1.5.0.json";
     private final JsonValidationService service;
     private final JsonSchema schema;
 
@@ -33,7 +29,7 @@ public class EdmlSchemaValidator {
         this.service = JsonValidationService.newInstance();
         final ClassLoader classLoader = EdmlSchemaValidator.class.getClassLoader();
         try (final InputStream inputStream = classLoader.getResourceAsStream(MAPPING_LANGUAGE_SCHEMA)) {
-            this.schema = service.readSchema(inputStream);
+            this.schema = this.service.readSchema(inputStream);
         } catch (final IOException exception) {
             throw new IllegalStateException(ExaError.messageBuilder("F-EDML-22")
                     .message("Internal error (Failed to open EDML-schema from resources).").ticketMitigation()
@@ -63,9 +59,9 @@ public class EdmlSchemaValidator {
 
     private List<String> getValidationErrors(final String schemaMappingDefinition) {
         final ErrorCollector errorCollector = new ErrorCollector();
-        final ProblemHandler handler = service.createProblemPrinter(errorCollector);
+        final ProblemHandler handler = this.service.createProblemPrinter(errorCollector);
         try (Reader reader = new StringReader(schemaMappingDefinition);
-                final JsonParser parser = service.createParser(reader, schema, handler)) {
+                final JsonParser parser = this.service.createParser(reader, this.schema, handler)) {
             consumeEvents(parser);
             return errorCollector.errors;
         } catch (final IOException exception) {
@@ -84,7 +80,7 @@ public class EdmlSchemaValidator {
 
         @Override
         public void accept(final String message) {
-            errors.add(message);
+            this.errors.add(message);
         }
     }
 }

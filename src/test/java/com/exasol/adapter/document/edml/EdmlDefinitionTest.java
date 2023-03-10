@@ -2,6 +2,7 @@ package com.exasol.adapter.document.edml;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.util.stream.Stream;
@@ -31,6 +32,17 @@ class EdmlDefinitionTest {
                 () -> assertThat(edmlDefinition.getSource(), equalTo("test")),
                 () -> assertThat(edmlDefinition.getDestinationTable(), equalTo("myTable")),
                 () -> assertThat("254 is the default value", idField.getVarcharColumnSize(), equalTo(254))//
+        );
+    }
+
+    @Test
+    void testBuilderWithoutMapping() {
+        final EdmlDefinition edmlDefinition = EdmlDefinition.builder().source("test").destinationTable("myTable")
+                .build();
+        assertAll(//
+                () -> assertThat(edmlDefinition.getSource(), equalTo("test")),
+                () -> assertThat(edmlDefinition.getDestinationTable(), equalTo("myTable")),
+                () -> assertThat(edmlDefinition.getMapping(), nullValue())//
         );
     }
 
