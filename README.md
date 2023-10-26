@@ -1,7 +1,7 @@
 # EDML Java
 
 [![Build Status](https://github.com/exasol/edml-java/actions/workflows/ci-build.yml/badge.svg)](https://github.com/exasol/edml-java/actions/workflows/ci-build.yml)
-[![Maven Central – EDML Java](https://img.shields.io/maven-central/v/com.exasol/edml-java)](https://search.maven.org/artifact/com.exasol/edml-java)
+[![Maven Central &ndash; EDML Java](https://img.shields.io/maven-central/v/com.exasol/edml-java)](https://search.maven.org/artifact/com.exasol/edml-java)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Aedml-java&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.exasol%3Aedml-java)
 
