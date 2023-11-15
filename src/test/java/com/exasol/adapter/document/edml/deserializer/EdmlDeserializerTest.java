@@ -50,7 +50,8 @@ class EdmlDeserializerTest {
 
     @Test
     void testDeserializationWithoutMapping() {
-        final EdmlDefinition expected = EdmlDefinition.builder().source("test").destinationTable("test").build();
+        final EdmlDefinition expected = EdmlDefinition.builder().source("testSource").destinationTable("testTable")
+                .build();
         assertSerializeDeserializeLoop(expected);
     }
 
