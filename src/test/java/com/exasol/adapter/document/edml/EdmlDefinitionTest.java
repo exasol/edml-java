@@ -12,6 +12,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import com.jparams.verifier.tostring.ToStringVerifier;
+
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 class EdmlDefinitionTest {
@@ -50,5 +52,11 @@ class EdmlDefinitionTest {
     @MethodSource({ "getEdmlClasses" })
     void testEquals(final Class<?> forClass) {
         EqualsVerifier.simple().forClass(forClass).verify();
+    }
+
+    @ParameterizedTest
+    @MethodSource({ "getEdmlClasses" })
+    void testToString(final Class<?> forClass) {
+        ToStringVerifier.forClass(forClass).verify();
     }
 }

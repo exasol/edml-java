@@ -59,7 +59,7 @@ public class Fields implements MappingDefinition {
 
     /**
      * Get the fields.
-     * 
+     *
      * @return fields
      */
     public Map<String, MappingDefinition> getFieldsMap() {
@@ -68,11 +68,11 @@ public class Fields implements MappingDefinition {
 
     @Override
     public int hashCode() {
-        return Objects.hash(fieldsMap);
+        return Objects.hash(this.fieldsMap);
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -82,12 +82,12 @@ public class Fields implements MappingDefinition {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Fields other = (Fields) obj;
-        return Objects.equals(fieldsMap, other.fieldsMap);
+        final Fields other = (Fields) obj;
+        return Objects.equals(this.fieldsMap, other.fieldsMap);
     }
 
     @Override
     public String toString() {
-        return "Fields(fields=" + this.getFieldsMap() + ")";
+        return "Fields(fieldsMap=" + this.getFieldsMap() + ")";
     }
 }

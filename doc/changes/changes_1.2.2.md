@@ -18,6 +18,7 @@ This release fixes a bug when deserializing a `ToTimestampMapping` from JSON. Op
 
 ### Test Dependency Updates
 
+* Added `com.jparams:to-string-verifier:1.4.8`
 * Updated `nl.jqno.equalsverifier:equalsverifier:3.14` to `3.15.3`
 * Updated `org.junit.jupiter:junit-jupiter-api:5.9.2` to `5.10.1`
 * Updated `org.junit.jupiter:junit-jupiter-engine:5.9.2` to `5.10.1`
