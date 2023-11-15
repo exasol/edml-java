@@ -30,7 +30,7 @@ public class EdmlDeserializer {
                 .destinationTable(readRequiredString(json, KEY_DESTINATION_TABLE));
         Optional.ofNullable(json.getString(KEY_DESCRIPTION, null)).ifPresent(builder::description);
         readOptionalBoolean(json, KEY_ADD_SOURCE_REFERENCE_COLUMN).ifPresent(builder::addSourceReferenceColumn);
-        // We serialize the json object again, we can then just deserialise it again to a json object later and read it
+        // We serialize the json object again, we can then just deserialize it again to a json object later and read it
         // out where we need it
         final JsonObject additionalConfiguration = json.getJsonObject(KEY_ADDITIONAL_CONFIGURATION); // will return null
                                                                                                      // if not found

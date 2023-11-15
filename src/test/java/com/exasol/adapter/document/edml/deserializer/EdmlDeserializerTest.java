@@ -10,6 +10,8 @@ import java.io.StringReader;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import com.exasol.adapter.document.edml.*;
 import com.exasol.adapter.document.edml.serializer.EdmlSerializer;
@@ -48,7 +50,8 @@ class EdmlDeserializerTest {
 
     @Test
     void testDeserializationWithoutMapping() {
-        final EdmlDefinition expected = EdmlDefinition.builder().source("test").destinationTable("test").build();
+        final EdmlDefinition expected = EdmlDefinition.builder().source("testSource").destinationTable("testTable")
+                .build();
         assertSerializeDeserializeLoop(expected);
     }
 
@@ -106,10 +109,15 @@ class EdmlDeserializerTest {
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 
-    @Test
-    void testDeserializeToTimestampMapping() {
-        final var mapping = ToTimestampMapping.builder().notTimestampBehavior(ConvertableMappingErrorBehaviour.NULL)
-                .useTimestampWithLocalTimezoneType(true).build();
+    @CsvSource({ "NULL, true", //
+            "CONVERT_OR_ABORT, true", //
+            "NULL, false", //
+            "CONVERT_OR_ABORT, false", })
+    @ParameterizedTest
+    void testDeserializeToTimestampMapping(final ConvertableMappingErrorBehaviour behaviour,
+            final boolean uselocalTimezone) {
+        final var mapping = ToTimestampMapping.builder().notTimestampBehavior(behaviour)
+                .useTimestampWithLocalTimezoneType(uselocalTimezone).build();
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 

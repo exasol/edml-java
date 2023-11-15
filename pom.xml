@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.exasol</groupId>
     <artifactId>edml-java</artifactId>
     <version>1.2.1</version>
     <name>EDML Java</name>
     <description>Library for reading and writing EDML definitions.</description>
     <url>https://github.com/exasol/edml-java/</url>
     <properties>
-        <junit.version>5.10.0</junit.version>
+        <junit.version>5.10.1</junit.version>
         <vscommon.version>15.2.0</vscommon.version>
     </properties>
     <dependencies>
@@ -55,13 +54,19 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>5.6.0</version>
+            <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>3.15.2</version>
+            <version>3.15.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jparams</groupId>
+            <artifactId>to-string-verifier</artifactId>
+            <version>1.4.8</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -79,7 +84,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>2.9.14</version>
+                <version>2.9.16</version>
                 <executions>
                     <execution>
                         <goals>
