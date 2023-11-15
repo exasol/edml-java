@@ -115,9 +115,9 @@ class EdmlDeserializerTest {
             "CONVERT_OR_ABORT, false", })
     @ParameterizedTest
     void testDeserializeToTimestampMapping(final ConvertableMappingErrorBehaviour behaviour,
-            final boolean localTimezone) {
+            final boolean uselocalTimezone) {
         final var mapping = ToTimestampMapping.builder().notTimestampBehavior(behaviour)
-                .useTimestampWithLocalTimezoneType(localTimezone).build();
+                .useTimestampWithLocalTimezoneType(uselocalTimezone).build();
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 
