@@ -61,7 +61,7 @@
 [9]: https://junit.org/junit5/
 [10]: https://www.eclipse.org/legal/epl-v20.html
 [11]: https://github.com/mockito/mockito
-[12]: https://github.com/mockito/mockito/blob/main/LICENSE
+[12]: https://opensource.org/licenses/MIT
 [13]: https://www.jqno.nl/equalsverifier
 [14]: https://www.apache.org/licenses/LICENSE-2.0.txt
 [15]: http://sonarsource.github.io/sonar-scanner-maven/
