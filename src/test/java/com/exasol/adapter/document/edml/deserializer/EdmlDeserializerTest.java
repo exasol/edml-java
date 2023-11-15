@@ -107,9 +107,17 @@ class EdmlDeserializerTest {
     }
 
     @Test
-    void testDeserializeToTimestampMapping() {
+    void testDeserializeToTimestampMappingWithLocalTimezone() {
         final var mapping = ToTimestampMapping.builder().notTimestampBehavior(ConvertableMappingErrorBehaviour.NULL)
                 .useTimestampWithLocalTimezoneType(true).build();
+        assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
+    }
+
+    @Test
+    void testDeserializeToTimestampMapping() {
+        final var mapping = ToTimestampMapping.builder()
+                .notTimestampBehavior(ConvertableMappingErrorBehaviour.CONVERT_OR_ABORT)
+                .useTimestampWithLocalTimezoneType(false).build();
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 
