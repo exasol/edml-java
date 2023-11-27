@@ -85,7 +85,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(notTimestampBehavior);
+        result = (prime * result) + Objects.hash(notTimestampBehavior);
         return result;
     }
 
