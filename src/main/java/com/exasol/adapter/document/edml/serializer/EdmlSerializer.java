@@ -156,8 +156,6 @@ public class EdmlSerializer {
         public void visit(final ToTimestampMapping toTimestampMapping) {
             visitToColumnMapping(toTimestampMapping);
             addUppercaseEnum(KEY_NOT_TIMESTAMP_BEHAVIOR, toTimestampMapping.getNotTimestampBehavior());
-            this.result.add(KEY_USE_TIMESTAMP_WITH_LOCAL_TIMEZONE_TYPE,
-                    toTimestampMapping.isUseTimestampWithLocalTimezoneType());
         }
 
         private void addUppercaseEnum(final String key, final Enum<?> value) {

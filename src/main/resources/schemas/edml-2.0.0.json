@@ -237,11 +237,6 @@
                         "notTimestampBehavior": {
                             "$ref": "#/definitions/convertableMappingErrorBehaviour"
                         },
-                        "useTimestampWithLocalTimezoneType": {
-                            "description": "If set to `true` the adapter will use a `TIMESTAMP WITH LOCAL TIMEZONE` Exasol column instead of a `TIMEZONE` column.",
-                            "type": "boolean",
-                            "default": true
-                        },
                         "destinationName": {
                             "$ref": "#/definitions/destinationName"
                         },

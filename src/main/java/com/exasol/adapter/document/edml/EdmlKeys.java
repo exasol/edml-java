@@ -80,10 +80,6 @@ public class EdmlKeys {
      * The constant KEY_NOT_TIMESTAMP_BEHAVIOR.
      */
     public static final String KEY_NOT_TIMESTAMP_BEHAVIOR = "notTimestampBehavior";
-    /**
-     * The constant KEY_USE_TIMESTAMP_WITH_LOCAL_TIMEZONE_TYPE.
-     */
-    public static final String KEY_USE_TIMESTAMP_WITH_LOCAL_TIMEZONE_TYPE = "useTimestampWithLocalTimezoneType";
 
     private EdmlKeys() {
         // static class
