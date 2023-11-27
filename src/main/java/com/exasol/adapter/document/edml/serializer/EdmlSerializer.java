@@ -22,7 +22,7 @@ import jakarta.json.spi.JsonProvider;
  * </p>
  */
 public class EdmlSerializer {
-    private static final String SCHEMA = "https://schemas.exasol.com/edml-1.5.0.json";
+    private static final String SCHEMA = "https://schemas.exasol.com/edml-2.0.0.json";
     private static final JsonProvider JSON = JsonProvider.provider();
 
     private static JsonObjectBuilder serializeMapping(final MappingDefinition mappingDefinition) {
