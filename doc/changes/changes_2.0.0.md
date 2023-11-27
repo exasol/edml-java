@@ -1,4 +1,4 @@
-# EDML Java 2.0.0, released 2023-11-27
+# EDML Java 2.0.0, released 2023-11-28
 
 Code name: Remove 
 
