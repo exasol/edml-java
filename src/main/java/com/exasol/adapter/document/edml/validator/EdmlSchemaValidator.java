@@ -18,7 +18,7 @@ import jakarta.json.stream.JsonParser;
  * Validator for mapping definitions using a JSON-schema validator.
  */
 public class EdmlSchemaValidator {
-    private static final String MAPPING_LANGUAGE_SCHEMA = "schemas/edml-1.5.0.json";
+    private static final String MAPPING_LANGUAGE_SCHEMA = "schemas/edml-2.0.0.json";
     private final JsonValidationService service;
     private final JsonSchema schema;
 

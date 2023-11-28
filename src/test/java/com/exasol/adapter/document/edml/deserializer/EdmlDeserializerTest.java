@@ -109,15 +109,10 @@ class EdmlDeserializerTest {
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 
-    @CsvSource({ "NULL, true", //
-            "CONVERT_OR_ABORT, true", //
-            "NULL, false", //
-            "CONVERT_OR_ABORT, false", })
+    @CsvSource({ "NULL", "CONVERT_OR_ABORT" })
     @ParameterizedTest
-    void testDeserializeToTimestampMapping(final ConvertableMappingErrorBehaviour behaviour,
-            final boolean uselocalTimezone) {
-        final var mapping = ToTimestampMapping.builder().notTimestampBehavior(behaviour)
-                .useTimestampWithLocalTimezoneType(uselocalTimezone).build();
+    void testDeserializeToTimestampMapping(final ConvertableMappingErrorBehaviour behaviour) {
+        final var mapping = ToTimestampMapping.builder().notTimestampBehavior(behaviour).build();
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 

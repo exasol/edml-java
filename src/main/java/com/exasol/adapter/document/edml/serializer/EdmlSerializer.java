@@ -22,7 +22,7 @@ import jakarta.json.spi.JsonProvider;
  * </p>
  */
 public class EdmlSerializer {
-    private static final String SCHEMA = "https://schemas.exasol.com/edml-1.5.0.json";
+    private static final String SCHEMA = "https://schemas.exasol.com/edml-2.0.0.json";
     private static final JsonProvider JSON = JsonProvider.provider();
 
     private static JsonObjectBuilder serializeMapping(final MappingDefinition mappingDefinition) {
@@ -156,8 +156,6 @@ public class EdmlSerializer {
         public void visit(final ToTimestampMapping toTimestampMapping) {
             visitToColumnMapping(toTimestampMapping);
             addUppercaseEnum(KEY_NOT_TIMESTAMP_BEHAVIOR, toTimestampMapping.getNotTimestampBehavior());
-            this.result.add(KEY_USE_TIMESTAMP_WITH_LOCAL_TIMEZONE_TYPE,
-                    toTimestampMapping.isUseTimestampWithLocalTimezoneType());
         }
 
         private void addUppercaseEnum(final String key, final Enum<?> value) {
