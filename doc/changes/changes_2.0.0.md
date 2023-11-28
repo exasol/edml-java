@@ -1,6 +1,6 @@
 # EDML Java 2.0.0, released 2023-11-28
 
-Code name: Remove 
+Code name: Remove support for `TIMESTAMP WITH LOCAL TIME ZONE`
 
 ## Summary
 
