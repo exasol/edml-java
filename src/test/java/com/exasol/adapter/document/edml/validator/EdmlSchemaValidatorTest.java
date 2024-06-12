@@ -365,7 +365,7 @@ class EdmlSchemaValidatorTest {
 
     @Test
     void testValidBothMappingAndAutoInference() {
-        // TODO: Should not be valid, update JSON schema
+        // Did not get validation with JSON schema to work. This is validated in EdmlDeserializer.
         runValidation(List.of("{", //
                 "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
                 "  'source': 'MY_BOOKS',", //
