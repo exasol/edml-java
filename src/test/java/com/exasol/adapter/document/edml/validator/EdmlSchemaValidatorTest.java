@@ -186,8 +186,6 @@ class EdmlSchemaValidatorTest {
                 "  '$schema': 'https://schemas.exasol.com/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
-                "  'description': 'Maps MY_BOOKS to BOOKS',", //
-                "  'addSourceReferenceColumn': true,", //
                 "  'mapping': {", //
                 "    'fields': {", //
                 "      'isbn': {", //
@@ -199,7 +197,7 @@ class EdmlSchemaValidatorTest {
                 "  }", //
                 "}"),
                 startsWith(
-                        "F-EDML-53: Syntax validation error: [11,40][/mapping/fields/isbn/toVarcharMapping/overflowBehaviour] "
+                        "F-EDML-53: Syntax validation error: [9,40][/mapping/fields/isbn/toVarcharMapping/overflowBehaviour] "
                                 + "The value must be one of [\"TRUNCATE\", \"ABORT\", \"NULL\"]."));
     }
 
@@ -366,8 +364,6 @@ class EdmlSchemaValidatorTest {
                 "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
-                "  'description': 'Maps MY_BOOKS to BOOKS',", //
-                "  'addSourceReferenceColumn': true,", //
                 "  'mapping': {'fields':{'name': {'toVarcharMapping': {}}}},", //
                 "  'autoInferenceColumnNames': 'KEEP_SOURCE'", //
                 "}"));
