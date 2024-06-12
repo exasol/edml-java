@@ -16,7 +16,7 @@ import jakarta.json.spi.JsonProvider;
 
 //[utest->dsn~edml-serialization~1]
 class EdmlSerializerTest {
-    private static final String SCHEMA_URL = "https://schemas.exasol.com/edml-2.0.0.json";
+    private static final String SCHEMA_URL = "https://schemas.exasol.com/edml-2.1.0.json";
 
     @Test
     void testSerialization() {
