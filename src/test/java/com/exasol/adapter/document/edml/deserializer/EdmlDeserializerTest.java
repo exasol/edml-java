@@ -63,6 +63,19 @@ class EdmlDeserializerTest {
         assertSerializeDeserializeLoop(expected);
     }
 
+    @Test
+    void testDeserializationBothAutoInferenceColumnNameMappingAndMappingFails() {
+        final EdmlDefinition expected = EdmlDefinition.builder().source("testSource").destinationTable("testTable")
+                .mapping(Fields.builder().mapField("text", ToVarcharMapping.builder().build()).build())
+                .autoInferenceColumnNames(ColumnNameMapping.KEEP_SOURCE).build();
+        final String json = new EdmlSerializer().serialize(expected);
+        final EdmlDeserializer deserializer = new EdmlDeserializer();
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> deserializer.deserialize(json));
+        assertThat(exception.getMessage(), equalTo(
+                "E-EDML-105: Auto inference column names is not allowed when mapping is present. Remove property 'autoInferenceColumnNames'."));
+    }
+
     private void assertSerializeDeserializeLoop(final EdmlDefinition expected) {
         final EdmlDefinition deserialized = new EdmlDeserializer()
                 .deserialize(new EdmlSerializer().serialize(expected));

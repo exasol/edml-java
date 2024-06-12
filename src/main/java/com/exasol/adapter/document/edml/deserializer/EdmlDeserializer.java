@@ -39,10 +39,16 @@ public class EdmlDeserializer {
             builder.additionalConfiguration(jsonObjectToString(additionalConfiguration));
         }
         final JsonObject mapping = json.getJsonObject(KEY_MAPPING);
+        final String columnNameMapping = json.getString(AUTO_INFERENCE_COLUMN_NAMES, null);
         if (mapping != null) {
             builder.mapping(new MappingDeserializer().deserializeMapping(mapping));
+            if (columnNameMapping != null) {
+                throw new IllegalArgumentException(ExaError.messageBuilder("E-EDML-105")
+                        .message("Auto inference column names is not allowed when mapping is present.")
+                        .mitigation("Remove property {{auto inference property}}.", AUTO_INFERENCE_COLUMN_NAMES)
+                        .toString());
+            }
         }
-        final String columnNameMapping = json.getString(AUTO_INFERENCE_COLUMN_NAMES, null);
         if (columnNameMapping != null) {
             builder.autoInferenceColumnNames(ColumnNameMapping.valueOf(columnNameMapping));
         }
