@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import com.exasol.adapter.document.edml.*;
 import com.exasol.adapter.document.edml.serializer.EdmlSerializer;
@@ -55,6 +55,14 @@ class EdmlDeserializerTest {
         assertSerializeDeserializeLoop(expected);
     }
 
+    @ParameterizedTest
+    @EnumSource(ColumnNameMapping.class)
+    void testDeserializationWithAutoInferenceColumnNameMapping(final ColumnNameMapping mapping) {
+        final EdmlDefinition expected = EdmlDefinition.builder().source("testSource").destinationTable("testTable")
+                .autoInferenceColumnNames(mapping).build();
+        assertSerializeDeserializeLoop(expected);
+    }
+
     private void assertSerializeDeserializeLoop(final EdmlDefinition expected) {
         final EdmlDefinition deserialized = new EdmlDeserializer()
                 .deserialize(new EdmlSerializer().serialize(expected));
@@ -69,22 +77,25 @@ class EdmlDeserializerTest {
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 
-    @Test
-    void testDeserializeToBoolMapping() {
-        final var mapping = ToBoolMapping.builder().notBooleanBehavior(ConvertableMappingErrorBehaviour.NULL).build();
+    @ParameterizedTest
+    @EnumSource(ConvertableMappingErrorBehaviour.class)
+    void testDeserializeToBoolMapping(final ConvertableMappingErrorBehaviour behaviour) {
+        final var mapping = ToBoolMapping.builder().notBooleanBehavior(behaviour).build();
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 
-    @Test
-    void testDeserializeToDateMapping() {
-        final var mapping = ToDateMapping.builder().notDateBehavior(ConvertableMappingErrorBehaviour.NULL).build();
+    @ParameterizedTest
+    @EnumSource(ConvertableMappingErrorBehaviour.class)
+    void testDeserializeToDateMapping(final ConvertableMappingErrorBehaviour behaviour) {
+        final var mapping = ToDateMapping.builder().notDateBehavior(behaviour).build();
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 
-    @Test
-    void testDeserializeToDecimalMapping() {
-        final var mapping = ToDecimalMapping.builder().notNumericBehaviour(ConvertableMappingErrorBehaviour.NULL)
-                .decimalPrecision(11).decimalScale(1).required(true).build();
+    @ParameterizedTest
+    @EnumSource(ConvertableMappingErrorBehaviour.class)
+    void testDeserializeToDecimalMapping(final ConvertableMappingErrorBehaviour behaviour) {
+        final var mapping = ToDecimalMapping.builder().notNumericBehaviour(behaviour).decimalPrecision(11)
+                .decimalScale(1).required(true).build();
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 
@@ -109,8 +120,8 @@ class EdmlDeserializerTest {
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 
-    @CsvSource({ "NULL", "CONVERT_OR_ABORT" })
     @ParameterizedTest
+    @EnumSource(ConvertableMappingErrorBehaviour.class)
     void testDeserializeToTimestampMapping(final ConvertableMappingErrorBehaviour behaviour) {
         final var mapping = ToTimestampMapping.builder().notTimestampBehavior(behaviour).build();
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));

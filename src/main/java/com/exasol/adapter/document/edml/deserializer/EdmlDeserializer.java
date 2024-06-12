@@ -6,6 +6,7 @@ import static com.exasol.adapter.document.edml.deserializer.DeserializationHelpe
 import java.io.StringReader;
 import java.util.Optional;
 
+import com.exasol.adapter.document.edml.ColumnNameMapping;
 import com.exasol.adapter.document.edml.EdmlDefinition;
 import com.exasol.adapter.document.edml.validator.EdmlSchemaValidator;
 import com.exasol.errorreporting.ExaError;
@@ -40,6 +41,10 @@ public class EdmlDeserializer {
         final JsonObject mapping = json.getJsonObject(KEY_MAPPING);
         if (mapping != null) {
             builder.mapping(new MappingDeserializer().deserializeMapping(mapping));
+        }
+        final String columnNameMapping = json.getString(AUTO_INFERENCE_COLUMN_NAMES, null);
+        if (columnNameMapping != null) {
+            builder.autoInferenceColumnNames(ColumnNameMapping.valueOf(columnNameMapping));
         }
         return builder.build();
     }

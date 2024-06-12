@@ -12,13 +12,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import com.exasol.adapter.document.edml.EdmlDefinition.EdmlDefinitionBuilder;
 import com.jparams.verifier.tostring.ToStringVerifier;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 class EdmlDefinitionTest {
 
-    public static Stream<Arguments> getEdmlClasses() {
+    static Stream<Arguments> getEdmlClasses() {
         return Stream.of(EdmlDefinition.class, Fields.class, ToBoolMapping.class, ToDecimalMapping.class,
                 ToDecimalMapping.class, ToDoubleMapping.class, ToJsonMapping.class, ToTableMapping.class,
                 ToTimestampMapping.class, ToVarcharMapping.class).map(Arguments::of);
@@ -48,15 +49,35 @@ class EdmlDefinitionTest {
         );
     }
 
-    @ParameterizedTest
+    @Test
+    void testBuilderDefaultAutoInferenceColumnNameMapping() {
+        final EdmlDefinition edmlDefinition = EdmlDefinition.builder().source("test").destinationTable("myTable")
+                .build();
+        assertThat(edmlDefinition.getAutoInferenceColumnNames(),
+                equalTo(ColumnNameMapping.CONVERT_TO_UPPER_SNAKE_CASE));
+    }
+
+    @Test
+    void testBuilderCustomAutoInferenceColumnNameMapping() {
+        final EdmlDefinition edmlDefinition = EdmlDefinition.builder().source("test").destinationTable("myTable")
+                .autoInferenceColumnNames(ColumnNameMapping.KEEP_SOURCE).build();
+        assertThat(edmlDefinition.getAutoInferenceColumnNames(), equalTo(ColumnNameMapping.KEEP_SOURCE));
+    }
+
+    @ParameterizedTest(name = "equals and hashCode of {0} are correct")
     @MethodSource({ "getEdmlClasses" })
     void testEquals(final Class<?> forClass) {
         EqualsVerifier.simple().forClass(forClass).verify();
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "toString implementation of {0} is correct")
     @MethodSource({ "getEdmlClasses" })
     void testToString(final Class<?> forClass) {
         ToStringVerifier.forClass(forClass).verify();
+    }
+
+    @Test
+    void testBuilderToString() {
+        ToStringVerifier.forClass(EdmlDefinitionBuilder.class).verify();
     }
 }

@@ -64,6 +64,10 @@ public class EdmlSerializer {
         if (edmlDefinition.getMapping() != null) {
             edmlJson.add(KEY_MAPPING, serializeMapping(edmlDefinition.getMapping()));
         }
+        if (edmlDefinition.getAutoInferenceColumnNames() != null
+                && edmlDefinition.getAutoInferenceColumnNames() != ColumnNameMapping.CONVERT_TO_UPPER_SNAKE_CASE) {
+            edmlJson.add(AUTO_INFERENCE_COLUMN_NAMES, edmlDefinition.getAutoInferenceColumnNames().name());
+        }
         return toJson(edmlJson);
     }
 

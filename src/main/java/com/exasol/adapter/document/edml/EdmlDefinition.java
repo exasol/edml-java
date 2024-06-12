@@ -11,6 +11,7 @@ public class EdmlDefinition {
     private static final String DEFAULT_DESCRIPTION = "";
     private static final String DEFAULT_ADDITIONAL_CONFIGURATION = "";
     private static final boolean DEFAULT_ADD_SOURCE_COLUMN = false;
+    private static final ColumnNameMapping DEFAULT_AUTO_INFERENCE_COLUMN_NAME_MAPPING = ColumnNameMapping.CONVERT_TO_UPPER_SNAKE_CASE;
 
     private final String source;
 
@@ -19,23 +20,23 @@ public class EdmlDefinition {
     private final boolean addSourceReferenceColumn;
 
     private final MappingDefinition mapping;
+    private final ColumnNameMapping autoInferenceColumnNames;
     private final String additionalConfiguration;
 
-    EdmlDefinition(final String source, final String destinationTable, final String description,
-            final boolean addSourceReferenceColumn, final MappingDefinition mapping,
-            final String additionalConfiguration) {
-        if (source == null) {
+    private EdmlDefinition(final EdmlDefinitionBuilder builder) {
+        if (builder.source == null) {
             throw new NullPointerException("source is marked non-null but is null");
         }
-        if (destinationTable == null) {
+        if (builder.destinationTable == null) {
             throw new NullPointerException("destinationTable is marked non-null but is null");
         }
-        this.source = source;
-        this.destinationTable = destinationTable;
-        this.description = description;
-        this.addSourceReferenceColumn = addSourceReferenceColumn;
-        this.mapping = mapping;
-        this.additionalConfiguration = additionalConfiguration;
+        this.source = builder.source;
+        this.destinationTable = builder.destinationTable;
+        this.description = builder.description;
+        this.addSourceReferenceColumn = builder.addSourceReferenceColumn;
+        this.mapping = builder.mapping;
+        this.autoInferenceColumnNames = builder.autoInferenceColumnNames;
+        this.additionalConfiguration = builder.additionalConfiguration;
     }
 
     /**
@@ -47,6 +48,7 @@ public class EdmlDefinition {
         private String description = DEFAULT_DESCRIPTION;
         private boolean addSourceReferenceColumn = DEFAULT_ADD_SOURCE_COLUMN;
         private MappingDefinition mapping;
+        private ColumnNameMapping autoInferenceColumnNames = DEFAULT_AUTO_INFERENCE_COLUMN_NAME_MAPPING;
         private String additionalConfiguration = DEFAULT_ADDITIONAL_CONFIGURATION;
 
         EdmlDefinitionBuilder() {
@@ -121,6 +123,21 @@ public class EdmlDefinition {
         }
 
         /**
+         * Set the column name mapping for auto-inference.
+         * <p>
+         * Only specify this when {@code mapping} is omitted.
+         * 
+         * @param autoInferenceColumnNames column name mapping
+         * @return {@code this}.
+         */
+        public EdmlDefinition.EdmlDefinitionBuilder autoInferenceColumnNames(
+                final ColumnNameMapping autoInferenceColumnNames) {
+            this.autoInferenceColumnNames = Objects.requireNonNull(autoInferenceColumnNames,
+                    "autoInferenceColumnNames");
+            return this;
+        }
+
+        /**
          * Set the optional additional configuration options.
          *
          * @param additionalConfiguration additional configuration
@@ -137,16 +154,15 @@ public class EdmlDefinition {
          * @return a new {@link EdmlDefinition}
          */
         public EdmlDefinition build() {
-            return new EdmlDefinition(this.source, this.destinationTable, this.description,
-                    this.addSourceReferenceColumn, this.mapping, this.additionalConfiguration);
+            return new EdmlDefinition(this);
         }
 
         @Override
         public String toString() {
             return "EdmlDefinition.EdmlDefinitionBuilder(source=" + this.source + ", destinationTable="
-                    + this.destinationTable + ", descriptionValue=" + this.description
-                    + ", addSourceReferenceColumnValue=" + this.addSourceReferenceColumn + ", mapping=" + this.mapping
-                    + ", additionalConfigurationValue=" + this.additionalConfiguration + ")";
+                    + this.destinationTable + ", description=" + this.description + ", addSourceReferenceColumn="
+                    + this.addSourceReferenceColumn + ", mapping=" + this.mapping + ", autoInferenceColumnNames="
+                    + autoInferenceColumnNames + ", additionalConfiguration=" + this.additionalConfiguration + ")";
         }
     }
 
@@ -213,6 +229,17 @@ public class EdmlDefinition {
     }
 
     /**
+     * Get the column name mapping for auto-inference.
+     * <p>
+     * Only specify this when {@code mapping} is omitted.
+     * 
+     * @return column name mapping
+     */
+    public ColumnNameMapping getAutoInferenceColumnNames() {
+        return this.autoInferenceColumnNames;
+    }
+
+    /**
      * Get the optional additional configuration options.
      *
      * @return additional configuration
@@ -224,7 +251,7 @@ public class EdmlDefinition {
     @Override
     public int hashCode() {
         return Objects.hash(this.source, this.destinationTable, this.description, this.addSourceReferenceColumn,
-                this.mapping, this.additionalConfiguration);
+                this.mapping, this.autoInferenceColumnNames, this.additionalConfiguration);
     }
 
     @Override
@@ -244,6 +271,7 @@ public class EdmlDefinition {
                 && Objects.equals(this.description, other.description)
                 && (this.addSourceReferenceColumn == other.addSourceReferenceColumn)
                 && Objects.equals(this.mapping, other.mapping)
+                && Objects.equals(this.autoInferenceColumnNames, other.autoInferenceColumnNames)
                 && Objects.equals(this.additionalConfiguration, other.additionalConfiguration);
     }
 
@@ -251,7 +279,7 @@ public class EdmlDefinition {
     public String toString() {
         return "EdmlDefinition(source=" + this.getSource() + ", destinationTable=" + this.getDestinationTable()
                 + ", description=" + this.getDescription() + ", addSourceReferenceColumn="
-                + this.isAddSourceReferenceColumn() + ", mapping=" + this.getMapping() + ", additionalConfiguration="
-                + this.getAdditionalConfiguration() + ")";
+                + this.isAddSourceReferenceColumn() + ", mapping=" + this.getMapping() + ", autoInferenceColumnNames="
+                + autoInferenceColumnNames + ", additionalConfiguration=" + this.getAdditionalConfiguration() + ")";
     }
 }
