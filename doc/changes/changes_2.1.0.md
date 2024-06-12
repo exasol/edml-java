@@ -1,4 +1,4 @@
-# EDML Java 2.1.0, released 2024-06-12
+# EDML Java 2.1.0, released 2024-06-13
 
 Code name: Add property `autoInferenceColumnNames`
 
