@@ -1,12 +1,14 @@
-# EDML Java 2.1.0, released 2024-??-??
+# EDML Java 2.1.0, released 2024-06-12
 
-Code name:
+Code name: Add property `autoInferenceColumnNames`
 
 ## Summary
 
+This release adds property `autoInferenceColumnNames` to the EDML definition. This allows users to configure how virtual schemas convert column names from the source to Exasol column names when using automatic schema inference.
+
 ## Features
 
-* ISSUE_NUMBER: description
+* #24: Added property `autoInferenceColumnNames`
 
 ## Dependency Updates
 
