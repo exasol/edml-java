@@ -69,7 +69,7 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testValidNoMapping() throws IOException {
+    void testValidNoMapping() {
         runValidation(List.of("{", //
                 "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
                 "  'source': 'MY_BOOKS',", //
@@ -78,6 +78,31 @@ class EdmlSchemaValidatorTest {
                 "  'addSourceReferenceColumn': true", //
                 "}" //
         ));
+    }
+
+    @Test
+    void testValidAutoInferenceColumnNames() {
+        runValidation(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'autoInferenceColumnNames': 'KEEP_SOURCE'", //
+                "}" //
+        ));
+    }
+
+    @Test
+    void testInvalidAutoInferenceColumnNamesWrongValue() {
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'autoInferenceColumnNames': 'invalid'", //
+                "}" //
+        ), equalTo("F-EDML-53: Syntax validation error: [6,39][/autoInferenceColumnNames] "
+                + "The value must be one of [\"CONVERT_TO_UPPER_SNAKE_CASE\", \"KEEP_SOURCE\"]."));
     }
 
     private void testInvalidContent(final List<String> invalidMappingLines, final Matcher<String> messageMatcher) {
@@ -93,7 +118,7 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testInvalidEmptyMapping() throws IOException {
+    void testInvalidEmptyMapping() {
         testInvalidContent(List.of("{", //
                 "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
                 "  'source': 'MY_BOOKS',", //
@@ -106,7 +131,7 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testInvalidNoDestName() throws IOException {
+    void testInvalidNoDestName() {
         testInvalidContent(List.of("{", //
                 "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
                 "  'source': 'MY_BOOKS',", //
@@ -131,7 +156,7 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testInvalidNoSchemaSet() throws IOException {
+    void testInvalidNoSchemaSet() {
         testInvalidContent(List.of("{", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
@@ -156,7 +181,34 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testInvalidWrongSchemaSet() throws IOException {
+    void testInvalidOverflowBehaviour() {
+        testInvalidContent(List.of("{", //
+                "  '$schema': 'https://schemas.exasol.com/edml-2.1.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {", //
+                "    'fields': {", //
+                "      'isbn': {", //
+                "        'toVarcharMapping': {", //
+                "          'varcharColumnSize': 20,", //
+                "          'description': 'The isbn is mapped to a string with max length of 20',", //
+                "          'overflowBehaviour': 'invalid',", //
+                "          'required': true,", //
+                "          'key': 'global'", //
+                "        }", //
+                "      }", //
+                "    }", //
+                "  }", //
+                "}"),
+                startsWith(
+                        "F-EDML-53: Syntax validation error: [13,40][/mapping/fields/isbn/toVarcharMapping/overflowBehaviour] "
+                                + "The value must be one of [\"TRUNCATE\", \"ABORT\", \"NULL\"]."));
+    }
+
+    @Test
+    void testInvalidWrongSchemaSet() {
         testInvalidContent(List.of("{", //
                 "  '$schema': 'invalidSchema',", //
                 "  'source': 'MY_BOOKS',", //
@@ -180,7 +232,7 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testInvalidUnknownRootProperty() throws IOException {
+    void testInvalidUnknownRootProperty() {
         testInvalidContent(List.of("{", //
                 "  'unknownProperty': 'someValue',", //
                 "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
@@ -207,7 +259,7 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testInvalidUnknownMappingType() throws IOException {
+    void testInvalidUnknownMappingType() {
         testInvalidContent(List.of("{", //
                 "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
                 "  'source': 'MY_BOOKS',", //
@@ -227,7 +279,7 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testInvalidUnknownMappingInToTable() throws IOException {
+    void testInvalidUnknownMappingInToTable() {
         testInvalidContent(List.of("{", //
                 "  '$schema': '../../main/resources/schemas/edml-1.0.0.json',", //
                 "  'source': 'MY_BOOKS',", //
@@ -251,7 +303,7 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testInvalidToTableWithNoFields() throws IOException {
+    void testInvalidToTableWithNoFields() {
         testInvalidContent(List.of("{", //
                 "  '$schema': '../../main/resources/schemas/edml-1.0.0.json',", //
                 "  'source': 'MY_BOOKS',", //
@@ -271,7 +323,7 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testInvalidKeyValue() throws IOException {
+    void testInvalidKeyValue() {
         testInvalidContent(List.of("{", //
                 "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
                 "  'source': 'MY_BOOKS',", //
@@ -298,7 +350,7 @@ class EdmlSchemaValidatorTest {
     }
 
     @Test
-    void testInvalidNoFields() throws IOException {
+    void testInvalidNoFields() {
         testInvalidContent(List.of("{", //
                 "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
                 "  'source': 'MY_BOOKS',", //
@@ -309,5 +361,19 @@ class EdmlSchemaValidatorTest {
                 "}"),
                 startsWith("F-EDML-53: Syntax validation error: [7,15][/mapping]"
                         + " The object must have at least 1 property(ies), but actual number is 0."));
+    }
+
+    @Test
+    void testValidBothMappingAndAutoInference() {
+        // TODO: Should not be valid, update JSON schema
+        runValidation(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'description': 'Maps MY_BOOKS to BOOKS',", //
+                "  'addSourceReferenceColumn': true,", //
+                "  'mapping': {'fields':{'name': {'toVarcharMapping': {}}}},", //
+                "  'autoInferenceColumnNames': 'KEEP_SOURCE'", //
+                "}"));
     }
 }
