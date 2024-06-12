@@ -192,18 +192,14 @@ class EdmlSchemaValidatorTest {
                 "    'fields': {", //
                 "      'isbn': {", //
                 "        'toVarcharMapping': {", //
-                "          'varcharColumnSize': 20,", //
-                "          'description': 'The isbn is mapped to a string with max length of 20',", //
-                "          'overflowBehaviour': 'invalid',", //
-                "          'required': true,", //
-                "          'key': 'global'", //
+                "          'overflowBehaviour': 'invalid'", //
                 "        }", //
                 "      }", //
                 "    }", //
                 "  }", //
                 "}"),
                 startsWith(
-                        "F-EDML-53: Syntax validation error: [13,40][/mapping/fields/isbn/toVarcharMapping/overflowBehaviour] "
+                        "F-EDML-53: Syntax validation error: [11,40][/mapping/fields/isbn/toVarcharMapping/overflowBehaviour] "
                                 + "The value must be one of [\"TRUNCATE\", \"ABORT\", \"NULL\"]."));
     }
 

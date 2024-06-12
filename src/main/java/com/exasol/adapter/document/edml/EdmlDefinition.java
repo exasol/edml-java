@@ -24,14 +24,8 @@ public class EdmlDefinition {
     private final String additionalConfiguration;
 
     private EdmlDefinition(final EdmlDefinitionBuilder builder) {
-        if (builder.source == null) {
-            throw new NullPointerException("source is marked non-null but is null");
-        }
-        if (builder.destinationTable == null) {
-            throw new NullPointerException("destinationTable is marked non-null but is null");
-        }
-        this.source = builder.source;
-        this.destinationTable = builder.destinationTable;
+        this.source = Objects.requireNonNull(builder.source, "source");
+        this.destinationTable = Objects.requireNonNull(builder.destinationTable, "destinationTable");
         this.description = builder.description;
         this.addSourceReferenceColumn = builder.addSourceReferenceColumn;
         this.mapping = builder.mapping;
