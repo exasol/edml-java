@@ -48,7 +48,7 @@ public final class ToDateMapping extends AbstractToColumnMapping {
         }
     }
 
-    private static final class ToDateMappingBuilderImpl
+    static final class ToDateMappingBuilderImpl
             extends ToDateMapping.ToDateMappingBuilder<ToDateMapping.ToDateMappingBuilderImpl> {
 
         private ToDateMappingBuilderImpl() {

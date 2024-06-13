@@ -50,7 +50,7 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
         }
     }
 
-    private static final class ToJsonMappingBuilderImpl
+    static final class ToJsonMappingBuilderImpl
             extends ToJsonMapping.ToJsonMappingBuilder<ToJsonMapping.ToJsonMappingBuilderImpl> {
 
         private ToJsonMappingBuilderImpl() {

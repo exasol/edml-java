@@ -58,12 +58,12 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
 
         @Override
         public String toString() {
-            return "ToTimestampMapping.ToTimestampMappingBuilder(super=" + super.toString()
-                    + ", notTimestampBehaviorValue=" + this.notTimestampBehavior + ")";
+            return "ToTimestampMapping.ToTimestampMappingBuilder(super=" + super.toString() + ", notTimestampBehavior="
+                    + this.notTimestampBehavior + ", secondsPrecision=" + this.secondsPrecision + ")";
         }
     }
 
-    private static final class ToTimestampMappingBuilderImpl
+    static final class ToTimestampMappingBuilderImpl
             extends ToTimestampMapping.ToTimestampMappingBuilder<ToTimestampMapping.ToTimestampMappingBuilderImpl> {
 
         private ToTimestampMappingBuilderImpl() {

@@ -29,7 +29,7 @@ public final class ToDoubleMapping extends AbstractToNumberMapping {
         }
     }
 
-    private static final class ToDoubleMappingBuilderImpl
+    static final class ToDoubleMappingBuilderImpl
             extends ToDoubleMapping.ToDoubleMappingBuilder<ToDoubleMapping.ToDoubleMappingBuilderImpl> {
 
         private ToDoubleMappingBuilderImpl() {

@@ -65,7 +65,7 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
         }
     }
 
-    private static final class ToVarcharMappingBuilderImpl
+    static final class ToVarcharMappingBuilderImpl
             extends ToVarcharMapping.ToVarcharMappingBuilder<ToVarcharMapping.ToVarcharMappingBuilderImpl> {
 
         private ToVarcharMappingBuilderImpl() {

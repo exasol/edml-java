@@ -68,7 +68,7 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
         }
     }
 
-    private static final class ToDecimalMappingBuilderImpl
+    static final class ToDecimalMappingBuilderImpl
             extends ToDecimalMapping.ToDecimalMappingBuilder<ToDecimalMapping.ToDecimalMappingBuilderImpl> {
 
         private ToDecimalMappingBuilderImpl() {

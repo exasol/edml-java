@@ -19,9 +19,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
             extends AbstractToColumnMappingBuilder<C, B> {
 
         private MappingErrorBehaviour overflowBehaviour = DEFAULT_OVERFLOW_BEHAVIOUR;
-
         private boolean notNumericBehaviourSet;
-
         private ConvertableMappingErrorBehaviour notNumericBehaviour;
 
         @Override
@@ -57,7 +55,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
         public String toString() {
             return "AbstractToNumberMapping.AbstractToNumberMappingBuilder(super=" + super.toString()
                     + ", overflowBehaviour=" + this.overflowBehaviour + ", notNumericBehaviour="
-                    + this.notNumericBehaviour + ")";
+                    + this.notNumericBehaviour + ", notNumericBehaviourSet=" + notNumericBehaviourSet + ")";
         }
     }
 

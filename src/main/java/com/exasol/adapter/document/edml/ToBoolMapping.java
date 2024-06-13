@@ -48,7 +48,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
         }
     }
 
-    private static final class ToBoolMappingBuilderImpl
+    static final class ToBoolMappingBuilderImpl
             extends ToBoolMapping.ToBoolMappingBuilder<ToBoolMapping.ToBoolMappingBuilderImpl> {
 
         private ToBoolMappingBuilderImpl() {
