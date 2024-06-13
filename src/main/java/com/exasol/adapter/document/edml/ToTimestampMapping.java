@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * Java representation of the EDML {@code toTimestampMapping}. Maps the selected document property to an Exasol
- * {@code TIMESTAMP} or {@code TIMESTAMP WITH LOCAL TIMEZONE} column.
+ * {@code TIMESTAMP} column.
  */
 public final class ToTimestampMapping extends AbstractToColumnMapping {
     private static final ConvertableMappingErrorBehaviour DEFAULT_NOT_TIMESTAMP_BEHAVIOUR = ConvertableMappingErrorBehaviour.ABORT;
