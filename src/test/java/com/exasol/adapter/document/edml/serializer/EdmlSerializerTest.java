@@ -39,9 +39,9 @@ class EdmlSerializerTest {
     @Test
     void testSerializationWithAutoInferenceColumnNameMapping() {
         final EdmlDefinitionBuilder edmlDefinition = EdmlDefinition.builder().source("test").destinationTable("test")
-                .autoInferenceColumnNames(ColumnNameMapping.KEEP_SOURCE);
+                .autoInferenceColumnNames(ColumnNameMapping.KEEP_ORIGINAL_NAME);
         final String expected = "{\"$schema\":\"" + SCHEMA_URL
-                + "\",\"source\":\"test\",\"destinationTable\":\"test\",\"description\":\"\",\"addSourceReferenceColumn\":false,\"autoInferenceColumnNames\":\"KEEP_SOURCE\"}";
+                + "\",\"source\":\"test\",\"destinationTable\":\"test\",\"description\":\"\",\"addSourceReferenceColumn\":false,\"autoInferenceColumnNames\":\"KEEP_ORIGINAL_NAME\"}";
         assertThat(serialize(edmlDefinition), equalTo(expected));
     }
 

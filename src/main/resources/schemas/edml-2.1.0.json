@@ -349,11 +349,11 @@
             "description": "Defines the mapping for the document's properties. Typically you want to define `fields` here to define mappings for this document's properties. But you can also use `toJsonMapping` mapping here. In that case the whole document is mapped to a JSON string."
         },
         "autoInferenceColumnNames": {
-            "description": "Defines how Exasol column names are inferred from the source. If set to `CONVERT_TO_UPPER_SNAKE_CASE`, the column names are converted to upper snake case. If set to `KEEP_SOURCE`, the column names are kept as they are.",
+            "description": "Defines how Exasol column names are inferred from the source. If set to `CONVERT_TO_UPPER_SNAKE_CASE`, the column names are converted to upper snake case. If set to `KEEP_ORIGINAL_NAME`, the column names are kept as they are.",
             "default": "CONVERT_TO_UPPER_SNAKE_CASE",
             "enum": [
                 "CONVERT_TO_UPPER_SNAKE_CASE",
-                "KEEP_SOURCE"
+                "KEEP_ORIGINAL_NAME"
             ]
         },
         "addSourceReferenceColumn": {

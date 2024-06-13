@@ -4,7 +4,9 @@ Code name: Add property `autoInferenceColumnNames`
 
 ## Summary
 
-This release adds property `autoInferenceColumnNames` to the EDML definition. This allows users to configure how virtual schemas convert column names from the source to Exasol column names when using automatic schema inference.
+This release adds property `autoInferenceColumnNames` to the EDML definition. This allows users to configure how virtual schemas convert column names from the source to Exasol column names when using automatic schema inference. By default the virtual schema will convert source column names to `UPPER_SNAKE_CASE` for Exasol column names. If you want to use the original name from the source file, you can add property `autoInferenceColumnNames` to the EDML definition. This property supports the following values:
+* `CONVERT_TO_UPPER_SNAKE_CASE`: Convert column names to `UPPER_SNAKE_CASE` (default).
+* `KEEP_ORIGINAL_NAME`: Do not convert column names, use column name from source.
 
 ## Features
 

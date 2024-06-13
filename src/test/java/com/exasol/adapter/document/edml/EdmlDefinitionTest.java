@@ -60,8 +60,8 @@ class EdmlDefinitionTest {
     @Test
     void testBuilderCustomAutoInferenceColumnNameMapping() {
         final EdmlDefinition edmlDefinition = EdmlDefinition.builder().source("test").destinationTable("myTable")
-                .autoInferenceColumnNames(ColumnNameMapping.KEEP_SOURCE).build();
-        assertThat(edmlDefinition.getAutoInferenceColumnNames(), equalTo(ColumnNameMapping.KEEP_SOURCE));
+                .autoInferenceColumnNames(ColumnNameMapping.KEEP_ORIGINAL_NAME).build();
+        assertThat(edmlDefinition.getAutoInferenceColumnNames(), equalTo(ColumnNameMapping.KEEP_ORIGINAL_NAME));
     }
 
     @ParameterizedTest(name = "equals and hashCode of {0} are correct")

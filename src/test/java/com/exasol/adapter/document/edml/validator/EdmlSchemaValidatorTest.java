@@ -87,7 +87,7 @@ class EdmlSchemaValidatorTest {
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'description': 'Maps MY_BOOKS to BOOKS',", //
-                "  'autoInferenceColumnNames': 'KEEP_SOURCE'", //
+                "  'autoInferenceColumnNames': 'KEEP_ORIGINAL_NAME'", //
                 "}" //
         ));
     }
@@ -102,7 +102,7 @@ class EdmlSchemaValidatorTest {
                 "  'autoInferenceColumnNames': 'invalid'", //
                 "}" //
         ), equalTo("F-EDML-53: Syntax validation error: [6,39][/autoInferenceColumnNames] "
-                + "The value must be one of [\"CONVERT_TO_UPPER_SNAKE_CASE\", \"KEEP_SOURCE\"]."));
+                + "The value must be one of [\"CONVERT_TO_UPPER_SNAKE_CASE\", \"KEEP_ORIGINAL_NAME\"]."));
     }
 
     @Test
@@ -114,7 +114,7 @@ class EdmlSchemaValidatorTest {
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'mapping': {'fields':{'name': {'toVarcharMapping': {}}}},", //
-                "  'autoInferenceColumnNames': 'KEEP_SOURCE'", //
+                "  'autoInferenceColumnNames': 'KEEP_ORIGINAL_NAME'", //
                 "}"));
     }
 

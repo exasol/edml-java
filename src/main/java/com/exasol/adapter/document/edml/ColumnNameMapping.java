@@ -11,5 +11,5 @@ public enum ColumnNameMapping {
     /**
      * Do not convert column names, use column name from source.
      */
-    KEEP_SOURCE;
+    KEEP_ORIGINAL_NAME;
 }
