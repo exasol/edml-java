@@ -85,8 +85,7 @@ public final class ToTableMapping implements MappingDefinition {
          * @return the built {@link ToTableMapping}
          */
         public ToTableMapping build() {
-            final String description = this.description;
-            return new ToTableMapping(this.destinationTable, this.mapping, description);
+            return new ToTableMapping(this.destinationTable, this.mapping, this.description);
         }
 
         @Override
