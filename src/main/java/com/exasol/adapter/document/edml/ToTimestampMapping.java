@@ -9,8 +9,10 @@ import java.util.Objects;
  */
 public final class ToTimestampMapping extends AbstractToColumnMapping {
     private static final ConvertableMappingErrorBehaviour DEFAULT_NOT_TIMESTAMP_BEHAVIOUR = ConvertableMappingErrorBehaviour.ABORT;
+    private static final int DEFAULT_SECONDS_PRECISION = 6;
 
     private final ConvertableMappingErrorBehaviour notTimestampBehavior;
+    private final int secondsPrecision;
 
     @Override
     public void accept(final MappingDefinitionVisitor visitor) {
@@ -24,6 +26,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
             extends AbstractToColumnMapping.AbstractToColumnMappingBuilder<ToTimestampMapping, B> {
 
         private ConvertableMappingErrorBehaviour notTimestampBehavior = DEFAULT_NOT_TIMESTAMP_BEHAVIOUR;
+        private int secondsPrecision = DEFAULT_SECONDS_PRECISION;
 
         @Override
         protected abstract B self();
@@ -39,6 +42,17 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
          */
         public B notTimestampBehavior(final ConvertableMappingErrorBehaviour notTimestampBehavior) {
             this.notTimestampBehavior = notTimestampBehavior;
+            return self();
+        }
+
+        /**
+         * Define the precision for the seconds part of the timestamp.
+         *
+         * @param secondsPrecision precision for the seconds part of the timestamp
+         * @return {@code this}.
+         */
+        public B secondsPrecision(final int secondsPrecision) {
+            this.secondsPrecision = secondsPrecision;
             return self();
         }
 
@@ -69,6 +83,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     private ToTimestampMapping(final ToTimestampMapping.ToTimestampMappingBuilder<?> builder) {
         super(builder);
         this.notTimestampBehavior = builder.notTimestampBehavior;
+        this.secondsPrecision = builder.secondsPrecision;
     }
 
     /**
@@ -85,7 +100,7 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = (prime * result) + Objects.hash(notTimestampBehavior);
+        result = prime * result + Objects.hash(notTimestampBehavior, secondsPrecision);
         return result;
     }
 
@@ -101,13 +116,13 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
             return false;
         }
         final ToTimestampMapping other = (ToTimestampMapping) obj;
-        return notTimestampBehavior == other.notTimestampBehavior;
+        return notTimestampBehavior == other.notTimestampBehavior && secondsPrecision == other.secondsPrecision;
     }
 
     @Override
     public String toString() {
         return "ToTimestampMapping(super=" + super.toString() + ", notTimestampBehavior="
-                + this.getNotTimestampBehavior() + ")";
+                + this.getNotTimestampBehavior() + ", secondsPrecision=" + this.getSecondsPrecision() + ")";
     }
 
     /**
@@ -117,5 +132,14 @@ public final class ToTimestampMapping extends AbstractToColumnMapping {
      */
     public ConvertableMappingErrorBehaviour getNotTimestampBehavior() {
         return this.notTimestampBehavior;
+    }
+
+    /**
+     * Get the precision for the seconds part of the timestamp.
+     *
+     * @return precision for the seconds part of the timestamp
+     */
+    public int getSecondsPrecision() {
+        return this.secondsPrecision;
     }
 }

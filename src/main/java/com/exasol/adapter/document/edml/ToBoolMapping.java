@@ -43,7 +43,7 @@ public final class ToBoolMapping extends AbstractToColumnMapping {
 
         @Override
         public String toString() {
-            return "ToBoolMapping.ToBoolMappingBuilder(super=" + super.toString() + ", notBooleanBehaviorValue="
+            return "ToBoolMapping.ToBoolMappingBuilder(super=" + super.toString() + ", notBooleanBehavior="
                     + this.notBooleanBehavior + ")";
         }
     }

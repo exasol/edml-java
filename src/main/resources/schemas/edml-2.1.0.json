@@ -234,6 +234,13 @@
                     "title": "toTimestamp mapping definition",
                     "description": "Maps the selected document property to an Exasol `TIMESTAMP` column.",
                     "properties": {
+                        "secondsPrecision": {
+                            "type": "integer",
+                            "description": "Precision of the Exasol `TIMESTAMP` type. See https://docs.exasol.com/db/latest/sql_references/data_types/datatypedetails.htm#DateTimeDataTypes\n\ndefault = 6",
+                            "default": 6,
+                            "minimum": 0,
+                            "maximum": 9
+                        },
                         "notTimestampBehavior": {
                             "$ref": "#/definitions/convertableMappingErrorBehaviour"
                         },

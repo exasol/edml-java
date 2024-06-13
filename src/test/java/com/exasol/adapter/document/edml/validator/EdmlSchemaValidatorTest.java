@@ -71,7 +71,7 @@ class EdmlSchemaValidatorTest {
     @Test
     void testValidNoMapping() {
         runValidation(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'description': 'Maps MY_BOOKS to BOOKS',", //
@@ -83,7 +83,7 @@ class EdmlSchemaValidatorTest {
     @Test
     void testValidAutoInferenceColumnNames() {
         runValidation(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'description': 'Maps MY_BOOKS to BOOKS',", //
@@ -95,7 +95,7 @@ class EdmlSchemaValidatorTest {
     @Test
     void testInvalidAutoInferenceColumnNamesWrongValue() {
         testInvalidContent(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'description': 'Maps MY_BOOKS to BOOKS',", //
@@ -110,12 +110,34 @@ class EdmlSchemaValidatorTest {
         // When mapping is present, autoInferenceColumnNames is not allowed.
         // I could not get validation with JSON schema to work. This is validated in EdmlDeserializer.
         runValidation(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'mapping': {'fields':{'name': {'toVarcharMapping': {}}}},", //
                 "  'autoInferenceColumnNames': 'KEEP_ORIGINAL_NAME'", //
                 "}"));
+    }
+
+    @Test
+    void testValidTimestampPrecision() {
+        runValidation(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'mapping': {'fields':{'name': {'toTimestampMapping': {'secondsPrecision': 3}}}}", //
+                "}"));
+    }
+
+    @Test
+    void testInvalidTimestampPrecision() {
+        testInvalidContent(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'mapping': {'fields':{'name': {'toTimestampMapping': {'secondsPrecision': 10}}}}", //
+                "}"),
+                equalTo("F-EDML-53: Syntax validation error: [5,78][/mapping/fields/name/toTimestampMapping/secondsPrecision] "
+                        + "The numeric value must be less than or equal to 9."));
     }
 
     private void testInvalidContent(final List<String> invalidMappingLines, final Matcher<String> messageMatcher) {
@@ -133,7 +155,7 @@ class EdmlSchemaValidatorTest {
     @Test
     void testInvalidEmptyMapping() {
         testInvalidContent(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'description': 'Maps MY_BOOKS to BOOKS',", //
@@ -146,7 +168,7 @@ class EdmlSchemaValidatorTest {
     @Test
     void testInvalidNoDestName() {
         testInvalidContent(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'description': 'Maps MY_BOOKS to BOOKS',", //
                 "  'addSourceReferenceColumn': true,", //
@@ -242,7 +264,7 @@ class EdmlSchemaValidatorTest {
     void testInvalidUnknownRootProperty() {
         testInvalidContent(List.of("{", //
                 "  'unknownProperty': 'someValue',", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'description': 'Maps MY_BOOKS to BOOKS',", //
@@ -268,7 +290,7 @@ class EdmlSchemaValidatorTest {
     @Test
     void testInvalidUnknownMappingType() {
         testInvalidContent(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'description': 'Maps MY_BOOKS to BOOKS',", //
@@ -332,7 +354,7 @@ class EdmlSchemaValidatorTest {
     @Test
     void testInvalidKeyValue() {
         testInvalidContent(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'description': 'Maps MY_BOOKS to BOOKS',", //
@@ -359,7 +381,7 @@ class EdmlSchemaValidatorTest {
     @Test
     void testInvalidNoFields() {
         testInvalidContent(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  '$schema': '../../main/resources/schemas/edml-2.1.0.json',", //
                 "  'source': 'MY_BOOKS',", //
                 "  'destinationTable': 'BOOKS',", //
                 "  'description': 'Maps MY_BOOKS to BOOKS',", //

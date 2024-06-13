@@ -13,6 +13,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import com.exasol.adapter.document.edml.EdmlDefinition.EdmlDefinitionBuilder;
+import com.exasol.adapter.document.edml.Fields.FieldsBuilder;
+import com.exasol.adapter.document.edml.ToTableMapping.ToTableMappingBuilder;
 import com.jparams.verifier.tostring.ToStringVerifier;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -23,6 +25,11 @@ class EdmlDefinitionTest {
         return Stream.of(EdmlDefinition.class, Fields.class, ToBoolMapping.class, ToDecimalMapping.class,
                 ToDecimalMapping.class, ToDoubleMapping.class, ToJsonMapping.class, ToTableMapping.class,
                 ToTimestampMapping.class, ToVarcharMapping.class).map(Arguments::of);
+    }
+
+    static Stream<Arguments> getEdmlBuilderClasses() {
+        return Stream.of(EdmlDefinitionBuilder.class, FieldsBuilder.class, ToTableMappingBuilder.class)
+                .map(Arguments::of);
     }
 
     @Test
@@ -76,8 +83,9 @@ class EdmlDefinitionTest {
         ToStringVerifier.forClass(forClass).verify();
     }
 
-    @Test
-    void testBuilderToString() {
-        ToStringVerifier.forClass(EdmlDefinitionBuilder.class).verify();
+    @ParameterizedTest(name = "toString implementation of builder {0} is correct")
+    @MethodSource({ "getEdmlBuilderClasses" })
+    void testBuilderToString(final Class<?> forClass) {
+        ToStringVerifier.forClass(forClass).verify();
     }
 }
