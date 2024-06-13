@@ -105,6 +105,19 @@ class EdmlSchemaValidatorTest {
                 + "The value must be one of [\"CONVERT_TO_UPPER_SNAKE_CASE\", \"KEEP_SOURCE\"]."));
     }
 
+    @Test
+    void testValidBothMappingAndAutoInference() {
+        // When mapping is present, autoInferenceColumnNames is not allowed.
+        // I could not get validation with JSON schema to work. This is validated in EdmlDeserializer.
+        runValidation(List.of("{", //
+                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
+                "  'source': 'MY_BOOKS',", //
+                "  'destinationTable': 'BOOKS',", //
+                "  'mapping': {'fields':{'name': {'toVarcharMapping': {}}}},", //
+                "  'autoInferenceColumnNames': 'KEEP_SOURCE'", //
+                "}"));
+    }
+
     private void testInvalidContent(final List<String> invalidMappingLines, final Matcher<String> messageMatcher) {
         testInvalidContent(invalidMappingLines.stream() //
                 .map(s -> s.replace('\'', '"')) //
@@ -355,17 +368,5 @@ class EdmlSchemaValidatorTest {
                 "}"),
                 startsWith("F-EDML-53: Syntax validation error: [7,15][/mapping]"
                         + " The object must have at least 1 property(ies), but actual number is 0."));
-    }
-
-    @Test
-    void testValidBothMappingAndAutoInference() {
-        // Did not get validation with JSON schema to work. This is validated in EdmlDeserializer.
-        runValidation(List.of("{", //
-                "  '$schema': '../../main/resources/schemas/edml-1.2.0.json',", //
-                "  'source': 'MY_BOOKS',", //
-                "  'destinationTable': 'BOOKS',", //
-                "  'mapping': {'fields':{'name': {'toVarcharMapping': {}}}},", //
-                "  'autoInferenceColumnNames': 'KEEP_SOURCE'", //
-                "}"));
     }
 }
