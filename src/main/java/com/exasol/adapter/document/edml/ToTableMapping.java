@@ -38,7 +38,7 @@ public final class ToTableMapping implements MappingDefinition {
     public static class ToTableMappingBuilder {
         private String destinationTable;
         private MappingDefinition mapping;
-        private String descriptionValue = DEFAULT_DESCRIPTION;
+        private String description = DEFAULT_DESCRIPTION;
 
         ToTableMappingBuilder() {
         }
@@ -75,7 +75,7 @@ public final class ToTableMapping implements MappingDefinition {
          * @return {@code this}.
          */
         public ToTableMapping.ToTableMappingBuilder description(final String description) {
-            this.descriptionValue = description;
+            this.description = description;
             return this;
         }
 
@@ -85,14 +85,13 @@ public final class ToTableMapping implements MappingDefinition {
          * @return the built {@link ToTableMapping}
          */
         public ToTableMapping build() {
-            final String description = this.descriptionValue;
-            return new ToTableMapping(this.destinationTable, this.mapping, description);
+            return new ToTableMapping(this.destinationTable, this.mapping, this.description);
         }
 
         @Override
         public String toString() {
             return "ToTableMapping.ToTableMappingBuilder(destinationTable=" + this.destinationTable + ", mapping="
-                    + this.mapping + ", descriptionValue=" + this.descriptionValue + ")";
+                    + this.mapping + ", description=" + this.description + ")";
         }
     }
 

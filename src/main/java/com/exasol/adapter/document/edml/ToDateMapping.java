@@ -43,12 +43,12 @@ public final class ToDateMapping extends AbstractToColumnMapping {
 
         @Override
         public String toString() {
-            return "ToDateMapping.ToDateMappingBuilder(super=" + super.toString() + ", notDateBehaviorValue="
+            return "ToDateMapping.ToDateMappingBuilder(super=" + super.toString() + ", notDateBehavior="
                     + this.notDateBehavior + ")";
         }
     }
 
-    private static final class ToDateMappingBuilderImpl
+    static final class ToDateMappingBuilderImpl
             extends ToDateMapping.ToDateMappingBuilder<ToDateMapping.ToDateMappingBuilderImpl> {
 
         private ToDateMappingBuilderImpl() {

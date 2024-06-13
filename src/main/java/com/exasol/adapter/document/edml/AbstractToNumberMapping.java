@@ -18,11 +18,9 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
     public abstract static class AbstractToNumberMappingBuilder<C extends AbstractToNumberMapping, B extends AbstractToNumberMappingBuilder<C, B>>
             extends AbstractToColumnMappingBuilder<C, B> {
 
-        private MappingErrorBehaviour overflowBehaviourValue = DEFAULT_OVERFLOW_BEHAVIOUR;
-
+        private MappingErrorBehaviour overflowBehaviour = DEFAULT_OVERFLOW_BEHAVIOUR;
         private boolean notNumericBehaviourSet;
-
-        private ConvertableMappingErrorBehaviour notNumericBehaviourValue;
+        private ConvertableMappingErrorBehaviour notNumericBehaviour;
 
         @Override
         protected abstract B self();
@@ -37,7 +35,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
          * @return {@code this}.
          */
         public B overflowBehaviour(final MappingErrorBehaviour overflowBehaviour) {
-            this.overflowBehaviourValue = overflowBehaviour;
+            this.overflowBehaviour = overflowBehaviour;
             return self();
         }
 
@@ -48,7 +46,7 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
          * @return {@code this}.
          */
         public B notNumericBehaviour(final ConvertableMappingErrorBehaviour notNumericBehaviour) {
-            this.notNumericBehaviourValue = notNumericBehaviour;
+            this.notNumericBehaviour = notNumericBehaviour;
             this.notNumericBehaviourSet = true;
             return self();
         }
@@ -56,8 +54,8 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
         @Override
         public String toString() {
             return "AbstractToNumberMapping.AbstractToNumberMappingBuilder(super=" + super.toString()
-                    + ", overflowBehaviourValue=" + this.overflowBehaviourValue + ", notNumericBehaviourValue="
-                    + this.notNumericBehaviourValue + ")";
+                    + ", overflowBehaviour=" + this.overflowBehaviour + ", notNumericBehaviour="
+                    + this.notNumericBehaviour + ", notNumericBehaviourSet=" + notNumericBehaviourSet + ")";
         }
     }
 
@@ -68,9 +66,9 @@ public abstract class AbstractToNumberMapping extends AbstractToColumnMapping {
      */
     protected AbstractToNumberMapping(final AbstractToNumberMapping.AbstractToNumberMappingBuilder<?, ?> builder) {
         super(builder);
-        this.overflowBehaviour = builder.overflowBehaviourValue;
+        this.overflowBehaviour = builder.overflowBehaviour;
         if (builder.notNumericBehaviourSet) {
-            this.notNumericBehaviour = builder.notNumericBehaviourValue;
+            this.notNumericBehaviour = builder.notNumericBehaviour;
         } else {
             this.notNumericBehaviour = DEFAULT_NON_NUMERIC_BEHAVIOUR;
         }

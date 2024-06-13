@@ -140,6 +140,12 @@ class EdmlDeserializerTest {
         assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
     }
 
+    @Test
+    void testDeserializeToTimestampMappingWithPrecision() {
+        final var mapping = ToTimestampMapping.builder().secondsPrecision(7).build();
+        assertSerializeDeserializeLoop(getEdmlDefinitionForMapping(mapping));
+    }
+
     private EdmlDefinition getEdmlDefinitionForMapping(final MappingDefinition mapping) {
         return EdmlDefinition.builder().source("test").destinationTable("test").mapping(Fields.builder()//
                 .mapField("myProperty", mapping).build()).build();

@@ -8,9 +8,12 @@ This release adds property `autoInferenceColumnNames` to the EDML definition. Th
 * `CONVERT_TO_UPPER_SNAKE_CASE`: Convert column names to `UPPER_SNAKE_CASE` (default).
 * `KEEP_ORIGINAL_NAME`: Do not convert column names, use column name from source.
 
+The release also allows configuring the precision for `toTimestampMapping` with property `secondsPrecision`.
+
 ## Features
 
 * #24: Added property `autoInferenceColumnNames`
+* #26: Added property `secondsPrecision` to `toTimestampMapping`
 
 ## Dependency Updates
 

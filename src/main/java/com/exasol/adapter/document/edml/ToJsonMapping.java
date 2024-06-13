@@ -45,12 +45,12 @@ public final class ToJsonMapping extends AbstractToVarcharColumnMapping {
 
         @Override
         public String toString() {
-            return "ToJsonMapping.ToJsonMappingBuilder(super=" + super.toString() + ", overflowBehaviourValue="
+            return "ToJsonMapping.ToJsonMappingBuilder(super=" + super.toString() + ", overflowBehaviour="
                     + this.overflowBehaviour + ")";
         }
     }
 
-    private static final class ToJsonMappingBuilderImpl
+    static final class ToJsonMappingBuilderImpl
             extends ToJsonMapping.ToJsonMappingBuilder<ToJsonMapping.ToJsonMappingBuilderImpl> {
 
         private ToJsonMappingBuilderImpl() {

@@ -1,6 +1,7 @@
 package com.exasol.adapter.document.edml.deserializer;
 
 import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.readEnum;
+import static com.exasol.adapter.document.edml.deserializer.DeserializationHelper.readOptionalInt;
 import static com.exasol.adapter.document.edml.deserializer.MappingDeserializer.deserializeToColumnMapping;
 
 import com.exasol.adapter.document.edml.*;
@@ -17,6 +18,7 @@ class ToTimestampMappingDeserializer implements MappingDefinitionDeserializer {
         deserializeToColumnMapping(json, builder);
         readEnum(json, EdmlKeys.KEY_NOT_TIMESTAMP_BEHAVIOR, ConvertableMappingErrorBehaviour.class)
                 .ifPresent(builder::notTimestampBehavior);
+        readOptionalInt(json, EdmlKeys.KEY_SECONDS_PRECISION).ifPresent(builder::secondsPrecision);
         return builder.build();
     }
 

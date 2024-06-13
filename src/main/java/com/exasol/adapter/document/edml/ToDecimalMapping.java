@@ -63,12 +63,12 @@ public final class ToDecimalMapping extends AbstractToNumberMapping {
 
         @Override
         public String toString() {
-            return "ToDecimalMapping.ToDecimalMappingBuilder(super=" + super.toString() + ", decimalPrecisionValue="
-                    + this.decimalPrecision + ", decimalScaleValue=" + this.decimalScale + ")";
+            return "ToDecimalMapping.ToDecimalMappingBuilder(super=" + super.toString() + ", decimalPrecision="
+                    + this.decimalPrecision + ", decimalScale=" + this.decimalScale + ")";
         }
     }
 
-    private static final class ToDecimalMappingBuilderImpl
+    static final class ToDecimalMappingBuilderImpl
             extends ToDecimalMapping.ToDecimalMappingBuilder<ToDecimalMapping.ToDecimalMappingBuilderImpl> {
 
         private ToDecimalMappingBuilderImpl() {

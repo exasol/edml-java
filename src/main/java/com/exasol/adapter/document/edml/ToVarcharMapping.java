@@ -60,12 +60,12 @@ public final class ToVarcharMapping extends AbstractToVarcharColumnMapping {
 
         @Override
         public String toString() {
-            return "ToVarcharMapping.ToVarcharMappingBuilder(super=" + super.toString() + ", nonStringBehaviourValue="
-                    + this.nonStringBehaviour + ", overflowBehaviourValue=" + this.overflowBehaviour + ")";
+            return "ToVarcharMapping.ToVarcharMappingBuilder(super=" + super.toString() + ", nonStringBehaviour="
+                    + this.nonStringBehaviour + ", overflowBehaviour=" + this.overflowBehaviour + ")";
         }
     }
 
-    private static final class ToVarcharMappingBuilderImpl
+    static final class ToVarcharMappingBuilderImpl
             extends ToVarcharMapping.ToVarcharMappingBuilder<ToVarcharMapping.ToVarcharMappingBuilderImpl> {
 
         private ToVarcharMappingBuilderImpl() {

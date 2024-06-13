@@ -51,6 +51,11 @@ public class Fields implements MappingDefinition {
         public Fields build() {
             return new Fields(this.fields);
         }
+
+        @Override
+        public String toString() {
+            return "FieldsBuilder [fields=" + this.fields + "]";
+        }
     }
 
     private Fields(final LinkedHashMap<String, MappingDefinition> fields) {
