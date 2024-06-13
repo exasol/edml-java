@@ -22,7 +22,7 @@ import jakarta.json.spi.JsonProvider;
  * </p>
  */
 public class EdmlSerializer {
-    private static final String SCHEMA = "https://schemas.exasol.com/edml-2.0.0.json";
+    private static final String SCHEMA = "https://schemas.exasol.com/edml-2.1.0.json";
     private static final JsonProvider JSON = JsonProvider.provider();
 
     private static JsonObjectBuilder serializeMapping(final MappingDefinition mappingDefinition) {
@@ -63,6 +63,10 @@ public class EdmlSerializer {
         edmlJson.add(KEY_ADD_SOURCE_REFERENCE_COLUMN, edmlDefinition.isAddSourceReferenceColumn());
         if (edmlDefinition.getMapping() != null) {
             edmlJson.add(KEY_MAPPING, serializeMapping(edmlDefinition.getMapping()));
+        }
+        if (edmlDefinition.getAutoInferenceColumnNames() != null
+                && edmlDefinition.getAutoInferenceColumnNames() != ColumnNameMapping.CONVERT_TO_UPPER_SNAKE_CASE) {
+            edmlJson.add(AUTO_INFERENCE_COLUMN_NAMES, edmlDefinition.getAutoInferenceColumnNames().name());
         }
         return toJson(edmlJson);
     }

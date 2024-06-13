@@ -4,7 +4,7 @@ Code name: Fix deserializing timestamp mapping
 
 ## Summary
 
-This release fixes a bug when deserializing a `ToTimestampMapping` from JSON. Option `useTimestampWithLocalTimezoneType` was always set to its default value `true`. So it was not possible to define a `TIMESTAMP` column type, it was always `TIMESTAMP WITH LOCAL TIMEZONE`.
+This release fixes a bug when deserializing a `ToTimestampMapping` from JSON. Option `useTimestampWithLocalTimezoneType` was always set to its default value `true`. So it was not possible to define a `TIMESTAMP` column type, it was always `TIMESTAMP WITH LOCAL TIME ZONE`.
 
 ## Bugfixes
 

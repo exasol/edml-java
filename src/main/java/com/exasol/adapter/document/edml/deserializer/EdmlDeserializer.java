@@ -6,6 +6,7 @@ import static com.exasol.adapter.document.edml.deserializer.DeserializationHelpe
 import java.io.StringReader;
 import java.util.Optional;
 
+import com.exasol.adapter.document.edml.ColumnNameMapping;
 import com.exasol.adapter.document.edml.EdmlDefinition;
 import com.exasol.adapter.document.edml.validator.EdmlSchemaValidator;
 import com.exasol.errorreporting.ExaError;
@@ -38,8 +39,17 @@ public class EdmlDeserializer {
             builder.additionalConfiguration(jsonObjectToString(additionalConfiguration));
         }
         final JsonObject mapping = json.getJsonObject(KEY_MAPPING);
+        final String autoInferenceColumnNames = json.getString(AUTO_INFERENCE_COLUMN_NAMES, null);
         if (mapping != null) {
             builder.mapping(new MappingDeserializer().deserializeMapping(mapping));
+            if (autoInferenceColumnNames != null) {
+                throw new IllegalArgumentException(ExaError.messageBuilder("E-EDML-105").message(
+                        "Property {{auto inference property}} is not allowed when {{mapping property}} is present.",
+                        AUTO_INFERENCE_COLUMN_NAMES, KEY_MAPPING).mitigation("Remove the property.").toString());
+            }
+        }
+        if (autoInferenceColumnNames != null) {
+            builder.autoInferenceColumnNames(ColumnNameMapping.valueOf(autoInferenceColumnNames));
         }
         return builder.build();
     }

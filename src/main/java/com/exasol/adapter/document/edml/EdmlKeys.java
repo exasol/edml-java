@@ -37,6 +37,10 @@ public class EdmlKeys {
      */
     public static final String KEY_MAPPING = "mapping";
     /**
+     * The constant AUTO_INFERENCE_COLUMN_NAMES.
+     */
+    public static final String AUTO_INFERENCE_COLUMN_NAMES = "autoInferenceColumnNames";
+    /**
      * The constant KEY_DESTINATION_NAME.
      */
     public static final String KEY_DESTINATION_NAME = "destinationName";
