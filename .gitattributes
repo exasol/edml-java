@@ -8,4 +8,5 @@ doc/changes/changelog.md                       linguist-generated
 .github/workflows/release.yml                  linguist-generated
 .settings/org.eclipse.jdt.core.prefs           linguist-generated
 .settings/org.eclipse.jdt.ui.prefs             linguist-generated
-SECURITY.md.                                   linguist-generated
+SECURITY.md                                    linguist-generated
+src/test/resources/logging.properties          linguist-generated
